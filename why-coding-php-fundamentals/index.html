@@ -57,16 +57,24 @@ URL: http://code.google.com/p/html5slides/
 		</article>
 
 		<article>
-		<p>
+		<q>
 		The basics are just that, basic. As we grow with experience, we tend to forget them because they aren't cool anymore.
-		</p>
-		<p>
-		We lose because…
-		</p>
+		</q>
+		<div class='author'>
+			me
+		</div>
+		</article>
 
-		<h2>
+		<article>
+		<h3>
+		We lose because…
+		</h3>
+		<q>
 			a strong foundation weathers any storm
-		</h2>
+		</q>
+		<div class='author'>
+			me
+		</div>
 		</article>
 
 		<article>
@@ -75,10 +83,10 @@ URL: http://code.google.com/p/html5slides/
 		</h3>
 		<ul>
 			<li>PHP Fundamentals</li>
+			<li>Variables, Advanced</li>
 			<li>Classes</li>
 			<li>Optimizations</li>
 			<li>Coding Guidelines</li>
-			<li>TBD</li>
 		</ul>
 		</article>
 
@@ -89,7 +97,6 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Basic Syntax</li>
 			<li>Variables</li>
-			<li>Arrays</li>
 			<li>Simple Math</li>
 			<li>Control Structures</li>
 			<li>Loops</li>
@@ -103,11 +110,39 @@ URL: http://code.google.com/p/html5slides/
 		<h4>
 			Basic Syntax
 		</h4>
-			<p>Always…</p>
 		<ul>
-			<li>open with <code>&lt;?php</code></li>
-			<li>close with <code>?&gt;</code></li>
+			<li>Always…
+			<ul>
+				<li>open PHP code using <code>&lt;?php</code></li>
+				<li>close PHP code using <code>?&gt;</code></li>
+			</ul>
+			</li>
+			<li>Escaping from HTML</li>
+			<li>Separate PHP instructions <code>;</code> or <code>?&gt;</code></li>
+			<li>Commenting</li>
 		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.basic-syntax.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Comments
+		</h4>
+		<pre>
+// This is a one-line c++ style comment
+/* This is a multi line comment
+   yet another line of comment */
+# This is a one-line shell-style comment</pre>
+		<p class='red'>Danger</p>
+		<pre>
+/**
+echo 'This is a test'; /* This comment will cause a problem */
+*/</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.basic-syntax.comments.php
+		</div>
 		</article>
 
 		<article>
@@ -115,8 +150,131 @@ URL: http://code.google.com/p/html5slides/
 			Variables
 		</h4>
 		<ul>
+			<li>Booleans</li>
+			<li>Integers</li>
+			<li>Floating point numbers</li>
 			<li>Strings</li>
+			<li>Arrays</li>
+			<li>Objects</li>
+			<li>Resources</li>
+			<li>NULL</li>
+			<li><em>Type Juggling</em></li>
 		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Booleans
+		</h4>
+		<ul>
+			<li>Simplest type
+			<li>Expresses a truth value
+			<li>either TRUE or FALSE
+		</ul>
+		<pre>
+$boolean	= true;
+$boolean	= TRUE;
+$boolean	= false;
+$boolean	= FALSE;</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.boolean.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Integers
+		</h4>
+		<ul>
+			<li>Integers</li>
+		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.integer.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Floating Point Numbers
+		</h4>
+		<ul>
+			<li>Floating point numbers</li>
+		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Strings
+		</h4>
+		<ul>
+			<li>Parsed
+			<ul>
+				<li>Double quoted <code>"</code></li>
+				<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
+			</ul>
+			</li>
+			<li>Unparsed
+			<ul>
+				<li>Single quoted <code>'</code></li>
+				<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.string.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Parsed Strings
+		</h4>
+		<ul>
+			<li>Interprets special characters</li>
+		</ul>
+<pre>
+"\n" › <em>newline</em>
+"\"\$x\"" › <em>"$x"</em></pre>
+		<ul>
+			<li>Variables are expanded</li>
+		</ul>
+<pre>
+"$x" › <em>value of x</em>
+"{$x[1]}" › <em>value of x[1]</em>
+"{$x['date']}" › <em>value of x['date']</em>
+"{$obj->month[12]->name}" › <em>December</em>
+"{$x["date"]}" › <em>Parse Error</em></pre>
+		</article>
+
+		<article>
+		<h4>
+			Unparsed Strings
+		</h4>
+		<ul>
+			<li>Doesn't interpret special characters
+			</ul>
+<pre>
+'\n' › <em>\n</em>
+'\'\$x\'' › <em>'\$x'</em></pre>
+		<ul>
+			<li>Variables aren't expanded
+		</ul>
+<pre>
+'$x' › <em>$x</em>
+'{$x[1]}' › <em>{$x[1]}</em>
+'{$x["date"]}' › <em>{$x["date"]}</em>
+'{$obj->month[12]->name}' › <em>{$obj->month[12]->name}</em>
+'{$x['date']}' › <em class='red'>Parse Error</em></pre>
 		</article>
 
 		<article>
@@ -129,6 +287,11 @@ URL: http://code.google.com/p/html5slides/
 			<li>Multi-dimensional</li>
 			<li>Built-in AKA Super Globals</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -138,6 +301,11 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Simple Math</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -147,6 +315,11 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Control Structures</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -156,6 +329,11 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Loops</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -165,6 +343,11 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Includes</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -174,6 +357,11 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Functions</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
 		<article>
@@ -181,191 +369,108 @@ URL: http://code.google.com/p/html5slides/
 			Processing Output
 		</h4>
 		<ul>
-			<li>Processing Output</li>
+			<li>echo vs print</li>
+			<li>What's sprintf & printf?</li>
 		</ul>
+		<pre>
+</pre>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.float.php
+		</div>
 		</article>
 
+		<article>
+		<h2>
+			Whew…
+		</h2>
+		</article>
 
 		<article>
 		<h3>
-			Topics
+			Variables, Advanced
 		</h3>
 		<ul>
-			<li>TYPO3 coding guidelines</li>
-			<li>When to count, for and use foreach</li>
-			<li>" vs '</li>
-			<li>What's a heredoc?</li>
-			<li>echo vs print</li>
-			<li>What's sprintf & printf?</li>
-			<li>empty vs count</li>
-			<li>thinking about why we code the way we do</li>
-			<li>= == ===</li>
+			<li>Basics</li>
+			<li>Predefined Variables</li>
+			<li>Variable scope</li>
+			<li>Variable variables</li>
+			<li>Variables From External Sources</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.variables.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Classes
+		</h3>
+		<ul>
 			<li>public private protected</li>
 			<li>try catch</li>
-			<li>variable types - strings, ints, array, objects, etc.</li>
+		</ul>
+		</article>
+
+		<article>
+		<h3>
+			Optimizations
+		</h3>
+		<ul>
+			<li>count, for & foreach</li>
+			<li>empty vs. count</li>
+			<li>= == ===</li>
+			<li>Initialize variables</li>
+			<li>Commenting out code
 			<ul>
-				</article>
+				<li><code>if ( false ) { … }</code></li>
+			</ul>
+			</li>
+		</ul>
+		</article>
 
-				<article>
-				<h3>
-					Slide with bullet points that builds
-				</h3>
-				<ul class="build">
-					<li>
-					This is an example of a list
-					</li>
-					<li>
-					The list items fade in
-					</li>
-					<li>
-					Last one!
-					</li>
-				</ul>
+		<article>
+		<h3>
+			Coding Guidelines
+		</h3>
+		<ul>
+			<li>Google</li>
+			<li>TYPO3</li>
+			<li>WordPress</li>
+		</ul>
+		</article>
 
-				<div class="build">
-					<p>Any element with child nodes can build.</p>
-					<p>It doesn't have to be a list.</p>
-				</div>
-				</article>
+		<article>
+		<h3>
+			No matter what…
+		</h3>
+		<q>
+			coding consistency is critical to long-term code survival and keeping your hair
+		</q>
+		<div class='author'>
+			me
+		</div>
+		</article>
 
+		<article>
+		<h3>Comments? Questions?</h3>
+		<p>Ask, speak up, mumble aloud</p>
+		</article>
 
-				<article>
-				<h3>
-					Styles
-				</h3>
-				<ul>
-					<li>
-					<span class='red'>class="red"</span>
-					<li>
-					<span class='blue'>class="blue"</span>
-					<li>
-					<span class='green'>class="green"</span>
-					<li>
-					<span class='yellow'>class="yellow"</span>
-					<li>
-					<span class='black'>class="black"</span>
-					<li>
-					<span class='white'>class="white"</span>
-					<li>
-					<b>bold</b> and <i>italic</i>
-				</ul>
-				</article>
-
-				<article>
-				<h2>
-					Segue slide
-				</h2>
-				</article>
-
-				<article>
-				<h3>
-					Slide with an image (centered)
-				</h3>
-				<p>
-				<img class='centered' style='height: 500px' src='images/example-graph.png'>
-				</p>
-				<div class='source'>
-					Source: Larry Page
-				</div>
-				</article>
-
-				<article class='fill'>
-				<h3>
-					Image filling the slide (with optional header)
-				</h3>
-				<p>
-				<img src='images/example-cat.jpg'>
-				</p>
-				<div class='source white'>
-					Source: Eric Schmidt
-				</div>
-				</article>
-
-				<article>
-				<h3>
-					This slide has some code
-				</h3>
-				<section>
-<pre>
-&lt;script type='text/javascript'&gt;
-	// Say hello world until the user starts questioning
-	// the meaningfulness of their existence.
-	function helloWorld(world) {
-		for (var i = 42; --i &gt;= 0;) {
-			alert('Hello ' + String(world));
-		}
-	}
-&lt;/script&gt;
-&lt;style&gt;
-	p { color: pink }
-	b { color: blue }
-	u { color: 'umber' }
-&lt;/style&gt;
-</pre>
-				</section>
-				</article>
-
-				<article class='smaller'>
-				<h3>
-					This slide has some code (small font)
-				</h3>
-				<section>
-<pre>
-&lt;script type='text/javascript'&gt;
-	// Say hello world until the user starts questioning
-	// the meaningfulness of their existence.
-	function helloWorld(world) {
-		for (var i = 42; --i &gt;= 0;) {
-			alert('Hello ' + String(world));
-		}
-	}
-&lt;/script&gt;
-&lt;style&gt;
-	p { color: pink }
-	b { color: blue }
-	u { color: 'umber' }
-&lt;/style&gt;
-</pre>
-				</section>
-				</article>
-
-				<article>
-				<q>
-					The best way to predict the future is to invent it.
-				</q>
-				<div class='author'>
-					Alan Kay
-				</div>
-				</article>
-
-				<article class='nobackground'>
-				<h3>
-					A slide with an embed + title
-				</h3>
-
-				<iframe src='http://www.google.com/doodle4google/history.html'></iframe>
-				</article>
-
-				<article class='fill'>
-				<h3>
-					Full-slide embed with (optional) slide title on top
-				</h3>
-				<iframe src='http://www.google.com/doodle4google/history.html'></iframe>
-				</article>
-
-				<article>
-				<h3>Comments? Questions?</h3>
-				<p>Ask, speak, mumble…</p>
-				</article>
-
-				<article>
-				<h3>Thank you!</h3>
-				<ul>
-					<li><a href='http://typo3vagabond.com'>typo3vagabond.com</a></li>
-					<li><a href='http://in2code.de'>in2code.de</a></li>
-					<li><a href='http://t3con12-asia.typo3.org/sessions/acceptedpapers/paper/why-are-you-coding-like-this-php-fundamentals.html'>slides</a></li>
-				</ul>
-				</article>
-				</section>
-			</body>
-		</html>
+		<article>
+		<h3>Thank you!</h3>
+		<p>
+		Michael Cannon
+		<br>
+		TYPO3 Vagabond
+		<br>
+		michael.cannon@in2code.de
+		</p>
+		<ul>
+			<li><a href='http://typo3vagabond.com'>typo3vagabond.com</a></li>
+			<li><a href='http://in2code.de'>in2code.de</a></li>
+			<li><a href='http://t3con12-asia.typo3.org/sessions/acceptedpapers/paper/why-are-you-coding-like-this-php-fundamentals.html'>slides</a></li>
+		</ul>
+		</article>
+		</section>
+	</body>
+</html>
