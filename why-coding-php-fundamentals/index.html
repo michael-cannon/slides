@@ -83,9 +83,9 @@ URL: http://code.google.com/p/html5slides/
 		</h3>
 		<ul>
 			<li>PHP Fundamentals</li>
-			<li>Variables, Advanced</li>
+			<li>Advanced Variables</li>
 			<li>Classes</li>
-			<li>Optimizations</li>
+			<li>Simple Optimizations</li>
 			<li>Coding Guidelines</li>
 		</ul>
 		</article>
@@ -117,8 +117,9 @@ URL: http://code.google.com/p/html5slides/
 				<li>close PHP code using <code>?&gt;</code></li>
 			</ul>
 			</li>
-			<li>Escaping from HTML</li>
-			<li>Separate PHP instructions <code>;</code> or <code>?&gt;</code></li>
+			<li>Everything outside <code>&lt;?php</code> & <code>?&gt;</code> is ignored</li>
+			</li>
+			<li>Separate PHP instructions via <code>;</code> or <code>?&gt;</code></li>
 			<li>Commenting</li>
 		</ul>
 		<div class='source'>
@@ -128,7 +129,7 @@ URL: http://code.google.com/p/html5slides/
 
 		<article>
 		<h4>
-			Comments
+			Commenting
 		</h4>
 		<pre>
 // This is a one-line c++ style comment
@@ -169,16 +170,15 @@ echo 'This is a test'; /* This comment will cause a problem */
 		<h4>
 			Booleans
 		</h4>
+		<pre>
+$bool = true;
+$bool = false;</pre>
 		<ul>
 			<li>Simplest type
 			<li>Expresses a truth value
-			<li>either TRUE or FALSE
+			<li>Either <code>TRUE</code> or <code>FALSE</code>
+			<li>CaSe-iNsEnSiTiVe (use lowercase)</li>
 		</ul>
-		<pre>
-$boolean	= true;
-$boolean	= TRUE;
-$boolean	= false;
-$boolean	= FALSE;</pre>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.boolean.php
 		</div>
@@ -188,11 +188,23 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Integers
 		</h4>
-		<ul>
-			<li>Integers</li>
-		</ul>
 		<pre>
-</pre>
+$int = 1234; // decimal number
+$int = -123; // a negative number
+$int = 0123; // octal number (83 decimal), 0 precede
+$int = 0x1A; // hexadecimal number (26 decimal), 0x precede
+$int = 0b101; // hexadecimal number (5 decimal), 0b precede</pre>
+		<ul>
+			<li>Whole number
+			<ul>
+				<li>Decimal (base 10)</li>
+				<li>Hexadecimal (base 16)</li>
+				<li>Octal (base 8)</li>
+				<li>Binary (base 2)</li>
+			</ul>
+			</li>
+			<li>Positive <code>+</code> or negative <code>-</code></li>
+		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.integer.php
 		</div>
@@ -202,11 +214,15 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Floating Point Numbers
 		</h4>
-		<ul>
-			<li>Floating point numbers</li>
-		</ul>
 		<pre>
-</pre>
+$float = 1.234; 
+$float = 1.2e3; 
+$float = 7E-10;</pre>
+		<ul>
+			<li>Also known as <em>floats</em>, <em>doubles</em>, or <em>real numbers</em></li>
+			<li>Positive <code>+</code> or negative <code>-</code></li>
+			<li>Beware of <code>NaN</code></li>
+		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.float.php
 		</div>
@@ -216,19 +232,18 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Strings
 		</h4>
+		<pre>
+echo 'this is a simple string';
+
+$str = &lt;&lt;&lt;EOD
+Example of string
+spanning multiple lines
+using heredoc syntax.
+EOD;</pre>
 		<ul>
-			<li>Parsed
-			<ul>
-				<li>Double quoted <code>"</code></li>
-				<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
-			</ul>
-			</li>
-			<li>Unparsed
-			<ul>
-				<li>Single quoted <code>'</code></li>
-				<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
-			</ul>
-			</li>
+			<li>Series of characters</li>
+			<li>Can be as large as 2GB</li>
+			<li>Parsed or unparsed</li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.string.php
@@ -237,44 +252,44 @@ $boolean	= FALSE;</pre>
 
 		<article>
 		<h4>
-			Parsed Strings
-		</h4>
-		<ul>
-			<li>Interprets special characters</li>
-		</ul>
-<pre>
-"\n" › <em>newline</em>
-"\"\$x\"" › <em>"$x"</em></pre>
-		<ul>
-			<li>Variables are expanded</li>
-		</ul>
-<pre>
-"$x" › <em>value of x</em>
-"{$x[1]}" › <em>value of x[1]</em>
-"{$x['date']}" › <em>value of x['date']</em>
-"{$obj->month[12]->name}" › <em>December</em>
-"{$x["date"]}" › <em>Parse Error</em></pre>
-		</article>
-
-		<article>
-		<h4>
 			Unparsed Strings
 		</h4>
-		<ul>
-			<li>Doesn't interpret special characters
-			</ul>
 <pre>
 '\n' › <em>\n</em>
-'\'\$x\'' › <em>'\$x'</em></pre>
-		<ul>
-			<li>Variables aren't expanded
-		</ul>
-<pre>
+'\'\$x\'' › <em>'\$x'</em>
 '$x' › <em>$x</em>
 '{$x[1]}' › <em>{$x[1]}</em>
 '{$x["date"]}' › <em>{$x["date"]}</em>
 '{$obj->month[12]->name}' › <em>{$obj->month[12]->name}</em>
+'{\$x["date"]}' › <em>{\$x["date"]}</em>
 '{$x['date']}' › <em class='red'>Parse Error</em></pre>
+		<ul>
+			<li>Single quoted <code>'</code> (simplest)</li>
+			<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
+			<li>Does <strong>not</strong> interpret special characters
+			<li>Variables are <strong>not</strong> expanded
+		</ul>
+		</article>
+
+		<article>
+		<h4>
+			Parsed Strings
+		</h4>
+<pre>
+"\n" › <em>newline</em>
+"\"\$x\"" › <em>"$x"</em>
+"$x" › <em>value of x</em>
+"{$x[1]}" › <em>value of x[1]</em>
+"{$x['date']}" › <em>value of x['date']</em>
+"{$obj->month[12]->name}" › <em>December</em>
+"{\$x['date']}" › <em>{$x['date']}</em>
+"{$x["date"]}" › <em>Parse Error</em></pre>
+		<ul>
+			<li>Double quoted <code>"</code></li>
+			<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
+			<li>Interprets special characters</li>
+			<li>Variables are expanded</li>
+		</ul>
 		</article>
 
 		<article>
@@ -282,29 +297,193 @@ $boolean	= FALSE;</pre>
 			Arrays
 		</h4>
 		<ul>
-			<li>Simple</li>
-			<li>Associative</li>
-			<li>Multi-dimensional</li>
-			<li>Built-in AKA Super Globals</li>
+			<li>An ordered map that associates <strong>values</strong> to <strong>keys</strong></li>
+			<li>Also known as <em>list</em>, <em>hash table</em>, <em>dictionary</em>, <em>collection</em>, <em>stack</em>, or <em>queue</em></li>
+			<li>Array types
+			<ul>
+				<li>Simple</li>
+				<li>Associative</li>
+				<li>Multi-dimensional</li>
+			</ul>
+			</li>
 		</ul>
-		<pre>
-</pre>
 		<div class='source'>
-			http://www.php.net/manual/en/language.types.float.php
+			http://www.php.net/manual/en/language.types.array.php
 		</div>
+		</article>
+
+		<article>
+		<h4>
+			Simple Arrays
+		</h4>
+		<pre>
+$array = array( 10, 20, 30 );
+$array = array( 'I', 'am', 'TYPO3', );
+$array = [ 'are', 'you?', ]; // as of PHP 5.4</pre>
+		<ul>
+			<li>Comma-separated <code>value</code>s</li>
+			<li>Last array element comma is optional</li>
+			<li>PHP 5.4 short array syntax <code>[]</code> vs. <code>array()</code></li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Associative Arrays
+		</h4>
+		<pre>
+$array = array( 'foo' => 'bar', 'bar' => 'foo', );
+$array = array( $key1 => $value1, $key2 => $value2, );
+$array = array( 10 => 'foo', 20 => 'bar', ]; // as of PHP 5.4</pre>
+		<ul>
+			<li>Comma-separated <code>key => value</code> pairs</li>
+			<li>Key is an <em>integer</em>, <em>string</em> or <em>constant</em></li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Multi-dimensional Arrays
+		</h4>
+		<pre>
+$array = array(
+	'fruits'  => array ( 'a' => 'apple', 'b' => 'banana', ),
+	'numbers' => array ( 1, 2, 3, 4, 5, 6 ),
+	'holes'   => array ( 'first', 5 => 'second', 'third' ),
+);
+
+echo $array['fruits']['a']; // apple
+echo $array['numbers'][2]; // 3
+echo $array['holes'][5]; // second
+unset( $array['holes'][0] ); // removes first
+
+$array['apple']['green'] = 'good'; // new multi-dimensional array</pre>
+		<ul>
+			<li>A simple or associative array of arrays</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Objects
+		</h4>
+		<pre>
+class foo
+{
+    function do_foo()
+    {
+        echo "Doing foo."; 
+    }
+}
+
+$bar = new foo;
+$bar->do_foo();</pre>
+		<ul>
+			<li>Discussed later during Classes</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.object.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Resources
+		</h4>
+		<pre>
+$file = fopen( 'data.txt', 'r' );
+$db = mysql_connect( 'localhost', 'mysql_user', 'mysql_password' );</pre>
+		<ul>
+			<li>Holds reference to an external resource…
+			<ul>
+				<li>Opened files</li>
+				<li>Database connections</li>
+				<li>Image canvas areas</li>
+			</ul>
+			</li>
+			<li>Created and used by special functions</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.resource.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			NULL
+		</h4>
+		<pre>
+$var = NULL;</pre>
+		<ul>
+			<li>Represents a variable with no value</li>
+			<li>Only one value of type null
+			<ul>
+				<li>Case-insensitive constant NULL</li>
+			</ul>
+			</li>
+		</ul>
+		<q>There's nothing here</q>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.null.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Type Juggling
+		</h4>
+		<pre>
+$foo = '0'; // $foo is string (ASCII 48)
+$foo += 2; // $foo is now an integer (2)
+$foo = $foo + 1.3; // $foo is now a float (3.3)
+$foo = 5 + '10 Little Piggies'; // $foo is integer (15)
+$foo = 5 + '15 Small Pigs'; // $foo is integer (20)</pre>
+		<q style="margin-top: 0;">PHP does not support type definition… type is determined by context…</q>
+		<div class='source'>
+			http://www.php.net/manual/en/language.types.type-juggling.php
+		</div>
+		</article>
+
+		<article>
+		<h2>
+			Whew…
+		</h2>
 		</article>
 
 		<article>
 		<h4>
 			Simple Math
 		</h4>
-		<ul>
-			<li>Simple Math</li>
-		</ul>
 		<pre>
-</pre>
+$a = 1; // Sets value of $a to 1
+$b = 3; // Sets $b to 2
+$c = $a + $b; // Sets $c to the sum of $a and $b
+$d = $a - $b; // Subtracts $b from $a and stores it in $d
+$e = $a * $b; // $e becomes $a multiplied by $b
+$f = $a / $b; // Sets $f to $a divided by $b
+$a++; // Increments the value of $a
+$b--; // Subtracts 1 from the value of $b
+$a += $b; // sets $a = $a + $b
+$a -= $b; // sets $a = $a - $b
+$b *= $c; // sets $b = $b * $c
+$b /= $c; // sets $b = $b / $c
+$g = 3 * 3 % 5; // (3 * 3) % 5 = 4
+$h = true ? 0 : true ? 1 : 2; // (true ? 0 : true) ? 1 : 2 = 2</pre>
 		<div class='source'>
-			http://www.php.net/manual/en/language.types.float.php
+			http://www.higherpass.com/php/Tutorials/Php-Fundamentals/3/
+			<br />
+			http://www.php.net/manual/en/language.operators.arithmetic.php
+			<br />
+			http://www.php.net/manual/en/language.operators.precedence.php
 		</div>
 		</article>
 
@@ -312,13 +491,14 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Control Structures
 		</h4>
-		<ul>
-			<li>Control Structures</li>
-		</ul>
 		<pre>
 </pre>
+		<ul>
+			<li>if, else if, else</li>
+			<li>switch</li>
+		</ul>
 		<div class='source'>
-			http://www.php.net/manual/en/language.types.float.php
+			http://de3.php.net/manual/en/language.control-structures.php
 		</div>
 		</article>
 
@@ -326,13 +506,18 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Loops
 		</h4>
-		<ul>
-			<li>Loops</li>
-		</ul>
 		<pre>
 </pre>
+		<ul>
+			<li>while</li>
+			<li>do-while</li>
+			<li>for</li>
+			<li>foreach</li>
+			<li>break</li>
+			<li>continue</li>
+		</ul>
 		<div class='source'>
-			http://www.php.net/manual/en/language.types.float.php
+			http://de3.php.net/manual/en/language.control-structures.php
 		</div>
 		</article>
 
@@ -340,13 +525,16 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Includes
 		</h4>
-		<ul>
-			<li>Includes</li>
-		</ul>
 		<pre>
 </pre>
+		<ul>
+			<li>require, require_once</li>
+			<li>include, include_once</li>
+		</ul>
 		<div class='source'>
-			http://www.php.net/manual/en/language.types.float.php
+			http://de3.php.net/manual/en/function.require.php
+			<br />
+			http://de3.php.net/manual/en/function.require-once.php
 		</div>
 		</article>
 
@@ -354,11 +542,11 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Functions
 		</h4>
+		<pre>
+</pre>
 		<ul>
 			<li>Functions</li>
 		</ul>
-		<pre>
-</pre>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.float.php
 		</div>
@@ -368,12 +556,12 @@ $boolean	= FALSE;</pre>
 		<h4>
 			Processing Output
 		</h4>
+		<pre>
+</pre>
 		<ul>
 			<li>echo vs print</li>
 			<li>What's sprintf & printf?</li>
 		</ul>
-		<pre>
-</pre>
 		<div class='source'>
 			http://www.php.net/manual/en/language.types.float.php
 		</div>
@@ -387,7 +575,7 @@ $boolean	= FALSE;</pre>
 
 		<article>
 		<h3>
-			Variables, Advanced
+			Advanced Variables
 		</h3>
 		<ul>
 			<li>Basics</li>
@@ -413,9 +601,10 @@ $boolean	= FALSE;</pre>
 
 		<article>
 		<h3>
-			Optimizations
+			Simple Optimizations
 		</h3>
 		<ul>
+			<li>$foo['bar'] is correct, $foo[bar] is not</li>
 			<li>count, for & foreach</li>
 			<li>empty vs. count</li>
 			<li>= == ===</li>
@@ -425,6 +614,7 @@ $boolean	= FALSE;</pre>
 				<li><code>if ( false ) { … }</code></li>
 			</ul>
 			</li>
+			<li>Use Unix line-endings</li>
 		</ul>
 		</article>
 
