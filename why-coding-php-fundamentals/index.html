@@ -451,13 +451,18 @@ FALSE // is a boolean
 			Operators
 		</h4>
 		<ul>
-			<li>Arithmetic Operators</li>
-			<li>Assignment Operators</li>
-			<li>Comparison Operators</li>
-			<li>Incrementing/Decrementing Operators</li>
-			<li>Logical Operators</li>
-			<li>String Operators</li>
-			<li>Array Operators</li>
+			<li>Takes one or more <em>expressions</em> and yields a <em>value</em></li>
+			<li>Types
+			<ul>
+				<li>Arithmetic Operators</li>
+				<li>Assignment Operators</li>
+				<li>Comparison Operators</li>
+				<li>Incrementing/Decrementing Operators</li>
+				<li>Logical Operators</li>
+				<li>String Operators</li>
+				<li>Array Operators</li>
+			</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.php
@@ -468,9 +473,6 @@ FALSE // is a boolean
 		<h5>
 			Arithmetic Operators
 		</h5>
-		<ul>
-			<li>Just like basic math</li>
-		</ul>
 		<table>
      <thead>
       <tr>
@@ -521,6 +523,9 @@ FALSE // is a boolean
      </tbody>
     
    </table>
+		<ul>
+			<li>Just like basic math</li>
+		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.operators.arithmetic.php
 		</div>
@@ -530,9 +535,6 @@ FALSE // is a boolean
 		<h5>
 			Assignment Operators
 		</h5>
-		<ul>
-			<li>Assign left operand to value of right <em>expression</em></li>
-		</ul>
 		<table>
      <thead>
       <tr>
@@ -589,6 +591,9 @@ FALSE // is a boolean
      </tbody>
     
    </table>
+		<ul>
+			<li>Assign left operand to value of right <em>expression</em></li>
+		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.assignment.php
 		</div>
@@ -679,11 +684,6 @@ FALSE // is a boolean
 		<h5>
 			Incrementing/Decrementing Operators
 		</h5>
-		<ul>
-			<li>Doesn't affect <em>boolean</em>s</li>
-			<li>Decrementing <code>NULL</code> has no effect</li>
-			<li>Incrementing <code>NULL</code> results in 1</li>
-		</ul>
 		<table>
      <thead>
       <tr>
@@ -722,6 +722,11 @@ FALSE // is a boolean
      </tbody>
     
    </table>
+		<ul>
+			<li>Doesn't affect <em>boolean</em>s</li>
+			<li>Decrementing <code>NULL</code> has no effect</li>
+			<li>Incrementing <code>NULL</code> results in <em>1</em></li>
+		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.string.php
 		</div>
@@ -1062,9 +1067,12 @@ for ($i = 1; $i &lt;= 10; $i++) { echo $i; }
 		<ul>
 			<li>PHP's most complex loop</li>
 			<li><em>expr1</em> always evaluated once at loop beginning</li>
-			<li>On each iteration, <em>expr2</em> is evaluated</li>
-			<li>If <em>expr2</em> is <code>TRUE</code>, then loop continues</li>
-			<li>If <em>expr2</em> is <code>FALSE</code>, then loop ends</li>
+			<li>On each iteration, <em>expr2</em> is evaluated
+			<ul>
+				<li>If <em>expr2</em> is <code>TRUE</code>, then loop continues</li>
+				<li>If <em>expr2</em> is <code>FALSE</code>, then loop ends</li>
+			</ul>
+			</li>
 			<li>After each iteration, <em>expr3</em> is executed</li>
 		</ul>
 		<div class='source'>
@@ -1084,7 +1092,7 @@ foreach (array_expression as $key =&gt; $value) { statement }
 		<ul>
 			<li>Easy way to iterate over <em>array</em>s and <em>object</em>s</li>
 			<li>Don't call <code>reset( <em>array_expression</em> )</code> before using</li>
-			<li>When done <code>unset( <em>value</em> )</code></li>
+			<li><code>unset( <em>$value</em> )</code> when done</li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/control-structures.foreach.php
@@ -1165,7 +1173,7 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 				<li><code>include</code>, <code>include_once</code> - gives <strong>warning</strong></li>
 			</ul>
 			</li>
-			<li>Use <code>return</code> in <em>include</em> to terminate processing early</li>
+			<li>Use <code>return</code> in given file to terminate processing early</li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/function.include.php
@@ -1174,7 +1182,7 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 
 		<article>
 		<h2>
-			Control what?
+			Those Were Control Structures…
 		</h2>
 		</article>
 

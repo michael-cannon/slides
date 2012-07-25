@@ -14,3 +14,7 @@
 tbody td:first-child {
 	white-space: nowrap;
 }
+
+tbody td:first-child code {
+	background: #F0F0F0;
+}
