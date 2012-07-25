@@ -10,3 +10,7 @@
 	*/
 	background: white url('../images/wallpaper_typo3_blackboard.jpg') 50% 50% no-repeat;
 }
+
+tbody td:first-child {
+	white-space: nowrap;
+}
