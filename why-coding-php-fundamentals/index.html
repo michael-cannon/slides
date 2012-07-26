@@ -1596,10 +1596,10 @@ $a = 1; // a is an integer by context
 		</ul>
 <pre>
 $a = 1;
-if ($a = 1) // true; assigns $a and is possible logic error
-if ($a == 1) // true
 if (1 = $a) // "Parse error: syntax error, unexpected '=''
 if (1 == $a) // true
+if ($a = 1) // true; assigns $a and is possible logic error
+if ($a == 1) // true
 </pre>
 		</article>
 
@@ -1608,13 +1608,25 @@ if (1 == $a) // true
 			Simple Optimizations
 		</h3>
 		<ul>
-			<li>Commenting out code</li>
+			<li>Use <em>if</em> control structure to comment out code chunks
+			<ul>
+				<li>Easier to enable and know what to remove</li>
+			</ul>
+			</li>
 		</ul>
 <pre>
 echo 'hello';
 if ( FALSE ) {
-	echo ' cold, cruel';
+	echo ' cold,';
+	echo ' cruel';
+	… // long convoluted stuff
 }
+echo ' world';
+
+echo 'hello';
+// echo ' cold,';
+// echo ' cruel';
+// … // long convoluted stuff
 echo ' world';
 </pre>
 		</article>
