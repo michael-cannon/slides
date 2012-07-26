@@ -72,9 +72,8 @@ URL: http://code.google.com/p/html5slides/
 		<ul>
 			<li>Language Reference</li>
 			<li>Classes and Objects</li>
-			<li>Simple Optimizations</li>
 			<li>Processing Output</li>
-			<li>PHP's Coding Standards</li>
+			<li>Simple Optimizations</li>
 			<li>Coding Guidelines</li>
 		</ul>
 		</article>
@@ -148,8 +147,8 @@ $Var = 'Joe';
 echo "$var, $Var"; // outputs 'Bob, Joe'
 $var2 = &$var;
 $var2 .= ' Jones';
-echo $var2; // outputs 'Bob Jones'
 echo $var; // outputs 'Bob Jones'
+echo $var2; // outputs 'Bob Jones'
 </pre>
 		<ul>
 			<li>A dollar sign followed by the variable name</li>
@@ -238,7 +237,7 @@ testb(); // 1
 42 // is an integer
 42 + "28 days" // is an integer
 FALSE // is a boolean
-"false" // is a string
+"true" // is a string
 </pre>
 		
 		<q style="margin-top: 0;">PHP does not support type definition… type is determined by context…</q>
@@ -448,7 +447,7 @@ unset( $array['holes'][0] ); // removes first
 
 $array['apple']['green'] = 'good'; // new multi-dimensional array</pre>
 		<ul>
-			<li>A simple or associative array of arrays</li>
+			<li>A simple or associative <em>array</em> of <em>arrays</em></li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.array.php
@@ -637,19 +636,18 @@ t3lib_div::devLog( true, __FUNCTION__, 0, false );
 		<h4>
 			Operators
 		</h4>
+		<pre>
+$a = 1;
+</pre>
 		<ul>
 			<li>Takes 1 or more <em>expressions</em> and yields a <em>value</em></li>
-			<li>Types
-			<ul>
-				<li>Arithmetic Operators</li>
-				<li>Assignment Operators</li>
-				<li>Comparison Operators</li>
-				<li>Incrementing/Decrementing Operators</li>
-				<li>Logical Operators</li>
-				<li>String Operators</li>
-				<li>Array Operators</li>
-			</ul>
-			</li>
+			<li>Arithmetic Operators</li>
+			<li>Assignment Operators</li>
+			<li>Comparison Operators</li>
+			<li>Incrementing/Decrementing Operators</li>
+			<li>Logical Operators</li>
+			<li>String Operators</li>
+			<li>Array Operators</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.php
@@ -1078,7 +1076,7 @@ t3lib_div::devLog( true, __FUNCTION__, 0, false );
 		</div>
 		</article>
 
-		<article class="smaller">
+		<article>
 		<h5>
 			Array Union
 		</h5>
@@ -1103,7 +1101,7 @@ array(3) {
 		</div>
 		</article>
 
-		<article class="smaller">
+		<article>
 		<h5>
 			Array Compare
 		</h5>
@@ -1147,14 +1145,12 @@ var_dump($a === $b); // bool(false), doesn't have identity
 		</div>
 		</article>
 
-		<article class="smaller">
+		<article>
 		<h5>
 			<code>if</code>, <code>elseif</code>, <code>else if</code>, <code>else</code>
 		</h5>
 		<pre>
 if ( expression ) {
-	…
-} elseif ( expression ) {
 	…
 } elseif ( expression ) {
 	…
@@ -1398,12 +1394,12 @@ $str = $func( array('machiato') );
 echo $str;
 </pre>
 		<ul>
-			<li>Accepts…
+			<li>Accept…
 			<ul>
 				<li>Any valid PHP code</li>
 				<li>Other <em>functions</em> and <em>class</em> definitions</li>
 				<li>Variable-length argument list</li>
-				<li>If <em>return</em> omitted, <em>NULL</em> is returned</li>
+				<li>If <em>return</em> is omitted, <em>NULL</em> is returned</li>
 			</li>
 			<li>Variable functions…</li>
 			</ul>
@@ -1441,8 +1437,10 @@ echo $str;
 		<h4>
 			Deprecated Predefined Variables
 		</h4>
-		<p class="red">Deprecated since PHP 4.1.0. Don't use these…</p>
 		<ul>
+			<li class="red">Deprecated since PHP 4.1.0</li>
+			<li>Don't use these…
+			<ul>
 			<li><code>$HTTP_SERVER_VARS</code></li>
 			<li><code>$HTTP_GET_VARS</code></li>
 			<li><code>$HTTP_POST_VARS</code></li>
@@ -1450,6 +1448,8 @@ echo $str;
 			<li><code>$HTTP_SESSION_VARS</code></li>
 			<li><code>$HTTP_ENV_VARS</code></li>
 			<li><code>$HTTP_COOKIE_VARS</code></li>
+			</li>
+			</ul>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/reserved.variables.php
@@ -1500,54 +1500,35 @@ echo $str;
 			Classes and Objects
 		</h3>
 		<ul>
-			<li>The Basics</li>
-			<li>Properties</li>
-			<li>Class Constants</li>
-			<li>Autoloading Classes</li>
-			<li>Constructors and Destructors</li>
-			<li>Visibility</li>
-			<li>Object Inheritance</li>
-			<li>Scope Resolution Operator (::)</li>
-			<li>Static Keyword</li>
-			<li>Class Abstraction</li>
-			<li>Object Interfaces</li>
-			<li>Traits</li>
-			<li>Overloading</li>
-			<li>Object Iteration</li>
-			<li>Magic Methods</li>
-			<li>Final Keyword</li>
-			<li>Object Cloning</li>
-			<li>Comparing Objects</li>
-			<li>Type Hinting</li>
-			<li>Late Static Bindings</li>
-			<li>Objects and references</li>
-			<li>Object Serialization</li>
+			<li>Another presentation, too much to cover today…
+				<ul>
+					<li>The Basics</li>
+					<li>Properties</li>
+					<li>Class Constants</li>
+					<li>Autoloading Classes</li>
+					<li>Constructors and Destructors</li>
+					<li>Visibility</li>
+					<li>Object Inheritance</li>
+					<li>Scope Resolution Operator (::)</li>
+					<li>Static Keyword</li>
+					<li>Class Abstraction</li>
+					<li>Object Interfaces</li>
+					<li>Traits</li>
+					<li>Overloading</li>
+					<li>Object Iteration</li>
+					<li>Magic Methods</li>
+					<li>Final Keyword</li>
+					<li>Object Cloning</li>
+					<li>Comparing Objects</li>
+					<li>Type Hinting</li>
+					<li>Late Static Bindings</li>
+					<li>Objects and references</li>
+					<li>Object Serialization</li>
+				</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.oop5.php
-		</div>
-		</article>
-
-		<article>
-		<h3>
-			Simple Optimizations
-		</h3>
-		<ul>
-			<li>$foo['bar'] is correct, $foo[bar] is not</li>
-			<li>count, for and foreach</li>
-			<li>empty vs. count</li>
-			<li>= == ===</li>
-			<li>Initialize variables</li>
-			<li>" vs. '</li>
-			<li>Commenting out code
-			<ul>
-				<li><code>if ( FALSE ) { … }</code></li>
-			</ul>
-			</li>
-			<li>Use Unix line-endings</li>
-		</ul>
-		<div class='source'>
-			TBD
 		</div>
 		</article>
 
@@ -1571,8 +1552,225 @@ TBD
 
 		<article>
 		<h3>
-			PHP's Coding Standards
+			Simple Optimizations
 		</h3>
+		<ul>
+		<li>Unix line-endings are cross-platform friendly</li>
+		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
+		</ul>
+		<pre>
+$foo['bar'] // correct
+$foo[bar] // works, but is not correct and gives PHP Notices
+</pre>
+		<ul>
+		<li>Understand assignment, equality, and identity</li>
+		</ul>
+<pre>
+$a = 1; // a is an integer by context
+($a = 1) // true; also assigning $a
+($a == 1) // true
+($a == '1') // true
+($a === 1) // true
+($a === '1') // false; '1' is a string, not integer like $a
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li>Initialize variables
+				<ul>
+					<li><code>$a = 1</code> vs. <code>$a++</code></li>
+					<li>Get expected results</li>
+					<li>Avoid PHP notices</li>
+				</ul>
+			</li>
+			<li>Use Yoda Conditions
+				<ul>
+					<li>Right side <em>variable</em>, left side <em>constants</em> or <em>literals</em></li>
+				<li>Prevents assignment</li>
+				</ul>
+			</li>
+		</ul>
+<pre>
+$a = 1;
+if ($a = 1) // true; assigns $a and is possible logic error
+if ($a == 1) // true
+if (1 = $a) // "Parse error: syntax error, unexpected '=''
+if (1 == $a) // true
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li>Commenting out code</li>
+		</ul>
+<pre>
+echo 'hello';
+if ( FALSE ) {
+	echo ' cold, cruel';
+}
+echo ' world';
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li><strong>empty</strong> vs. <strong>count</strong> for checking if item exists
+			<ul>
+				<li>Use <strong>empty</strong> it's faster and easier</li>
+				<li>Works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+$arr = array();
+if ( empty( $arr ) ) { … }
+if ( 0 == count( $arr ) ) { … }
+</pre>
+		<div class='source'>
+			http://de3.php.net/manual/en/function.empty.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li><strong>empty</strong> vs. <strong>isset</strong> for checking <em>arrays</em>
+			<ul>
+				<li>Use <strong>empty</strong> it's faster and easier</li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+if ( ! empty( $arr[ 1 ] ) ) { … }
+if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
+</pre>
+		<div class='source'>
+			http://de3.php.net/manual/en/function.empty.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li>Double-quote vs. single-quote AKA " vs. '</li>
+			<li>Fastest to slowest shown below of 10,000 iterations
+				<ul>
+					<li>Time in microseconds</li>
+					<li>That's 1/1,000,000 of a second</li>
+				</ul>
+			</li>
+		</ul>
+		<p><img src="images/double-single-quote-performance.png" /></p>
+		</article>
+
+		<article class="smaller">
+		<h3>
+			Simple Optimizations
+		</h3>
+<pre>
+function test_double_quote() {
+	return " hello ";
+}
+function test_single_quote() {
+	return ' hello ';
+}
+function test_single_quote_concatenated() {
+	return ' hello ' . ' world ';
+}
+function test_double_quote_concatenated() {
+	return " hello " . " world ";
+}
+function test_double_quote_concatenated_variable() {
+	$world						= "world";
+	return " hello " . $world;
+}
+function test_single_quote_concatenated_variable() {
+	$world						= 'world';
+	return ' hello ' . $world;
+}
+function test_double_quote_variable() {
+	$world						= "world";
+	return " hello $world";
+}
+</pre>
+		<p>Double-quote vs. single-quote test functions</p>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li>Double-quote vs. single-quote AKA " vs. '</li>
+			<li>What's the point?
+				<ul>
+					<li>Pick " or ' for complete <em>strings</em> sans <em>variables</em></li>
+					<li>Use complete <em>strings</em> with " or ' and concatenate <em>variables</em></li>
+					<li class="red">Don't use " with <em>variables</em> inside <em>strings</em></li>
+				</ul>
+			</li>
+		</ul>
+		<q>Reality is… they're all really close to each other</q>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations
+		</h3>
+		<ul>
+			<li><strong>count</strong> and <em>for</em> <em>loops</em></li>
+		</ul>
+<pre>
+$array = array(1, 2, 3, 4);
+
+// slow because of count on each iteration
+for ( $i = 0; $i &lt; count($array); $i++ ) {
+	echo $i;
+}
+
+// instead, do this
+$count = count($array);
+for ( $i = 0; $i &lt; $count; $i++ ) {
+	echo $i;
+}
+
+// or this
+for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) {
+	echo $i;
+}
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Coding Guidelines
+		</h3>
+		<ul>
+			<li>PHP's Coding Standards</li>
+			<li>Google</li>
+			<li>TYPO3</li>
+			<li>WordPress</li>
+		</ul>
+		</article>
+
+		<article>
+		<h4>
+			PHP's Coding Standards
+		</h4>
 		<ul>
 			<li>Code Implementation</li>
 			<li>Naming Conventions</li>
@@ -1585,17 +1783,6 @@ TBD
 		<div class='source'>
 			http://svn.php.net/viewvc/php/php-src/trunk/CODING_STANDARDS?view=co
 		</div>
-		</article>
-
-		<article>
-		<h3>
-			Coding Guidelines
-		</h3>
-		<ul>
-			<li>Google</li>
-			<li>TYPO3</li>
-			<li>WordPress</li>
-		</ul>
 		</article>
 
 		<article>
