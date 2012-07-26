@@ -70,26 +70,32 @@ URL: http://code.google.com/p/html5slides/
 			Let's Review…
 		</h3>
 		<ul>
-			<li>PHP Fundamentals</li>
-			<li>Advanced Variables</li>
-			<li>Classes</li>
+			<li>Language Reference</li>
+			<li>Classes and Objects</li>
 			<li>Simple Optimizations</li>
+			<li>Processing Output</li>
+			<li>PHP's Coding Standards</li>
 			<li>Coding Guidelines</li>
 		</ul>
 		</article>
 
 		<article>
 		<h3>
-			PHP Fundamentals
+			Language Reference
 		</h3>
 		<ul>
 			<li>Basic Syntax</li>
 			<li>Variables</li>
+			<li>(Variable) Types</li>
+			<li>Constants</li>
 			<li>Operators</li>
 			<li>Control Structures</li>
 			<li>Functions</li>
-			<li>Processing Output</li>
+			<li>Predefined Variables</li>
 		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/langref.php
+		</div>
 		</article>
 
 		<article>
@@ -136,19 +142,108 @@ echo 'This is a test'; /* This comment will cause a problem */
 		<h4>
 			Variables
 		</h4>
+		<pre>
+$var = 'Bob';
+$Var = 'Joe';
+echo "$var, $Var"; // outputs 'Bob, Joe'
+$var2 = &$var;
+$var2 .= ' Jones';
+echo $var2; // outputs 'Bob Jones'
+echo $var; // outputs 'Bob Jones'
+</pre>
 		<ul>
-			<li>Booleans</li>
-			<li>Integers</li>
-			<li>Floating point numbers</li>
-			<li>Strings</li>
-			<li>Arrays</li>
-			<li>Objects</li>
-			<li>Resources</li>
-			<li>NULL</li>
+			<li>A dollar sign followed by the variable name</li>
+			<li>Starts with a letter or underscore</li>
+			<li>Contain any number of letters, numbers, or underscores</li>
+			<li>Name is CaSe-SeNsItIvE</li>
+			<li><code>&$foo</code> means <em>assign by reference</em></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.variables.basics.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Variable Scope
+		</h4>
+		<pre>
+$a = 1; /* global scope */ 
+include 'b.inc';
+
+function test() { 
+    echo $a; /* reference to local scope variable */ 
+} 
+test(); // no output
+
+function testb() { 
+    global $a;
+    echo $a; /* reference to local scope variable */ 
+} 
+testb(); // 1
+</pre>
+		<ul>
+			<li>A variable is accessible within the context it is defined</li>
+			<li>Scope spans included and required files</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.variables.scope.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			(Variable) Types
+		</h4>
+		<ul>
 			<li><em>Type Juggling</em></li>
+			<li>Scalar
+				<ul>
+				<li>Booleans</li>
+				<li>Integers</li>
+				<li>Floating point numbers</li>
+				<li>Strings</li>
+				</ul>
+			</li>
+			<li>Compound
+				<ul>
+				<li>Arrays</li>
+				<li>Objects</li>
+				</ul>
+			</li>
+			<li>Special
+				<ul>
+				<li>Resources</li>
+				<li>NULL</li>
+				</ul>
+			</li>
+			<li>Pseudo-types
+				<ul>
+					<li><em>Mixed</em> - accepts multiple types</li>
+					<li><em>Number</em> - either <em>integer</em> or <em>float</em></li>
+				</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Type Juggling
+		</h5>
+		<pre>
+"42" // is a string
+42 // is an integer
+42 + "28 days" // is an integer
+FALSE // is a boolean
+"false" // is a string
+</pre>
+		
+		<q style="margin-top: 0;">PHP does not support type definition… type is determined by context…</q>
+		<div class='source'>
+			http://php.net/manual/en/language.types.type-juggling.php
 		</div>
 		</article>
 
@@ -163,7 +258,7 @@ $bool = FALSE;</pre>
 			<li>Simplest type
 			<li>Expresses a truth value
 			<li>Either <code>TRUE</code> or <code>FALSE</code>
-			<li>CaSe-iNsEnSiTiVe (use uppercase)</li>
+			<li>CaSe-iNsEnSiTiVe</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.boolean.php
@@ -180,7 +275,7 @@ $int = -123; // negative decimal number
 $int = 0123; // octal number (83 decimal), 0 precede
 $int = 0x1A; // hexadecimal number (26 decimal), 0x precede
 $int = 0b101; // hexadecimal number (5 decimal), 0b precede
-$int = '1'; // not an integer, but a string</pre>
+</pre>
 		<ul>
 			<li>Whole number
 			<ul>
@@ -206,6 +301,7 @@ $float = 1.234;
 $float = 1.2e3; 
 $float = 7E-10;</pre>
 		<ul>
+			<li>All of the other numbers</li>
 			<li>AKA <em>floats</em>, <em>doubles</em>, or <em>real numbers</em></li>
 			<li>Positive <code>+</code> or negative <code>-</code></li>
 			<li>Beware of <code>NaN</code></li>
@@ -242,7 +338,7 @@ EOD;</pre>
 			Unparsed Strings
 		</h5>
 <pre>
-'\n' › <em>\n</em>
+'' › <em></em>
 '\'\$x\'' › <em>'\$x'</em>
 '$x' › <em>$x</em>
 '{$x[1]}' › <em>{$x[1]}</em>
@@ -263,7 +359,7 @@ EOD;</pre>
 			Parsed Strings
 		</h5>
 <pre>
-"\n" › <em>newline</em>
+"" › <em>newline</em>
 "\"\$x\"" › <em>"$x"</em>
 "$x" › <em>value of x</em>
 "{$x[1]}" › <em>value of x[1]</em>
@@ -324,7 +420,7 @@ $array = [ 'are', 'you?', ]; // as of PHP 5.4</pre>
 		<pre>
 $array = array( 'foo' => 'bar', 'bar' => 'foo', );
 $array = array( $key1 => $value1, $key2 => $value2, );
-$array = array( 10 => 'foo', 20 => 'bar', ]; // as of PHP 5.4</pre>
+$array = [ 10 => 'foo', 20 => 'bar', ]; // as of PHP 5.4</pre>
 		<ul>
 			<li>Comma-separated <code>key => value</code> pairs</li>
 			<li>Key is an <em>integer</em>, <em>string</em> or <em>constant</em></li>
@@ -373,7 +469,7 @@ class foo {
 $bar = new foo;
 $bar->do_foo();</pre>
 		<ul>
-			<li>Discussed later during Classes</li>
+			<li>Discussed later during Classes and Objects</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.object.php
@@ -410,33 +506,15 @@ $db = mysql_connect( 'localhost', 'mysql_user', 'mysql_password' );</pre>
 $var = NULL;</pre>
 		<ul>
 			<li>Represents a variable with no value</li>
-			<li>Only one value of type null
+			<li>Only one value…
 			<ul>
-				<li>Case-insensitive constant NULL</li>
+				<li>CaSe-iNsEnSiTiVe constant <em>NULL</em></li>
 			</ul>
 			</li>
 		</ul>
 		<q>There's nothing here</q>
 		<div class='source'>
 			http://php.net/manual/en/language.types.null.php
-		</div>
-		</article>
-
-		<article>
-		<h5>
-			Type Juggling
-		</h5>
-		<pre>
-"42" // is a string
-42 // is an integer
-42 + "28 days" // is an integer
-FALSE // is a boolean
-"false" // is a string
-</pre>
-		
-		<q style="margin-top: 0;">PHP does not support type definition… type is determined by context…</q>
-		<div class='source'>
-			http://php.net/manual/en/language.types.type-juggling.php
 		</div>
 		</article>
 
@@ -448,10 +526,119 @@ FALSE // is a boolean
 
 		<article>
 		<h4>
+			Constants
+		</h4>
+		<pre>
+define('FOO', 'something, ');
+define('_FOO_2_BAR', 'something different, ');
+const FOO_BAR = 3.1415967; // PHP 5.3.0
+echo FOO . _FOO_2_BAR . FOO_BAR;
+</pre>
+		<ul>
+			<li>Identifier (name) for <em>boolean</em>, <em>integer</em>, <em>float</em> and <em>string</em>
+				<ul>
+					<li>Starts with a letter or underscore</li>
+					<li>Contain any number of letters, numbers, or underscores</li>
+					<li>Always UPPERCASE</li>
+				</ul>
+			</li>
+			<li>Value cannot change</li>
+			<li>Ignores scope</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.constants.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Magical (Predefined) Constants
+		</h4>
+		<pre>
+// where are you in the script execution?
+echo __LINE__ . ':' . basename( __FILE__ ) . '&lt;br /&gt;';
+t3lib_div::devLog( true, __FUNCTION__, 0, false );
+</pre>
+<table>
+      <thead>
+       <tr>
+        <th>Name</th>
+        <th>Description</th>
+       </tr>
+
+      </thead>
+
+      <tbody>
+       <tr>
+        <td><strong><code>__LINE__</code></strong></td>
+        <td>
+         The current line number of the file.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__FILE__</code></strong></td>
+        <td>
+         The full path and filename of the file.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__DIR__</code></strong></td>
+        <td>
+         The directory of the file. Like <strong>dirname(__FILE__)</strong>.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__FUNCTION__</code></strong></td>
+        <td>
+         The function name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__CLASS__</code></strong></td>
+        <td>
+         The class or trait (PHP 5.4) name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__TRAIT__</code></strong></td>
+        <td>
+         The trait name and namespace. (PHP 5.4.0)
+        </td>
+       </tr>
+       
+       <tr>
+        <td><strong><code>__METHOD__</code></strong></td>
+        <td>
+         The class method name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__NAMESPACE__</code></strong></td>
+        <td>
+         The name of the current namespace (case-sensitive) (PHP 5.3.0).
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+		<div class='source'>
+			http://de.php.net/manual/en/language.constants.predefined.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
 			Operators
 		</h4>
 		<ul>
-			<li>Takes one or more <em>expressions</em> and yields a <em>value</em></li>
+			<li>Takes 1 or more <em>expressions</em> and yields a <em>value</em></li>
 			<li>Types
 			<ul>
 				<li>Arithmetic Operators</li>
@@ -787,7 +974,7 @@ FALSE // is a boolean
     
    </table>
 		<ul>
-			<li>List in order of precedence</li>
+			<li>Operators are listed in order of precedence</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.logical.php
@@ -899,15 +1086,17 @@ FALSE // is a boolean
 $a = array('a' => 'apple', 'b' => 'banana');
 $b = array('a' => 'pear', 'b' => 'strawberry', 'c' => 'cherry');
 $c = $a + $b; // Union of $a and $b
+var_dump($c);
 
 array(3) {
-  ['a']=> string(5) 'apple'
-  ['b']=> string(6) 'banana'
-  ['c']=> string(6) 'cherry'
+  ['a']=> string(5) 'apple' // from left
+  ['b']=> string(6) 'banana' // from left
+  ['c']=> string(6) 'cherry' // from right
 }
 </pre>
 		<ul>
 			<li><strong>keys</strong> and <strong>values</strong> of right <em>array</em> added to left if left <em>array</em> <strong>key</strong> doesn't exist</li>
+			<li><em>Array</em> <em>union</em> is not <strong>array_merge</strong>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.array.php
@@ -922,8 +1111,8 @@ array(3) {
 $a = array('apple', 'banana');
 $b = array(1 => 'banana', '0' => 'apple');
 
-var_dump($a == $b); // bool(true)
-var_dump($a === $b); // bool(false)
+var_dump($a == $b); // bool(true), has equality
+var_dump($a === $b); // bool(false), doesn't have identity
 </pre>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.array.php
@@ -958,12 +1147,14 @@ var_dump($a === $b); // bool(false)
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h5>
 			<code>if</code>, <code>elseif</code>, <code>else if</code>, <code>else</code>
 		</h5>
 		<pre>
 if ( expression ) {
+	…
+} elseif ( expression ) {
 	…
 } elseif ( expression ) {
 	…
@@ -1092,14 +1283,14 @@ foreach (array_expression as $key =&gt; $value) { statement }
 		<ul>
 			<li>Easy way to iterate over <em>array</em>s and <em>object</em>s</li>
 			<li>Don't call <code>reset( <em>array_expression</em> )</code> before using</li>
-			<li><code>unset( <em>$value</em> )</code> when done</li>
+			<li><span class="green">Recommendation</span> - <code>unset( <em>$value</em> )</code> when done</li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/control-structures.foreach.php
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h5>
 			<em>loop</em> helper - <code>break</code>
 		</h5>
@@ -1108,10 +1299,13 @@ $i = 0;
 while (++$i) {
 	switch ($i) {
 		case 5:
-		break 1;  /* Exit only the switch. */
+			break 1;  /* Exit only the switch. */
 		case 10:
-		break 2;  /* Exit the switch and the while. */
-…
+			break 2;  /* Exit the switch and the while. */
+		default:
+			…
+	}
+}
 </pre>
 		<ul>
 			<li>ends execution of the current <em>loop</em></li>
@@ -1131,16 +1325,16 @@ while (++$i) {
 		<pre>
 $i = 0;
 while ($i++ < 5) {
-	echo "Outer\n";
+	echo "Outer";
 	while (1) {
-		echo "Middle\n";
+		echo "Middle";
 		while (1) {
-			echo "Inner\n";
+			echo "Inner";
 			continue 3;
 		}
-		echo "This never gets outputted\n";
+		echo "This never gets outputted";
 	}
-	echo "This never gets outputted\n";
+	echo "This never gets outputted";
 }
 </pre>
 		<ul>
@@ -1186,66 +1380,152 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 		</h2>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h4>
 			Functions
 		</h4>
 		<pre>
-		TODO
+function makecoffee($types = array('cappuccino'), $coffeeMaker = NULL) {
+    $device = is_null($coffeeMaker) ? 'hands' : $coffeeMaker;
+    return 'Making a cup of '.join(', ', $types).' with $device.\n';
+}
+echo makecoffee();
+echo makecoffee(array('americano'));
+echo makecoffee(array('cappuccino', 'lavazza'), 'teapot');
+
+$func = 'makecoffee';
+$str = $func( array('machiato') );
+echo $str;
 </pre>
 		<ul>
-			<li>Functions</li>
+			<li>Accepts…
+			<ul>
+				<li>Any valid PHP code</li>
+				<li>Other <em>functions</em> and <em>class</em> definitions</li>
+				<li>Variable-length argument list</li>
+				<li>If <em>return</em> omitted, <em>NULL</em> is returned</li>
+			</li>
+			<li>Variable functions…</li>
+			</ul>
 		</ul>
 		<div class='source'>
 			http://de3.php.net/functions
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h4>
-			Processing Output
+			Predefined Variables
 		</h4>
-		<pre>
-</pre>
 		<ul>
-			<li>echo vs print</li>
-			<li>What's sprintf & printf?</li>
+			<li><em>Superglobals</em> - built-in, always available variables
+			<ul>
+				<li><code>$GLOBALS</code> — References all global scope variables</li>
+				<li><code>$_SERVER</code> — Server and execution environment information</li>
+				<li><code>$_GET</code> — HTTP GET variables</li>
+				<li><code>$_POST</code> — HTTP POST variables</li>
+				<li><code>$_FILES</code> — HTTP File Upload variables</li>
+				<li><code>$_COOKIE</code> — HTTP Cookies</li>
+				<li><code>$_SESSION</code> — Session variables</li>
+				<li><code>$_REQUEST</code> — HTTP Request (GET, POST & COOKIE) variables</li>
+				<li><code>$_ENV</code> — Environment variables</li>
+			</ul>
+			</li>
 		</ul>
 		<div class='source'>
-			http://php.net/manual/en/language.types.float.php
+			http://de.php.net/manual/en/reserved.variables.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Deprecated Predefined Variables
+		</h4>
+		<p class="red">Deprecated since PHP 4.1.0. Don't use these…</p>
+		<ul>
+			<li><code>$HTTP_SERVER_VARS</code></li>
+			<li><code>$HTTP_GET_VARS</code></li>
+			<li><code>$HTTP_POST_VARS</code></li>
+			<li><code>$HTTP_POST_FILES</code></li>
+			<li><code>$HTTP_SESSION_VARS</code></li>
+			<li><code>$HTTP_ENV_VARS</code></li>
+			<li><code>$HTTP_COOKIE_VARS</code></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/reserved.variables.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Remaining Predefined Variables
+		</h4>
+		<ul>
+			<li><code>$php_errormsg</code> — Previous error message
+				<ul>
+					<li>Requires <strong>track_errors</strong></li>
+				</ul>
+			</li>
+			<li><code>$HTTP_RAW_POST_DATA</code> — Raw POST data
+				<ul>
+					<li>Requires <strong>always_populate_raw_post_data</strong></li>
+				</ul>
+			</li>
+			<li><code>$http_response_header</code> — HTTP response headers
+				<ul>
+					<li>similar to <strong>get_headers()</strong></li>
+				</ul>
+			</li>
+			<li>For command line PHP…
+			<ul>
+				<li><code>$argc</code> — The number of arguments passed to script</li>
+				<li><code>$argv</code> — Array of arguments passed to script</li>
+				<li>Both require <strong>register_argc_argv</strong></li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/reserved.variables.php
 		</div>
 		</article>
 
 		<article>
 		<h2>
-			Whew…
+			Deep… Language Reference is 
 		</h2>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h3>
-			Advanced Variables
+			Classes and Objects
 		</h3>
 		<ul>
-			<li>Basics</li>
-			<li>Predefined Variables</li>
-			<li>Variable scope</li>
-			<li>Variable variables</li>
-			<li>Variables From External Sources</li>
+			<li>The Basics</li>
+			<li>Properties</li>
+			<li>Class Constants</li>
+			<li>Autoloading Classes</li>
+			<li>Constructors and Destructors</li>
+			<li>Visibility</li>
+			<li>Object Inheritance</li>
+			<li>Scope Resolution Operator (::)</li>
+			<li>Static Keyword</li>
+			<li>Class Abstraction</li>
+			<li>Object Interfaces</li>
+			<li>Traits</li>
+			<li>Overloading</li>
+			<li>Object Iteration</li>
+			<li>Magic Methods</li>
+			<li>Final Keyword</li>
+			<li>Object Cloning</li>
+			<li>Comparing Objects</li>
+			<li>Type Hinting</li>
+			<li>Late Static Bindings</li>
+			<li>Objects and references</li>
+			<li>Object Serialization</li>
 		</ul>
 		<div class='source'>
-			http://php.net/manual/en/language.variables.php
+			http://de.php.net/manual/en/language.oop5.php
 		</div>
-		</article>
-
-		<article>
-		<h3>
-			Classes
-		</h3>
-		<ul>
-			<li>public private protected</li>
-			<li>try catch</li>
-		</ul>
 		</article>
 
 		<article>
@@ -1254,10 +1534,11 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 		</h3>
 		<ul>
 			<li>$foo['bar'] is correct, $foo[bar] is not</li>
-			<li>count, for & foreach</li>
+			<li>count, for and foreach</li>
 			<li>empty vs. count</li>
 			<li>= == ===</li>
 			<li>Initialize variables</li>
+			<li>" vs. '</li>
 			<li>Commenting out code
 			<ul>
 				<li><code>if ( FALSE ) { … }</code></li>
@@ -1265,6 +1546,45 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 			</li>
 			<li>Use Unix line-endings</li>
 		</ul>
+		<div class='source'>
+			TBD
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Processing Output
+		</h3>
+		<pre>
+TBD
+</pre>
+		<ul>
+			<li><strong>echo</strong> vs. <strong>print</strong></li>
+			<li><strong>sprintf</strong> & <strong>printf</strong></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/function.echo.php
+			<br />
+			http://de.php.net/manual/en/function.sprintf.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			PHP's Coding Standards
+		</h3>
+		<ul>
+			<li>Code Implementation</li>
+			<li>Naming Conventions</li>
+			<li>Syntax and Indentation</li>
+			<li>Testing</li>
+			<li>Documentation and Folding Hooks</li>
+			<li>New and Experimental Functions</li>
+			<li>Aliases & Legacy Documentation</li>
+		</ul>
+		<div class='source'>
+			http://svn.php.net/viewvc/php/php-src/trunk/CODING_STANDARDS?view=co
+		</div>
 		</article>
 
 		<article>
