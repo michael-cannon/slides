@@ -70,16 +70,14 @@ URL: http://code.google.com/p/html5slides/
 			Let's Review…
 		</h3>
 		<ul>
-			<li>Language Reference</li>
-			<li>Processing Output</li>
-			<li>Simple Optimizations</li>
-			<li>Coding Guidelines</li>
+			<li>PHP's Language Reference</li>
+			<li>Simple Optimizations for PHP</li>
 		</ul>
 		</article>
 
 		<article>
 		<h3>
-			Language Reference
+			PHP's Language Reference
 		</h3>
 		<ul>
 			<li>Basic Syntax</li>
@@ -170,13 +168,13 @@ $a = 1; /* global scope */
 include 'b.inc';
 
 function test() { 
-    echo $a; /* reference to local scope variable */ 
+    echo $a; /* reference to local scope variable, doesn't exist */ 
 } 
-test(); // no output
+test(); // no output, possible PHP Notice about uninitialized variable
 
 function testb() { 
     global $a;
-    echo $a; /* reference to local scope variable */ 
+    echo $a; /* reference to global scope variable */ 
 } 
 testb(); // 1
 </pre>
@@ -1522,29 +1520,11 @@ echo $str;
 
 		<article>
 		<h3>
-			Processing Output
-		</h3>
-		<pre>
-TBD
-</pre>
-		<ul>
-			<li><strong>echo</strong> vs. <strong>print</strong></li>
-			<li><strong>sprintf</strong> & <strong>printf</strong></li>
-		</ul>
-		<div class='source'>
-			http://de.php.net/manual/en/function.echo.php
-			<br />
-			http://de.php.net/manual/en/function.sprintf.php
-		</div>
-		</article>
-
-		<article>
-		<h3>
-			Simple Optimizations
+			Simple Optimizations for PHP
 		</h3>
 		<ul>
 			<li>Unix Line Endings</li>
-			<li>Quote Array Keys</li>
+			<li>Quoting Array Keys Correctly</li>
 			<li>Understand Operator Workings</li>
 			<li>Variable Initialization </li>
 			<li>Yoda Conditions</li>
@@ -1552,6 +1532,7 @@ TBD
 			<li><strong>empty</strong> vs. <strong>count</strong></li>
 			<li><strong>empty</strong> vs. <strong>isset</strong></li>
 			<li>String Quoting</li>
+			<li><strong>echo</strong> vs. <strong>print</strong></li>
 			<li><strong>count</strong> and <em>for</em> <em>loops</em></li>
 		</ul>
 		</article>
@@ -1572,11 +1553,14 @@ TBD
 // Windows gone bad on Unix
 \n<span class="blue">^M</span>
 </pre>
+		<div class="source">
+			http://en.wikipedia.org/wiki/Newline
+		</div>
 		</article>
 
 		<article>
 		<h3>
-			Quote Array Keys Correctly
+			Quoting Array Keys Correctly
 		</h3>
 		<ul>
 		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
@@ -1614,7 +1598,7 @@ $a = 1; // a is an integer by context
 				<ul>
 					<li><code>$a = 1</code> vs. <code>$a++</code></li>
 					<li>Get expected results</li>
-					<li>Avoid PHP notices</li>
+					<li>Avoid PHP Notices</li>
 				</ul>
 			</li>
 		</ul>
@@ -1803,6 +1787,39 @@ $string = "Me {$rhyme} {$not} so good";
 
 		<article>
 		<h3>
+			<strong>echo</strong> vs. <strong>print</strong>
+		</h3>
+		<ul>
+			<li><strong>echo</strong> and <strong>print</strong> are language contructs</li>
+			<li>They're…
+			<ul>
+				<li>Not functions, normally used without parentheses</li>
+				<li>Interchangeable &mdash; just use <strong>echo</strong>
+				<ul>
+					<li><strong>echo</strong> returns <em>NULL</em></li>
+					<li><strong>print</strong> returns <em>1</em></li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+echo 'hello';
+print 'hello';
+echo( 'hello' );
+print( 'hello' );
+echo "foo is $foo";
+print "foo is $foo";
+</pre>
+		<div class='source'>
+			http://de.php.net/manual/en/function.echo.php
+			<br />
+			http://de.php.net/manual/en/function.print.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
 			<strong>count</strong> and <em>for</em> <em>loops</em>
 		</h3>
 		<ul>
@@ -1824,33 +1841,12 @@ for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
 		</article>
 
 		<article>
-		<h3>
-			Coding Guidelines
-		</h3>
-		<ul>
-			<li>PHP's Coding Standards</li>
-			<li>Google</li>
-			<li>TYPO3</li>
-			<li>WordPress</li>
-		</ul>
+		<h2>That's it…</h2>
 		</article>
 
 		<article>
-		<h4>
-			PHP's Coding Standards
-		</h4>
-		<ul>
-			<li>Code Implementation</li>
-			<li>Naming Conventions</li>
-			<li>Syntax and Indentation</li>
-			<li>Testing</li>
-			<li>Documentation and Folding Hooks</li>
-			<li>New and Experimental Functions</li>
-			<li>Aliases & Legacy Documentation</li>
-		</ul>
-		<div class='source'>
-			http://svn.php.net/viewvc/php/php-src/trunk/CODING_STANDARDS?view=co
-		</div>
+		<h3>Comments? Questions?</h3>
+		<p>Ask, speak up, mumble aloud</p>
 		</article>
 
 		<article>
@@ -1863,11 +1859,6 @@ for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
 		<div class='author'>
 			me
 		</div>
-		</article>
-
-		<article>
-		<h3>Comments? Questions?</h3>
-		<p>Ask, speak up, mumble aloud</p>
 		</article>
 
 		<article>
