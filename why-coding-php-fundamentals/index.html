@@ -71,7 +71,6 @@ URL: http://code.google.com/p/html5slides/
 		</h3>
 		<ul>
 			<li>Language Reference</li>
-			<li>Classes and Objects</li>
 			<li>Processing Output</li>
 			<li>Simple Optimizations</li>
 			<li>Coding Guidelines</li>
@@ -155,7 +154,7 @@ echo $var2; // outputs 'Bob Jones'
 			<li>Starts with a letter or underscore</li>
 			<li>Contain any number of letters, numbers, or underscores</li>
 			<li>Name is CaSe-SeNsItIvE</li>
-			<li><code>&$foo</code> means <em>assign by reference</em></li>
+			<li><code>&</code> means <em>assign by reference</em></li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.variables.basics.php
@@ -218,7 +217,7 @@ testb(); // 1
 			</li>
 			<li>Pseudo-types
 				<ul>
-					<li><em>Mixed</em> - accepts multiple types</li>
+					<li><em>Mixed</em> - accepts scalar and compound</li>
 					<li><em>Number</em> - either <em>integer</em> or <em>float</em></li>
 				</ul>
 			</li>
@@ -337,14 +336,15 @@ EOD;</pre>
 			Unparsed Strings
 		</h5>
 <pre>
-'' › <em></em>
-'\'\$x\'' › <em>'\$x'</em>
-'$x' › <em>$x</em>
-'{$x[1]}' › <em>{$x[1]}</em>
-'{$x["date"]}' › <em>{$x["date"]}</em>
-'{$obj->month[12]->name}' › <em>{$obj->month[12]->name}</em>
-'{\$x["date"]}' › <em>{\$x["date"]}</em>
-'{$x['date']}' › <em class='red'>Parse Error</em></pre>
+echo ''; //
+echo '\'\$x\''; // '\$x'
+echo '$x'; // $x
+echo '{$x[1]}'; // {$x[1]}
+echo '{$x["date"]}'; // {$x["date"]}
+echo '{$obj->month[12]->name}'; // {$obj->month[12]->name}
+echo '{\$x["date"]}'; // {\$x["date"]}
+echo '{$x['date']}'; // Parse Error
+</pre>
 		<ul>
 			<li>Single quoted <code>'</code> (simplest)</li>
 			<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
@@ -358,14 +358,15 @@ EOD;</pre>
 			Parsed Strings
 		</h5>
 <pre>
-"" › <em>newline</em>
-"\"\$x\"" › <em>"$x"</em>
-"$x" › <em>value of x</em>
-"{$x[1]}" › <em>value of x[1]</em>
-"{$x['date']}" › <em>value of x['date']</em>
-"{$obj->month[12]->name}" › <em>December</em>
-"{\$x['date']}" › <em>{$x['date']}</em>
-"{$x["date"]}" › <em>Parse Error</em></pre>
+echo ""; // newline
+echo "\"\$x\""; // "$x"
+echo "$x"; // value of x
+echo "{$x[1]}"; // value of x[1]
+echo "{$x['date']}"; // value of x['date']
+echo "{$obj->month[12]->name}"; // December
+echo "{\$x['date']}"; // {$x['date']}
+echo "{$x["date"]}"; // Parse Error
+</pre>
 		<ul>
 			<li>Double quoted <code>"</code></li>
 			<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
@@ -454,21 +455,44 @@ $array['apple']['green'] = 'good'; // new multi-dimensional array</pre>
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h5>
-			Objects
+			Classes and Objects
 		</h5>
 		<pre>
 class foo {
-    function do_foo() {
-        echo 'Doing foo…'; 
-    }
+    function do_foo() { echo 'Doing foo…'; }
 }
-
 $bar = new foo;
-$bar->do_foo();</pre>
+$bar->do_foo();
+</pre>
 		<ul>
-			<li>Discussed later during Classes and Objects</li>
+			<li>Another presentation, there's too much to cover now…
+				<ul>
+					<li>The Basics</li>
+					<li>Properties</li>
+					<li>Class Constants</li>
+					<li>Autoloading Classes</li>
+					<li>Constructors and Destructors</li>
+					<li>Visibility</li>
+					<li>Object Inheritance</li>
+					<li>Scope Resolution Operator (::)</li>
+					<li>Static Keyword</li>
+					<li>Class Abstraction</li>
+					<li>Object Interfaces</li>
+					<li>Traits</li>
+					<li>Overloading</li>
+					<li>Object Iteration</li>
+					<li>Magic Methods</li>
+					<li>Final Keyword</li>
+					<li>Object Cloning</li>
+					<li>Comparing Objects</li>
+					<li>Type Hinting</li>
+					<li>Late Static Bindings</li>
+					<li>Objects and references</li>
+					<li>Object Serialization</li>
+				</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.object.php
@@ -507,7 +531,8 @@ $var = NULL;</pre>
 			<li>Represents a variable with no value</li>
 			<li>Only one value…
 			<ul>
-				<li>CaSe-iNsEnSiTiVe constant <em>NULL</em></li>
+				<li><em>NULL</em></li>
+				<li>CaSe-iNsEnSiTiVe</li>
 			</ul>
 			</li>
 		</ul>
@@ -1084,8 +1109,8 @@ $a = 1;
 $a = array('a' => 'apple', 'b' => 'banana');
 $b = array('a' => 'pear', 'b' => 'strawberry', 'c' => 'cherry');
 $c = $a + $b; // Union of $a and $b
-var_dump($c);
 
+var_dump($c);
 array(3) {
   ['a']=> string(5) 'apple' // from left
   ['b']=> string(6) 'banana' // from left
@@ -1458,7 +1483,7 @@ echo $str;
 
 		<article class="smaller">
 		<h4>
-			Remaining Predefined Variables
+			Other Predefined Variables
 		</h4>
 		<ul>
 			<li><code>$php_errormsg</code> — Previous error message
@@ -1495,43 +1520,6 @@ echo $str;
 		</h2>
 		</article>
 
-		<article class="smaller">
-		<h3>
-			Classes and Objects
-		</h3>
-		<ul>
-			<li>Another presentation, too much to cover today…
-				<ul>
-					<li>The Basics</li>
-					<li>Properties</li>
-					<li>Class Constants</li>
-					<li>Autoloading Classes</li>
-					<li>Constructors and Destructors</li>
-					<li>Visibility</li>
-					<li>Object Inheritance</li>
-					<li>Scope Resolution Operator (::)</li>
-					<li>Static Keyword</li>
-					<li>Class Abstraction</li>
-					<li>Object Interfaces</li>
-					<li>Traits</li>
-					<li>Overloading</li>
-					<li>Object Iteration</li>
-					<li>Magic Methods</li>
-					<li>Final Keyword</li>
-					<li>Object Cloning</li>
-					<li>Comparing Objects</li>
-					<li>Type Hinting</li>
-					<li>Late Static Bindings</li>
-					<li>Objects and references</li>
-					<li>Object Serialization</li>
-				</ul>
-			</li>
-		</ul>
-		<div class='source'>
-			http://de.php.net/manual/en/language.oop5.php
-		</div>
-		</article>
-
 		<article>
 		<h3>
 			Processing Output
@@ -1555,19 +1543,61 @@ TBD
 			Simple Optimizations
 		</h3>
 		<ul>
-		<li>Unix line-endings are cross-platform friendly</li>
+			<li>Unix Line Endings</li>
+			<li>Quote Array Keys</li>
+			<li>Understand Operator Workings</li>
+			<li>Variable Initialization </li>
+			<li>Yoda Conditions</li>
+			<li>Comment Out Code</li>
+			<li><strong>empty</strong> vs. <strong>count</strong></li>
+			<li><strong>empty</strong> vs. <strong>isset</strong></li>
+			<li>String Quoting</li>
+			<li><strong>count</strong> and <em>for</em> <em>loops</em></li>
+		</ul>
+		</article>
+
+		<article>
+		<h3>
+			Use Unix Line Endings
+		</h3>
+		<ul>
+			<li>Cross-platform friendly</li>
+			<li>Consistent for all developers</li>
+			<li>Prevent whitespace based erratic PHP errors</li>
+		</ul>
+		<pre>
+\n		// Unix
+\r\n	// Windows
+
+// Windows gone bad on Unix
+\n<span class="blue">^M</span>
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Quote Array Keys Correctly
+		</h3>
+		<ul>
 		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
+		<li><em>Number</em> keys don't need quotes</li>
 		</ul>
 		<pre>
 $foo['bar'] // correct
 $foo[bar] // works, but is not correct and gives PHP Notices
 </pre>
+		</article>
+
+		<article>
+		<h3>
+			Understand Operator Workings
+		</h3>
 		<ul>
-		<li>Understand assignment, equality, and identity</li>
+		<li>Assignment, equality, and identity are not the same</li>
 		</ul>
 <pre>
 $a = 1; // a is an integer by context
-($a = 1) // true; also assigning $a
+($a = 1) // true; also assigning $a; possible logic error
 ($a == 1) // true
 ($a == '1') // true
 ($a === 1) // true
@@ -1577,20 +1607,37 @@ $a = 1; // a is an integer by context
 
 		<article>
 		<h3>
-			Simple Optimizations
+			Variable Initialization 
 		</h3>
 		<ul>
-			<li>Initialize variables
+			<li>Initialize your variables
 				<ul>
 					<li><code>$a = 1</code> vs. <code>$a++</code></li>
 					<li>Get expected results</li>
 					<li>Avoid PHP notices</li>
 				</ul>
 			</li>
+		</ul>
+		<pre>
+$array = [ 0, 1, 1, 2, 3, 5 ];
+$string = '';
+foreach ( $array as $key =&gt; $value ) {
+	$string .= $key . ' ' . $value . ', ';
+}
+echo $string;
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Yoda Conditions
+		</h3>
+		<ul>
 			<li>Use Yoda Conditions
 				<ul>
 					<li>Right side <em>variable</em>, left side <em>constants</em> or <em>literals</em></li>
 				<li>Prevents assignment</li>
+				<li>Prevents logic errors</li>
 				</ul>
 			</li>
 		</ul>
@@ -1605,12 +1652,12 @@ if ($a == 1) // true
 
 		<article>
 		<h3>
-			Simple Optimizations
+			Comment Out Code
 		</h3>
 		<ul>
 			<li>Use <em>if</em> control structure to comment out code chunks
 			<ul>
-				<li>Easier to enable and know what to remove</li>
+				<li>Easier to enable and know what to remove later on</li>
 			</ul>
 			</li>
 		</ul>
@@ -1633,12 +1680,13 @@ echo ' world';
 
 		<article>
 		<h3>
-			Simple Optimizations
+			<strong>empty</strong> vs. <strong>count</strong>
 		</h3>
 		<ul>
-			<li><strong>empty</strong> vs. <strong>count</strong> for checking if item exists
 			<ul>
-				<li>Use <strong>empty</strong> it's faster and easier</li>
+			<li>Use <strong>empty</strong> vs. <strong>count</strong> for checking <em>arrays</em>
+				<li>Faster</li>
+				<li>Code is easier to maintain</li>
 				<li>Works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
 			</ul>
 			</li>
@@ -1646,6 +1694,7 @@ echo ' world';
 <pre>
 $arr = array();
 if ( empty( $arr ) ) { … }
+vs.
 if ( 0 == count( $arr ) ) { … }
 </pre>
 		<div class='source'>
@@ -1655,18 +1704,22 @@ if ( 0 == count( $arr ) ) { … }
 
 		<article>
 		<h3>
-			Simple Optimizations
+			<strong>empty</strong> vs. <strong>isset</strong>
 		</h3>
 		<ul>
-			<li><strong>empty</strong> vs. <strong>isset</strong> for checking <em>arrays</em>
+			<li>Use <strong>empty</strong> vs. <strong>isset</strong> for checking if item exists
 			<ul>
-				<li>Use <strong>empty</strong> it's faster and easier</li>
+				<li>Faster</li>
+				<li>Code is easier to maintain</li>
 			</ul>
 			</li>
 		</ul>
 <pre>
 if ( ! empty( $arr[ 1 ] ) ) { … }
+vs.
 if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
+if ( isset( $arr[ 1 ] ) && '' != $arr[ 1 ] ) { … }
+if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
 </pre>
 		<div class='source'>
 			http://de3.php.net/manual/en/function.empty.php
@@ -1675,7 +1728,7 @@ if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
 
 		<article>
 		<h3>
-			Simple Optimizations
+			String Quoting
 		</h3>
 		<ul>
 			<li>Double-quote vs. single-quote AKA " vs. '</li>
@@ -1687,11 +1740,12 @@ if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
 			</li>
 		</ul>
 		<p><img src="images/double-single-quote-performance.png" /></p>
+		<p>Reality is… they're all really close to each other</p>
 		</article>
 
 		<article class="smaller">
 		<h3>
-			Simple Optimizations
+			String Quoting
 		</h3>
 <pre>
 function test_double_quote() {
@@ -1724,10 +1778,9 @@ function test_double_quote_variable() {
 
 		<article>
 		<h3>
-			Simple Optimizations
+			String Quoting
 		</h3>
 		<ul>
-			<li>Double-quote vs. single-quote AKA " vs. '</li>
 			<li>What's the point?
 				<ul>
 					<li>Pick " or ' for complete <em>strings</em> sans <em>variables</em></li>
@@ -1736,34 +1789,37 @@ function test_double_quote_variable() {
 				</ul>
 			</li>
 		</ul>
-		<q>Reality is… they're all really close to each other</q>
+<pre>
+// good
+$string = 'I like a bay';
+$string .= "On a sunny day";
+$string .= 'Watching a ' . $blue . ' jay';
+$string .= "Sitting on a " . $sun . " ray";
+
+// ick
+$string = "Me {$rhyme} {$not} so good";
+</pre>
 		</article>
 
 		<article>
 		<h3>
-			Simple Optimizations
+			<strong>count</strong> and <em>for</em> <em>loops</em>
 		</h3>
 		<ul>
-			<li><strong>count</strong> and <em>for</em> <em>loops</em></li>
+			<li>Calculate <strong>count</strong> before <em>for</em> <em>loops</em></li>
+			<li>Performance matters - <em>expr2</em> always executes</li>
 		</ul>
 <pre>
 $array = array(1, 2, 3, 4);
-
 // slow because of count on each iteration
-for ( $i = 0; $i &lt; count($array); $i++ ) {
-	echo $i;
-}
+for ( $i = 0; $i &lt; count($array); $i++ ) { echo $i; }
 
 // instead, do this
 $count = count($array);
-for ( $i = 0; $i &lt; $count; $i++ ) {
-	echo $i;
-}
+for ( $i = 0; $i &lt; $count; $i++ ) { echo $i; }
 
 // or this
-for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) {
-	echo $i;
-}
+for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
 </pre>
 		</article>
 
