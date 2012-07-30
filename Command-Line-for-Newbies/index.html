@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+
+<!--
+Google HTML5 slide template
+
+Authors: Luke Mahé (code)
+Marcin Wichary (code and design)
+
+Dominic Mazzoni (browser compatibility)
+Charles Chen (ChromeVox support)
+
+URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+	<head>
+		<title>Have You Thought About It? - PHP Fundamentals</title>
+
+		<meta charset='utf-8'>
+		<script
+			src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+
+	<style>
+		/* Your individual styles here, or just use inline styles if that’s
+		what you want. */
+	</style>
+
+	<body style='display: none'>
+
+		<section class='slides layout-regular template-in2code'>
+
+		<!-- Your slides (<article>s) go here. Delete or comment out the
+		slides below. -->
+
+
+
+		<article class='biglogo'>
+		</article>
+
+		<article>
+		<h1>
+			Have You Thought About It?
+		</h1>
+		<p>
+		Michael Cannon
+		<br>
+		TYPO3 Vagabond
+		<br>
+		US, South Korea, Taiwan, India, Germany
+		</p>
+		<h2>
+			PHP Fundamentals Refresher
+		</h2>
+		</article>
+
+		<article>
+		<q>
+		The basics are just that, basic. As we grow with experience, we tend to forget them because they aren't cool anymore.
+		</q>
+		<div class='author'>
+			me
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Let's Review…
+		</h3>
+		<ul>
+			<li>PHP's Language Reference</li>
+			<li>Simple Optimizations for PHP</li>
+		</ul>
+		</article>
+
+		<article>
+		<h3>
+			PHP's Language Reference
+		</h3>
+		<ul>
+			<li>Basic Syntax</li>
+			<li>Variables</li>
+			<li>(Variable) Types</li>
+			<li>Constants</li>
+			<li>Operators</li>
+			<li>Control Structures</li>
+			<li>Functions</li>
+			<li>Predefined Variables</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/langref.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Basic Syntax
+		</h4>
+		<ul>
+			<li>Always…
+			<ul>
+				<li>open PHP code using <code>&lt;?php</code></li>
+				<li>close PHP code using <code>?&gt;</code></li>
+			</ul>
+			</li>
+			<li>Everything outside <code>&lt;?php</code> & <code>?&gt;</code> is ignored</li>
+			</li>
+			<li>Separate PHP instructions with <code>;</code> or <code>?&gt;</code></li>
+			<li>Write useful comments</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.basic-syntax.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Commenting
+		</h5>
+		<pre>
+// This is a one-line c++ style comment
+/* This is a multi line comment
+   yet another line of comment */
+# This is a one-line shell-style comment</pre>
+		<p class='red'>Danger</p>
+		<pre>
+/**
+echo 'This is a test'; /* This comment will cause a problem */
+*/</pre>
+		<div class='source'>
+			http://php.net/manual/en/language.basic-syntax.comments.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Variables
+		</h4>
+		<pre>
+$var = 'Bob';
+$Var = 'Joe';
+echo "$var, $Var"; // outputs 'Bob, Joe'
+$var2 = &$var;
+$var2 .= ' Jones';
+echo $var; // outputs 'Bob Jones'
+echo $var2; // outputs 'Bob Jones'
+</pre>
+		<ul>
+			<li>A dollar sign followed by the variable name</li>
+			<li>Starts with a letter or underscore</li>
+			<li>Contain any number of letters, numbers, or underscores</li>
+			<li>Name is CaSe-SeNsItIvE</li>
+			<li><code>&</code> means <em>assign by reference</em></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.variables.basics.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Variable Scope
+		</h4>
+		<pre>
+$a = 1; /* global scope */ 
+include 'b.inc';
+
+function test() { 
+    echo $a; /* reference to local scope variable, doesn't exist */ 
+} 
+test(); // no output, possible PHP Notice about uninitialized variable
+
+function testb() { 
+    global $a;
+    echo $a; /* reference to global scope variable */ 
+} 
+testb(); // 1
+</pre>
+		<ul>
+			<li>A variable is accessible within the context it is defined</li>
+			<li>Scope spans included and required files</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.variables.scope.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			(Variable) Types
+		</h4>
+		<ul>
+			<li><em>Type Juggling</em></li>
+			<li>Scalar
+				<ul>
+				<li>Booleans</li>
+				<li>Integers</li>
+				<li>Floating point numbers</li>
+				<li>Strings</li>
+				</ul>
+			</li>
+			<li>Compound
+				<ul>
+				<li>Arrays</li>
+				<li>Objects</li>
+				</ul>
+			</li>
+			<li>Special
+				<ul>
+				<li>Resources</li>
+				<li>NULL</li>
+				</ul>
+			</li>
+			<li>Pseudo-types
+				<ul>
+					<li><em>Mixed</em> - accepts scalar and compound</li>
+					<li><em>Number</em> - either <em>integer</em> or <em>float</em></li>
+				</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Type Juggling
+		</h5>
+		<pre>
+"42" // is a string
+42 // is an integer
+42 + "28 days" // is an integer
+FALSE // is a boolean
+"true" // is a string
+</pre>
+		
+		<q style="margin-top: 0;">PHP does not support type definition… type is determined by context…</q>
+		<div class='source'>
+			http://php.net/manual/en/language.types.type-juggling.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Booleans
+		</h5>
+		<pre>
+$bool = TRUE;
+$bool = FALSE;</pre>
+		<ul>
+			<li>Simplest type
+			<li>Expresses a truth value
+			<li>Either <code>TRUE</code> or <code>FALSE</code>
+			<li>CaSe-iNsEnSiTiVe</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.boolean.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Integers
+		</h5>
+		<pre>
+$int = 123; // decimal number
+$int = -123; // negative decimal number
+$int = 0123; // octal number (83 decimal), 0 precede
+$int = 0x1A; // hexadecimal number (26 decimal), 0x precede
+$int = 0b101; // hexadecimal number (5 decimal), 0b precede
+</pre>
+		<ul>
+			<li>Whole number
+			<ul>
+				<li>Decimal (base 10)</li>
+				<li>Hexadecimal (base 16)</li>
+				<li>Octal (base 8)</li>
+				<li>Binary (base 2)</li>
+			</ul>
+			</li>
+			<li>Positive <code>+</code> or negative <code>-</code></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.integer.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Floating Point Numbers
+		</h5>
+		<pre>
+$float = 1.234; 
+$float = 1.2e3; 
+$float = 7E-10;</pre>
+		<ul>
+			<li>All of the other numbers</li>
+			<li>AKA <em>floats</em>, <em>doubles</em>, or <em>real numbers</em></li>
+			<li>Positive <code>+</code> or negative <code>-</code></li>
+			<li>Beware of <code>NaN</code></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.float.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Strings
+		</h5>
+		<pre>
+echo 'this is a simple string';
+
+$str = &lt;&lt;&lt;EOD
+Example of "string"
+spanning {$multiple} lines
+using 'heredoc' syntax.
+EOD;</pre>
+		<ul>
+			<li>Series of characters</li>
+			<li>Can be as large as 2GB</li>
+			<li>Parsed or unparsed</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.string.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Unparsed Strings
+		</h5>
+<pre>
+echo ''; //
+echo '\'\$x\''; // '\$x'
+echo '$x'; // $x
+echo '{$x[1]}'; // {$x[1]}
+echo '{$x["date"]}'; // {$x["date"]}
+echo '{$obj->month[12]->name}'; // {$obj->month[12]->name}
+echo '{\$x["date"]}'; // {\$x["date"]}
+echo '{$x['date']}'; // Parse Error
+</pre>
+		<ul>
+			<li>Single quoted <code>'</code> (simplest)</li>
+			<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
+			<li>Does <strong>not</strong> interpret special characters
+			<li>Variables are <strong>not</strong> expanded
+		</ul>
+		</article>
+
+		<article>
+		<h5>
+			Parsed Strings
+		</h5>
+<pre>
+echo ""; // newline
+echo "\"\$x\""; // "$x"
+echo "$x"; // value of x
+echo "{$x[1]}"; // value of x[1]
+echo "{$x['date']}"; // value of x['date']
+echo "{$obj->month[12]->name}"; // December
+echo "{\$x['date']}"; // {$x['date']}
+echo "{$x["date"]}"; // Parse Error
+</pre>
+		<ul>
+			<li>Double quoted <code>"</code></li>
+			<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
+			<li>Interprets special characters</li>
+			<li>Variables are expanded</li>
+		</ul>
+		</article>
+
+		<article>
+		<h5>
+			Arrays
+		</h5>
+		<ul>
+			<li>Ordered map that associates <strong>values</strong> to <strong>keys</strong></li>
+			<li>AKA <em>list</em>, <em>hash table</em>, <em>dictionary</em>, <em>collection</em>, <em>stack</em>, or <em>queue</em></li>
+			<li>Array types
+			<ul>
+				<li>Simple</li>
+				<li>Associative</li>
+				<li>Multi-dimensional</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Simple Arrays
+		</h5>
+		<pre>
+$array = array( 10, 20, 30 );
+$array = array( 'I', 'am', 'TYPO3', );
+$array = [ 'are', 'you?', ]; // as of PHP 5.4</pre>
+		<ul>
+			<li>Comma-separated <strong>Variables</strong></li>
+			<li>Last array element comma is optional</li>
+			<li>PHP 5.4 short array syntax <code>[]</code> vs. <code>array()</code></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Associative Arrays
+		</h5>
+		<pre>
+$array = array( 'foo' => 'bar', 'bar' => 'foo', );
+$array = array( $key1 => $value1, $key2 => $value2, );
+$array = [ 10 => 'foo', 20 => 'bar', ]; // as of PHP 5.4</pre>
+		<ul>
+			<li>Comma-separated <code>key => value</code> pairs</li>
+			<li>Key is an <em>integer</em>, <em>string</em> or <em>constant</em></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Multi-dimensional Arrays
+		</h5>
+		<pre>
+$array = array(
+	'fruits'  => array ( 'a' => 'apple', 'b' => 'banana', ),
+	'numbers' => array ( 1, 2, 3, 4, 5, 6 ),
+	'holes'   => array ( 'first', 5 => 'second', 'third' ),
+);
+
+echo $array['fruits']['a']; // apple
+echo $array['numbers'][2]; // 3
+echo $array['holes'][5]; // second
+unset( $array['holes'][0] ); // removes first
+
+$array['apple']['green'] = 'good'; // new multi-dimensional array</pre>
+		<ul>
+			<li>A simple or associative <em>array</em> of <em>arrays</em></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.array.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Classes and Objects
+		</h5>
+		<pre>
+class foo {
+    function do_foo() { echo 'Doing foo…'; }
+}
+$bar = new foo;
+$bar->do_foo();
+</pre>
+		<ul>
+			<li>Another presentation, there's too much to cover now…
+				<ul>
+					<li>The Basics</li>
+					<li>Properties</li>
+					<li>Class Constants</li>
+					<li>Autoloading Classes</li>
+					<li>Constructors and Destructors</li>
+					<li>Visibility</li>
+					<li>Object Inheritance</li>
+					<li>Scope Resolution Operator (::)</li>
+					<li>Static Keyword</li>
+					<li>Class Abstraction</li>
+					<li>Object Interfaces</li>
+					<li>Traits</li>
+					<li>Overloading</li>
+					<li>Object Iteration</li>
+					<li>Magic Methods</li>
+					<li>Final Keyword</li>
+					<li>Object Cloning</li>
+					<li>Comparing Objects</li>
+					<li>Type Hinting</li>
+					<li>Late Static Bindings</li>
+					<li>Objects and references</li>
+					<li>Object Serialization</li>
+				</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.object.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Resources
+		</h5>
+		<pre>
+$file = fopen( 'data.txt', 'r' );
+$db = mysql_connect( 'localhost', 'mysql_user', 'mysql_password' );</pre>
+		<ul>
+			<li>Holds reference to an external resource…
+			<ul>
+				<li>Opened files</li>
+				<li>Database connections</li>
+				<li>Image canvas areas</li>
+			</ul>
+			</li>
+			<li>Created and used by special functions</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.resource.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			NULL
+		</h5>
+		<pre>
+$var = NULL;</pre>
+		<ul>
+			<li>Represents a variable with no value</li>
+			<li>Only one value…
+			<ul>
+				<li><em>NULL</em></li>
+				<li>CaSe-iNsEnSiTiVe</li>
+			</ul>
+			</li>
+		</ul>
+		<q>There's nothing here</q>
+		<div class='source'>
+			http://php.net/manual/en/language.types.null.php
+		</div>
+		</article>
+
+		<article>
+		<h2>
+			Whew… Variables be done
+		</h2>
+		</article>
+
+		<article>
+		<h4>
+			Constants
+		</h4>
+		<pre>
+define('FOO', 'something, ');
+define('_FOO_2_BAR', 'something different, ');
+const FOO_BAR = 3.1415967; // PHP 5.3.0
+echo FOO . _FOO_2_BAR . FOO_BAR;
+</pre>
+		<ul>
+			<li>Identifier (name) for <em>boolean</em>, <em>integer</em>, <em>float</em> and <em>string</em>
+				<ul>
+					<li>Starts with a letter or underscore</li>
+					<li>Contain any number of letters, numbers, or underscores</li>
+					<li>Always UPPERCASE</li>
+				</ul>
+			</li>
+			<li>Value cannot change</li>
+			<li>Ignores scope</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.constants.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Magical (Predefined) Constants
+		</h4>
+		<pre>
+// where are you in the script execution?
+echo __LINE__ . ':' . basename( __FILE__ ) . '&lt;br /&gt;';
+t3lib_div::devLog( true, __FUNCTION__, 0, false );
+</pre>
+<table>
+      <thead>
+       <tr>
+        <th>Name</th>
+        <th>Description</th>
+       </tr>
+
+      </thead>
+
+      <tbody>
+       <tr>
+        <td><strong><code>__LINE__</code></strong></td>
+        <td>
+         The current line number of the file.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__FILE__</code></strong></td>
+        <td>
+         The full path and filename of the file.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__DIR__</code></strong></td>
+        <td>
+         The directory of the file. Like <strong>dirname(__FILE__)</strong>.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__FUNCTION__</code></strong></td>
+        <td>
+         The function name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__CLASS__</code></strong></td>
+        <td>
+         The class or trait (PHP 5.4) name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__TRAIT__</code></strong></td>
+        <td>
+         The trait name and namespace. (PHP 5.4.0)
+        </td>
+       </tr>
+       
+       <tr>
+        <td><strong><code>__METHOD__</code></strong></td>
+        <td>
+         The class method name.
+        </td>
+       </tr>
+
+       <tr>
+        <td><strong><code>__NAMESPACE__</code></strong></td>
+        <td>
+         The name of the current namespace (case-sensitive) (PHP 5.3.0).
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+		<div class='source'>
+			http://de.php.net/manual/en/language.constants.predefined.php
+		</div>
+		</article>
+
+		<article>
+		<h4>
+			Operators
+		</h4>
+		<pre>
+$a = 1;
+</pre>
+		<ul>
+			<li>Takes 1 or more <em>expressions</em> and yields a <em>value</em></li>
+			<li>Arithmetic Operators</li>
+			<li>Assignment Operators</li>
+			<li>Comparison Operators</li>
+			<li>Incrementing/Decrementing Operators</li>
+			<li>Logical Operators</li>
+			<li>String Operators</li>
+			<li>Array Operators</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Arithmetic Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+	  <td><code>-$a</code></td>
+       <td>Negation</td>
+       <td>Opposite of <code>$a</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a + $b</code></td>
+       <td>Addition</td>
+       <td>Sum of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a - $b</code></td>
+       <td>Subtraction</td>
+       <td>Difference of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a * $b</code></td>
+       <td>Multiplication</td>
+       <td>Product of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a / $b</code></td>
+       <td>Division</td>
+       <td>Quotient of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a % $b</code></td>
+       <td>Modulus</td>
+       <td>Remainder of <code>$a</code> divided by <code>$b</code></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<ul>
+			<li>Just like basic math</li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.operators.arithmetic.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Assignment Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Gets…</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+	  <td><code>$a = 1</code></td>
+	  <td>Set to</td>
+       <td><em>1</em></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a *= -1</code></td>
+       <td>Negated</td>
+       <td>Opposite of <code>$a</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a += $b</code></td>
+       <td>Added to</td>
+       <td>Sum of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a -= $b</code></td>
+       <td>Subtracted from</td>
+       <td>Difference of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a *= $b</code></td>
+       <td>Multiplied by</td>
+       <td>Product of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a /= $b</code></td>
+       <td>Divided by</td>
+       <td>Quotient of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a %= $b</code></td>
+       <td>Mod'd by</td>
+       <td>Remainder of <code>$a</code> divided by <code>$b</code></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<ul>
+			<li>Assign left operand to value of right <em>expression</em></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.assignment.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Comparison Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+       <td><code>$a == $b</code></td>
+       <td>Equal</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is equal to <code>$b</code> after type juggling</td>
+      </tr>
+
+      <tr>
+       <td><code>$a === $b</code></td>
+       <td>Identical</td>
+       <td>
+        <strong><code>TRUE</code></strong> if <code>$a</code> is equal to <code>$b</code> and of same type</td>
+      </tr>
+
+      <tr>
+       <td><code>$a != $b</code></td>
+       <td>Not equal</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not equal to <code>$b</code> after type juggling</td>
+      </tr>
+
+      <tr>
+       <td><code>$a &lt;&gt; $b</code></td>
+       <td>Not equal</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not equal to <code>$b</code> after type juggling</td>
+      </tr>
+
+      <tr>
+       <td><code>$a !== $b</code></td>
+       <td>Not identical</td>
+       <td>
+        <strong><code>TRUE</code></strong> if <code>$a</code> is not equal to <code>$b</code> or not of same type</td>
+      </tr>
+
+      <tr>
+       <td><code>$a &lt; $b</code></td>
+       <td>Less than</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is strictly less than <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a &gt; $b</code></td>
+       <td>Greater than</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is strictly greater than <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a &lt;= $b</code></td>
+       <td>Less than or equal to </td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is less than or equal to <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a &gt;= $b</code></td>
+       <td>Greater than or equal to </td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is greater than or equal to <code>$b</code></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.comparison.php
+			<br />
+			http://de.php.net/manual/en/types.comparisons.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Incrementing/Decrementing Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Effect</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+		  <td><code>++$a</code></td>
+       <td>Pre-increment</td>
+       <td>Increments <code>$a</code> by one, then returns <code>$a</code></td>
+      </tr>
+
+      <tr>
+		  <td><code>$a++</code></td>
+       <td>Post-increment</td>
+       <td>Returns <code>$a</code>, then increments <code>$a</code> by one</td>
+      </tr>
+
+      <tr>
+		  <td><code>--$a</code></td>
+       <td>Pre-decrement</td>
+       <td>Decrements <code>$a</code> by one, then returns <code>$a</code></td>
+      </tr>
+
+      <tr>
+		  <td><code>$a--</code></td>
+       <td>Post-decrement</td>
+       <td>Returns <code>$a</code>, then decrements <code>$a</code> by one</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<ul>
+			<li>Doesn't affect <em>boolean</em>s</li>
+			<li>Decrementing <code>NULL</code> has no effect</li>
+			<li>Incrementing <code>NULL</code> results in <em>1</em></li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.string.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Logical Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+       <td><code>! $a</code></td>
+       <td>Not</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not <strong><code>TRUE</code></strong></td>
+      </tr>
+
+      <tr>
+       <td><code>$a &amp;&amp; $b</code></td>
+       <td>And</td>
+       <td><strong><code>TRUE</code></strong> if both <code>$a</code> and <code>$b</code> are <strong><code>TRUE</code></strong></td>
+      </tr>
+
+      <tr>
+       <td><code>$a || $b</code></td>
+       <td>Or</td>
+       <td><strong><code>TRUE</code></strong> if either <code>$a</code> or <code>$b</code> is <strong><code>TRUE</code></strong></td>
+      </tr>
+
+      <tr>
+       <td><code>$a and $b</code></td>
+       <td>And</td>
+       <td><strong><code>TRUE</code></strong> if both <code>$a</code> and <code>$b</code> are <strong><code>TRUE</code></strong></td>
+      </tr>
+
+      <tr>
+       <td><code>$a xor $b</code></td>
+       <td>Xor</td>
+       <td><strong><code>TRUE</code></strong> if either <code>$a</code> or <code>$b</code> is <strong><code>TRUE</code></strong>, but not both</td>
+      </tr>
+
+      <tr>
+       <td><code>$a or $b</code></td>
+       <td>Or</td>
+       <td><strong><code>TRUE</code></strong> if either <code>$a</code> or <code>$b</code> is <strong><code>TRUE</code></strong></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<ul>
+			<li>Operators are listed in order of precedence</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.logical.php
+			<br />
+			http://de.php.net/manual/en/language.operators.precedence.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			String Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+	  <td><code>$a . $b</code></td>
+	  <td>Concatenation</td>
+       <td><em>$a$b</em></td>
+      </tr>
+
+      <tr>
+	  <td><code>$a .= ' ' . $b</code></td>
+	  <td>Concatenating assignment</td>
+	  <td><em>$a $b</em></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.string.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			Array Operators
+		</h5>
+		<table>
+     <thead>
+      <tr>
+       <th>Example</th>
+       <th>Name</th>
+       <th>Result</th>
+      </tr>
+
+     </thead>
+
+     <tbody>
+      <tr>
+       <td><code>$a + $b</code></td>
+       <td>Union</td>
+       <td>Union of <code>$a</code> and <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a == $b</code></td>
+       <td>Equality</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> and <code>$b</code> have the same key/value pairs</td>
+      </tr>
+
+      <tr>
+       <td><code>$a === $b</code></td>
+       <td>Identity</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> and <code>$b</code> have the same key/value pairs in the same
+        order and of the same types</td>
+      </tr>
+
+      <tr>
+       <td><code>$a != $b</code></td>
+       <td>Inequality</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not equal to <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a &lt;&gt; $b</code></td>
+       <td>Inequality</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not equal to <code>$b</code></td>
+      </tr>
+
+      <tr>
+       <td><code>$a !== $b</code></td>
+       <td>Non-identity</td>
+       <td><strong><code>TRUE</code></strong> if <code>$a</code> is not identical to <code>$b</code></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.array.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Array Union
+		</h5>
+<pre>
+$a = array('a' => 'apple', 'b' => 'banana');
+$b = array('a' => 'pear', 'b' => 'strawberry', 'c' => 'cherry');
+$c = $a + $b; // Union of $a and $b
+
+var_dump($c);
+array(3) {
+  ['a']=> string(5) 'apple' // from left
+  ['b']=> string(6) 'banana' // from left
+  ['c']=> string(6) 'cherry' // from right
+}
+</pre>
+		<ul>
+			<li><strong>keys</strong> and <strong>values</strong> of right <em>array</em> added to left if left <em>array</em> <strong>key</strong> doesn't exist</li>
+			<li><em>Array</em> <em>union</em> is not <strong>array_merge</strong>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.array.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			Array Compare
+		</h5>
+<pre>
+$a = array('apple', 'banana');
+$b = array(1 => 'banana', '0' => 'apple');
+
+var_dump($a == $b); // bool(true), has equality
+var_dump($a === $b); // bool(false), doesn't have identity
+</pre>
+		<div class='source'>
+			http://de.php.net/manual/en/language.operators.array.php
+		</div>
+		</article>
+
+		<article>
+		<h2>
+			Wow… Operators…
+		</h2>
+		</article>
+
+		<article>
+		<h4>
+			Control Structures
+		</h4>
+		<ul>
+			<li><code>if</code>, <code>elseif</code>, <code>else if</code>, <code>else</code></li>
+			<li><code>switch</code></li>
+			<li><em>loops</em>
+			<ul>
+				<li><code>while</code>, <code>do-while</code></li>
+				<li><code>for</code></li>
+				<li><code>foreach</code></li>
+			</ul>
+			</li>
+			<li><em>loop</em> helpers - <code>break</code>, <code>continue</code></li>
+			<li><code>require</code>, <code>include</code>, <code>require_once</code>, <code>include_once</code></li>
+		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.control-structures.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>if</code>, <code>elseif</code>, <code>else if</code>, <code>else</code>
+		</h5>
+		<pre>
+if ( expression ) {
+	…
+} elseif ( expression ) {
+	…
+} else {
+	…
+}
+</pre>
+		<ul>
+			<li><code>if</code>, <code>elseif</code>, <code>else if</code>
+			<ul>
+				<li>Executes when <em>expression</em> evaluates to Boolean <code>TRUE</code></li>
+			</ul>
+			</li>
+			<li><code>else</code>
+			<ul>
+				<li>Executes when prior <code>if</code> & <code>elseif</code>s evaluate to <code>FALSE</code></li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.if.php
+		</div>
+		</article>
+
+      <article class="smaller">
+		<h5>
+			<code>switch</code>
+		</h5>
+		<pre>
+switch ($i) {
+	case 0:
+		echo 'i equals 0';
+		break;
+	case 1:
+	case 2:
+		echo 'i equals ' . $i;
+		break;
+	default:
+		echo 'i is not equal to 0, 1 or 2';
+		break;
+}
+</pre>
+		<ul>
+			<li><code>case</code> - condition to match
+			<li><code>break</code> - stop case execution
+			<li><code>default</code> - default condition when no others match
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.switch.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>while</code>
+		</h5>
+		<pre>
+$i = 1;
+while ($i &lt;= 10) {
+	// the printed value would be $i before the increment 
+	echo $i++;
+}</pre>
+		<ul>
+			<li>Simplest PHP loop</li>
+			<li>Executes when <em>expression</em> evaluates to Boolean <code>TRUE</code></li>
+			<li>Doesn't execute if <em>expression</em> is <code>FALSE</code></li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.while.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>do-while</code>
+		</h5>
+		<pre>
+$i = 0;
+do {
+	echo $i;
+} while ( $i &gt; 0 );</pre>
+		<ul>
+			<li>Always executes once</li>
+			<li>Continues executing when <em>expression</em> evaluates to Boolean <code>TRUE</code></li>
+			<li>Doesn't execute if <em>expression</em> is <code>FALSE</code></li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.do.while.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>for</code>
+		</h5>
+		<pre>
+for (expr1; expr2; expr3) { statement }
+
+for ($i = 1; $i &lt;= 10; $i++) { echo $i; }
+</pre>
+		<ul>
+			<li>PHP's most complex loop</li>
+			<li><em>expr1</em> always evaluated once at loop beginning</li>
+			<li>On each iteration, <em>expr2</em> is evaluated
+			<ul>
+				<li>If <em>expr2</em> is <code>TRUE</code>, then loop continues</li>
+				<li>If <em>expr2</em> is <code>FALSE</code>, then loop ends</li>
+			</ul>
+			</li>
+			<li>After each iteration, <em>expr3</em> is executed</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.for.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>foreach</code>
+		</h5>
+		<pre>
+foreach (array_expression as $value) { statement }
+
+foreach (array_expression as $key =&gt; $value) { statement }
+</pre>
+		<ul>
+			<li>Easy way to iterate over <em>array</em>s and <em>object</em>s</li>
+			<li>Don't call <code>reset( <em>array_expression</em> )</code> before using</li>
+			<li><span class="green">Recommendation</span> - <code>unset( <em>$value</em> )</code> when done</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.foreach.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			<em>loop</em> helper - <code>break</code>
+		</h5>
+		<pre>
+$i = 0;
+while (++$i) {
+	switch ($i) {
+		case 5:
+			break 1;  /* Exit only the switch. */
+		case 10:
+			break 2;  /* Exit the switch and the while. */
+		default:
+			…
+	}
+}
+</pre>
+		<ul>
+			<li>ends execution of the current <em>loop</em></li>
+			<li><code>break n</code> - how many nested levels to break out of</li>
+			<li><code>break 1</code> is same as <code>break</code></li>
+			<li><code>break 0</code> is <em>invalid</em></li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.break.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h5>
+			<em>loop</em> helper - <code>continue</code>
+		</h5>
+		<pre>
+$i = 0;
+while ($i++ < 5) {
+	echo "Outer";
+	while (1) {
+		echo "Middle";
+		while (1) {
+			echo "Inner";
+			continue 3;
+		}
+		echo "This never gets outputted";
+	}
+	echo "This never gets outputted";
+}
+</pre>
+		<ul>
+			<li>Skips rest of current <em>loop</em> execution</li>
+			<li><code>continue n</code> - how many nested levels to continue out of</li>
+			<li><code>continue 1</code> is same as <code>continue</code></li>
+			<li><code>switch</code> can use</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/control-structures.continue.php
+		</div>
+		</article>
+
+		<article>
+		<h5>
+			<code>require</code>, <code>include</code>, <code>require_once</code>, <code>include_once</code>
+		</h5>
+		<pre>
+include 'vars.php';
+include_once 'db.php';
+require('http://www.example.com/file.php?foo=1');
+require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
+</pre>
+		<ul>
+			<li>Evaluates given file using <em>absolute</em>, <em>relative</em> & <em>URL</em> paths</li> 
+			<li>No path? Checks <em>include_path</em>, script & current directory</li>
+			<li>File not found
+			<ul>
+				<li><code>require</code>, <code>require_once</code> - gives <strong>fatal error</strong></li>
+				<li><code>include</code>, <code>include_once</code> - gives <strong>warning</strong></li>
+			</ul>
+			</li>
+			<li>Use <code>return</code> in given file to terminate processing early</li>
+		</ul>
+		<div class='source'>
+			http://www.php.net/manual/en/function.include.php
+		</div>
+		</article>
+
+		<article>
+		<h2>
+			Those Were Control Structures…
+		</h2>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Functions
+		</h4>
+		<pre>
+function makecoffee($types = array('cappuccino'), $coffeeMaker = NULL) {
+    $device = is_null($coffeeMaker) ? 'hands' : $coffeeMaker;
+    return 'Making a cup of '.join(', ', $types).' with $device.\n';
+}
+echo makecoffee();
+echo makecoffee(array('americano'));
+echo makecoffee(array('cappuccino', 'lavazza'), 'teapot');
+
+$func = 'makecoffee';
+$str = $func( array('machiato') );
+echo $str;
+</pre>
+		<ul>
+			<li>Accept…
+			<ul>
+				<li>Any valid PHP code</li>
+				<li>Other <em>functions</em> and <em>class</em> definitions</li>
+				<li>Variable-length argument list</li>
+				<li>If <em>return</em> is omitted, <em>NULL</em> is returned</li>
+			</li>
+			<li>Variable functions…</li>
+			</ul>
+		</ul>
+		<div class='source'>
+			http://de3.php.net/functions
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Predefined Variables
+		</h4>
+		<ul>
+			<li><em>Superglobals</em> - built-in, always available variables
+			<ul>
+				<li><code>$GLOBALS</code> — References all global scope variables</li>
+				<li><code>$_SERVER</code> — Server and execution environment information</li>
+				<li><code>$_GET</code> — HTTP GET variables</li>
+				<li><code>$_POST</code> — HTTP POST variables</li>
+				<li><code>$_FILES</code> — HTTP File Upload variables</li>
+				<li><code>$_COOKIE</code> — HTTP Cookies</li>
+				<li><code>$_SESSION</code> — Session variables</li>
+				<li><code>$_REQUEST</code> — HTTP Request (GET, POST & COOKIE) variables</li>
+				<li><code>$_ENV</code> — Environment variables</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/reserved.variables.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Deprecated Predefined Variables
+		</h4>
+		<ul>
+			<li class="red">Deprecated since PHP 4.1.0</li>
+			<li>Don't use these…
+			<ul>
+			<li><code>$HTTP_SERVER_VARS</code></li>
+			<li><code>$HTTP_GET_VARS</code></li>
+			<li><code>$HTTP_POST_VARS</code></li>
+			<li><code>$HTTP_POST_FILES</code></li>
+			<li><code>$HTTP_SESSION_VARS</code></li>
+			<li><code>$HTTP_ENV_VARS</code></li>
+			<li><code>$HTTP_COOKIE_VARS</code></li>
+			</li>
+			</ul>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/reserved.variables.php
+		</div>
+		</article>
+
+		<article class="smaller">
+		<h4>
+			Other Predefined Variables
+		</h4>
+		<ul>
+			<li><code>$php_errormsg</code> — Previous error message
+				<ul>
+					<li>Requires <strong>track_errors</strong></li>
+				</ul>
+			</li>
+			<li><code>$HTTP_RAW_POST_DATA</code> — Raw POST data
+				<ul>
+					<li>Requires <strong>always_populate_raw_post_data</strong></li>
+				</ul>
+			</li>
+			<li><code>$http_response_header</code> — HTTP response headers
+				<ul>
+					<li>similar to <strong>get_headers()</strong></li>
+				</ul>
+			</li>
+			<li>For command line PHP…
+			<ul>
+				<li><code>$argc</code> — The number of arguments passed to script</li>
+				<li><code>$argv</code> — Array of arguments passed to script</li>
+				<li>Both require <strong>register_argc_argv</strong></li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://de.php.net/manual/en/reserved.variables.php
+		</div>
+		</article>
+
+		<article>
+		<h2>
+			Deep… Language Reference is 
+		</h2>
+		</article>
+
+		<article>
+		<h3>
+			Simple Optimizations for PHP
+		</h3>
+		<ul>
+			<li>Unix Line Endings</li>
+			<li>Quoting Array Keys Correctly</li>
+			<li>Understand Operator Workings</li>
+			<li>Variable Initialization </li>
+			<li>Yoda Conditions</li>
+			<li>Comment Out Code</li>
+			<li><strong>empty</strong> vs. <strong>count</strong></li>
+			<li><strong>empty</strong> vs. <strong>isset</strong></li>
+			<li>String Quoting</li>
+			<li><strong>echo</strong> vs. <strong>print</strong></li>
+			<li><strong>count</strong> and <em>for</em> <em>loops</em></li>
+		</ul>
+		</article>
+
+		<article>
+		<h3>
+			Use Unix Line Endings
+		</h3>
+		<ul>
+			<li>Cross-platform friendly</li>
+			<li>Consistent for all developers</li>
+			<li>Prevent whitespace based erratic PHP errors</li>
+		</ul>
+		<pre>
+\n		// Unix
+\r\n	// Windows
+
+// Windows gone bad on Unix
+\n<span class="blue">^M</span>
+</pre>
+		<div class="source">
+			http://en.wikipedia.org/wiki/Newline
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			Quoting Array Keys Correctly
+		</h3>
+		<ul>
+		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
+		<li><em>Number</em> keys don't need quotes</li>
+		</ul>
+		<pre>
+$foo['bar'] // correct
+$foo[bar] // works, but is not correct and gives PHP Notices
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Understand Operator Workings
+		</h3>
+		<ul>
+		<li>Assignment, equality, and identity are not the same</li>
+		</ul>
+<pre>
+$a = 1; // a is an integer by context
+($a = 1) // true; also assigning $a; possible logic error
+($a == 1) // true
+($a == '1') // true
+($a === 1) // true
+($a === '1') // false; '1' is a string, not integer like $a
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Variable Initialization 
+		</h3>
+		<ul>
+			<li>Initialize your variables
+				<ul>
+					<li><code>$a = 1</code> vs. <code>$a++</code></li>
+					<li>Get expected results</li>
+					<li>Avoid PHP Notices</li>
+				</ul>
+			</li>
+		</ul>
+		<pre>
+$array = [ 0, 1, 1, 2, 3, 5 ];
+$string = '';
+foreach ( $array as $key =&gt; $value ) {
+	$string .= $key . ' ' . $value . ', ';
+}
+echo $string;
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Yoda Conditions
+		</h3>
+		<ul>
+			<li>Use Yoda Conditions
+				<ul>
+					<li>Right side <em>variable</em>, left side <em>constants</em> or <em>literals</em></li>
+				<li>Prevents assignment</li>
+				<li>Prevents logic errors</li>
+				</ul>
+			</li>
+		</ul>
+<pre>
+$a = 1;
+if (1 = $a) // "Parse error: syntax error, unexpected '=''
+if (1 == $a) // true
+if ($a = 1) // true; assigns $a and is possible logic error
+if ($a == 1) // true
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			Comment Out Code
+		</h3>
+		<ul>
+			<li>Use <em>if</em> control structure to comment out code chunks
+			<ul>
+				<li>Easier to enable and know what to remove later on</li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+echo 'hello';
+if ( FALSE ) {
+	echo ' cold,';
+	echo ' cruel';
+	… // long convoluted stuff
+}
+echo ' world';
+
+echo 'hello';
+// echo ' cold,';
+// echo ' cruel';
+// … // long convoluted stuff
+echo ' world';
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			<strong>empty</strong> vs. <strong>count</strong>
+		</h3>
+		<ul>
+			<ul>
+			<li>Use <strong>empty</strong> vs. <strong>count</strong> for checking <em>arrays</em>
+				<li>Faster</li>
+				<li>Code is easier to maintain</li>
+				<li>Works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+$arr = array();
+if ( empty( $arr ) ) { … }
+vs.
+if ( 0 == count( $arr ) ) { … }
+</pre>
+		<div class='source'>
+			http://de3.php.net/manual/en/function.empty.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			<strong>empty</strong> vs. <strong>isset</strong>
+		</h3>
+		<ul>
+			<li>Use <strong>empty</strong> vs. <strong>isset</strong> for checking if item exists
+			<ul>
+				<li>Faster</li>
+				<li>Code is easier to maintain</li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+if ( ! empty( $arr[ 1 ] ) ) { … }
+vs.
+if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
+if ( isset( $arr[ 1 ] ) && '' != $arr[ 1 ] ) { … }
+if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
+</pre>
+		<div class='source'>
+			http://de3.php.net/manual/en/function.empty.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			String Quoting
+		</h3>
+		<ul>
+			<li>Double-quote vs. single-quote AKA " vs. '</li>
+			<li>Fastest to slowest shown below of 10,000 iterations
+				<ul>
+					<li>Time in microseconds</li>
+					<li>That's 1/1,000,000 of a second</li>
+				</ul>
+			</li>
+		</ul>
+		<p><img src="images/double-single-quote-performance.png" /></p>
+		<p>Reality is… they're all really close to each other</p>
+		</article>
+
+		<article class="smaller">
+		<h3>
+			String Quoting
+		</h3>
+<pre>
+function test_double_quote() {
+	return " hello ";
+}
+function test_single_quote() {
+	return ' hello ';
+}
+function test_single_quote_concatenated() {
+	return ' hello ' . ' world ';
+}
+function test_double_quote_concatenated() {
+	return " hello " . " world ";
+}
+function test_double_quote_concatenated_variable() {
+	$world						= "world";
+	return " hello " . $world;
+}
+function test_single_quote_concatenated_variable() {
+	$world						= 'world';
+	return ' hello ' . $world;
+}
+function test_double_quote_variable() {
+	$world						= "world";
+	return " hello $world";
+}
+</pre>
+		<p>Double-quote vs. single-quote test functions</p>
+		</article>
+
+		<article>
+		<h3>
+			String Quoting
+		</h3>
+		<ul>
+			<li>What's the point?
+				<ul>
+					<li>Pick " or ' for complete <em>strings</em> sans <em>variables</em></li>
+					<li>Use complete <em>strings</em> with " or ' and concatenate <em>variables</em></li>
+					<li class="red">Don't use " with <em>variables</em> inside <em>strings</em></li>
+				</ul>
+			</li>
+		</ul>
+<pre>
+// good
+$string = 'I like a bay';
+$string .= "On a sunny day";
+$string .= 'Watching a ' . $blue . ' jay';
+$string .= "Sitting on a " . $sun . " ray";
+
+// ick
+$string = "Me {$rhyme} {$not} so good";
+</pre>
+		</article>
+
+		<article>
+		<h3>
+			<strong>echo</strong> vs. <strong>print</strong>
+		</h3>
+		<ul>
+			<li><strong>echo</strong> and <strong>print</strong> are language contructs</li>
+			<li>They're…
+			<ul>
+				<li>Not functions, normally used without parentheses</li>
+				<li>Interchangeable &mdash; just use <strong>echo</strong>
+				<ul>
+					<li><strong>echo</strong> returns <em>NULL</em></li>
+					<li><strong>print</strong> returns <em>1</em></li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+<pre>
+echo 'hello';
+print 'hello';
+echo( 'hello' );
+print( 'hello' );
+echo "foo is $foo";
+print "foo is $foo";
+</pre>
+		<div class='source'>
+			http://de.php.net/manual/en/function.echo.php
+			<br />
+			http://de.php.net/manual/en/function.print.php
+		</div>
+		</article>
+
+		<article>
+		<h3>
+			<strong>count</strong> and <em>for</em> <em>loops</em>
+		</h3>
+		<ul>
+			<li>Calculate <strong>count</strong> before <em>for</em> <em>loops</em></li>
+			<li>Performance matters - <em>expr2</em> always executes</li>
+		</ul>
+<pre>
+$array = array(1, 2, 3, 4);
+// slow because of count on each iteration
+for ( $i = 0; $i &lt; count($array); $i++ ) { echo $i; }
+
+// instead, do this
+$count = count($array);
+for ( $i = 0; $i &lt; $count; $i++ ) { echo $i; }
+
+// or this
+for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
+</pre>
+		</article>
+
+		<article>
+		<h2>That's it…</h2>
+		</article>
+
+		<article>
+		<h3>Comments? Questions?</h3>
+		<p>Ask, speak up, mumble aloud</p>
+		</article>
+
+		<article>
+		<h3>
+			No matter what…
+		</h3>
+		<q>
+			coding consistency is critical to long-term code survival and keeping your hair
+		</q>
+		<div class='author'>
+			me
+		</div>
+		</article>
+
+		<article>
+		<h3>Thank you!</h3>
+		<p>
+		Michael Cannon
+		<br>
+		TYPO3 Vagabond
+		<br>
+		michael.cannon@in2code.de
+		</p>
+		<ul>
+			<li><a href='http://typo3vagabond.com'>typo3vagabond.com</a></li>
+			<li><a href='http://in2code.de'>in2code.de</a></li>
+			<li><a href='http://t3con12-asia.typo3.org/sessions/acceptedpapers/paper/why-are-you-coding-like-this-php-fundamentals.html'>slides</a></li>
+		</ul>
+		</article>
+		</section>
+	</body>
+</html>
