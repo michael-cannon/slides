@@ -22,3 +22,7 @@ tbody td:first-child {
 tbody td:first-child code {
 	background: #F0F0F0;
 }
+
+.highlight {
+	background-color: yellow;
+}

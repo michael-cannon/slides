@@ -272,8 +272,7 @@ if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
 		<ul>
 			<li>Use <code>empty</code> vs. <code>isset</code> for checking if item exists
 			<ul>
-				<li>Faster</li>
-				<li>Code is easier to maintain</li>
+				<li>Code is easier to read & maintain</li>
 			</ul>
 			</li>
 			<li><code>empty</code> returns FALSE if var has a non-empty and non-zero value, else TRUE</li>
@@ -299,10 +298,9 @@ if ( 0 == count( $arr ) ) { … }
 </pre>
 		<ul>
 			<ul>
-			<li>Use <code>empty</code> vs. <code>count</code> for checking <em>arrays</em>
-				<li>Faster</li>
-				<li>Code is easier to maintain</li>
-				<li>Works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
+			<li>Use <code>empty</code> vs. <code>count</code> for checking empty <em>arrays</em>
+				<li>Code is easier to read & maintain</li>
+				<li><code>empty</code> works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
 			</ul>
 			</li>
 		</ul>
@@ -493,7 +491,7 @@ echo $var_2; // outputs 'Bob Jones'
 				<li>Name is CaSe-SeNsItIvE</li>
 				</ul>
 			</li>
-			<li><code>&</code> means <em>assign by reference</em></li>
+			<li><code>&</code> – <em>assign by reference</em> AKA point to this</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.variables.basics.php
@@ -537,7 +535,7 @@ testb(); // outputs 1
 			(Variable) Types
 		</h4>
 		<ul>
-			<li><em>Type Juggling</em></li>
+			<li><strong>Type Juggling</strong></li>
 			<li>Scalar
 				<ul>
 				<li>Booleans</li>
@@ -685,7 +683,7 @@ EOD;</pre>
 echo "\n"; // outputs newline whitespace character
 echo "\"\$x\""; // outputs "$x"
 echo "$x"; // outputs value of x
-echo "{$x[1]}"; // outputs value of x[1]
+echo "$x[1]"; // outputs value of x[1]
 echo "{$x['date']}"; // outputs value of x['date']
 echo "{$obj->month[12]->name}"; // outputs December
 echo "{\$x['date']}"; // outputs {$x['date']}
@@ -757,10 +755,10 @@ $array = array( 10, 20, 30 );
 $array = array( 'I', 'am', 'TYPO3', );
 $array = [ 'are', 'you?' ]; // as of PHP 5.4</pre>
 		<ul>
-			<li>Comma-separated <strong>Variables</strong></li>
+			<li>Comma-separated <em>variables</em></li>
 			<li>Comma after last array element is optional</li>
 			<li>PHP 5.4 short array syntax <code>[]</code> vs. <code>array()</code></li>
-			<li><em>integer</em> keys applied automatically – start at 0</li>
+			<li><em>integer</em> <em>keys</em> applied automatically – start at 0</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.array.php
@@ -777,8 +775,8 @@ $array = array( $key1 => $value1, $key2 => $value2 );
 $array = [ 10 => 'foo', 20 => 'bar' ]; // as of PHP 5.4</pre>
 		<ul>
 			<li>Comma-separated <em>key => value</em> pairs</li>
-			<li>Key identifiers are <em>integer</em>, <em>string</em> or <em>constant</em> types</li>
-			<li>No key given? last ++<em>integer</em> key applied automatically</li>
+			<li><em>Key</em> identifiers are <em>integer</em>, <em>string</em> or <em>constant</em> types</li>
+			<li>No <em>key</em> given? Starting at 0, last <em>integer</em>++ key applied automatically</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.array.php
@@ -908,13 +906,13 @@ $var = NULL;</pre>
 			Constants
 		</h4>
 		<pre>
-define('FOO', 'something, ');
-define('_FOO_2_BAR', 'something different, ');
+define( 'FOO', 'something, ' );
+define( '_FOO_2_BAR', 'something different, ' );
 const FOO_BAR = 3.1415967; // PHP 5.3.0
 echo FOO . _FOO_2_BAR . FOO_BAR; // outputs something, something different, 3.1415967
 </pre>
 		<ul>
-			<li>Identifier (name) for <em>boolean</em>, <em>integer</em>, <em>float</em> and <em>string</em></li>
+			<li>Identifier for a static <em>scalar</em> – <em>boolean</em>, <em>integer</em>, <em>float</em> or <em>string</em></li>
 			<li>Format: <code>$[_A-Z][_A-Z0-9]+</code>
 				<ul>
 					<li>Starts with a letter or underscore</li>
@@ -940,7 +938,7 @@ echo FOO . _FOO_2_BAR . FOO_BAR; // outputs something, something different, 3.14
 			Magical (Predefined) Constants
 		</h4>
 		<pre>
-// debug helpers: where are you in the script execution?
+// debug helpers: where are you in script execution?
 echo __LINE__ . ':' . basename( __FILE__ ) . '&lt;br /&gt;';
 t3lib_div::devLog( true, __FUNCTION__, 0, false );
 </pre>
@@ -1028,7 +1026,7 @@ $a = 1;
 $a == $b
 </pre>
 		<ul>
-			<li>Takes 1 or more <em>expressions</em> and yields a <em>value</em></li>
+			<li>Takes 1 or more <em>expressions</em> and yield a <em>value</em></li>
 			<li>Operator types
 			<ul>
 				<li>Arithmetic Operators</li>
@@ -1123,7 +1121,7 @@ $a == $b
      </thead>
 
      <tbody>
-      <tr>
+      <tr class="highlight">
 	  <td><code>$a = 1</code></td>
 	  <td>Set to</td>
        <td><em>1</em></td>
@@ -1191,15 +1189,15 @@ $a == $b
      </thead>
 
      <tbody>
-      <tr>
+      <tr class="highlight">
        <td><code>$a == $b</code></td>
-       <td>Equal</td>
+       <td>Equal (Equality)</td>
        <td><strong><em>TRUE</em></strong> if <code>$a</code> is equal to <code>$b</code> after type juggling</td>
       </tr>
 
-      <tr>
+      <tr class="highlight">
        <td><code>$a === $b</code></td>
-       <td>Identical</td>
+       <td>Identical (Identity)</td>
        <td>
         <strong><em>TRUE</em></strong> if <code>$a</code> is equal to <code>$b</code> and of same type</td>
       </tr>
@@ -1278,7 +1276,7 @@ $a == $b
        <td>Increments <code>$a</code> by one, then returns <code>$a</code></td>
       </tr>
 
-      <tr>
+      <tr class="highlight">
 		  <td><code>$a++</code></td>
        <td>Post-increment</td>
        <td>Returns <code>$a</code>, then increments <code>$a</code> by one</td>
@@ -1403,6 +1401,9 @@ $a == $b
      </tbody>
     
    </table>
+   <ul>
+	   <li>Used to join strings together</li>
+   </ul>
 		<div class='source'>
 			http://php.net/manual/en/language.operators.string.php
 		</div>
@@ -1558,7 +1559,7 @@ if ( expression ) {
 			</li>
 			<li><code>else</code>
 			<ul>
-				<li>Executes when prior <code>if</code> & <code>elseif</code>s evaluate to <em>FALSE</em></li>
+				<li>Executes when prior <code>if</code> & <code>elseif</code> evaluate to <em>FALSE</em></li>
 			</ul>
 			</li>
 		</ul>
@@ -1589,6 +1590,7 @@ switch ($i) {
 			<li><code>case</code> – condition to match
 			<li><code>break</code> – stop case execution
 			<li><code>default</code> – default condition when no others match
+			<li>Useful in place of <code>if(1=$a), elseif(2=$a), elseif(3=$a)…</code></li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/control-structures.switch.php
@@ -1749,13 +1751,14 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work, not PHP
 		<ul>
 			<li>Evaluates given file using <em>absolute</em>, <em>relative</em> & <em>URL</em> paths</li> 
 			<li>No path? Checks <em>include_path</em>, script & current directory for file</li>
-			<li>File not found
+			<li>Use <code>return</code> in given file to terminate processing early</li>
+			<li>Use <code>require_once</code> or <code>include_once</code> to prevent PHP <strong>Fatal error: Cannot redeclare</strong></li>
+			<li>File not found?
 			<ul>
 				<li><code>require</code>, <code>require_once</code> – gives PHP <strong>Fatal error: Failed opening required</strong></li>
 				<li><code>include</code>, <code>include_once</code> – gives PHP <strong>Warning: failed to open stream</strong></li>
 			</ul>
 			</li>
-			<li>Use <code>return</code> in given file to terminate processing early</li>
 		</ul>
 		<div class='source'>
 			http://www.php.net/manual/en/function.include.php
@@ -1773,13 +1776,13 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work, not PHP
 			Functions
 		</h4>
 		<pre>
-function makecoffee($types = array('cappuccino'), $coffeeMaker = NULL) {
+function makecoffee( $types = array('cappuccino'), $coffeeMaker = NULL ) {
     $device = is_null($coffeeMaker) ? 'hands' : $coffeeMaker;
     return 'Making a cup of '.join(', ', $types).' with $device.\n';
 }
 echo makecoffee();
-echo makecoffee(array('americano'));
-echo makecoffee(array('cappuccino', 'lavazza'), 'teapot');
+echo makecoffee( array('americano') );
+echo makecoffee( array('cappuccino', 'lavazza'), 'teapot' );
 
 $func = 'makecoffee';
 $str = $func( array('machiato') );
