@@ -1,0 +1,24 @@
+body {
+	display: initial !important;
+}
+
+/* slide footer */
+.slides.template-in2code > article:not(.nobackground):not(.biglogo) {
+	background: white url('../images/in2code-typo3.png') 710px 625px no-repeat
+} 
+
+/* cover slide */
+.slides.template-in2code article.biglogo {
+	/*
+	background: white url('../images/typo3-logo-shadow.jpg') 50% 50% no-repeat;
+	*/
+	background: white url('../images/wallpaper_typo3_blackboard.jpg') 50% 50% no-repeat;
+}
+
+tbody td:first-child {
+	white-space: nowrap;
+}
+
+tbody td:first-child code {
+	background: #F0F0F0;
+}
