@@ -141,17 +141,21 @@ echo 'This is a test'; /* This comment will cause a problem */
 		<pre>
 $var = 'Bob';
 $Var = 'Joe';
-echo "$var, $Var"; // outputs 'Bob, Joe'
+echo $var . ', ' . $Var; // outputs 'Bob, Joe'
 $var2 = &$var;
 $var2 .= ' Jones';
 echo $var; // outputs 'Bob Jones'
 echo $var2; // outputs 'Bob Jones'
 </pre>
 		<ul>
-			<li>A dollar sign followed by the variable name</li>
-			<li>Starts with a letter or underscore</li>
-			<li>Contain any number of letters, numbers, or underscores</li>
-			<li>Name is CaSe-SeNsItIvE</li>
+			<li>Format: <code>$[_a-zA-Z][_a-zA-Z0-9]+</code>
+				<ul>
+				<li>A dollar sign followed by the variable name</li>
+				<li>Starts with a letter or underscore</li>
+				<li>Contain any number of letters, numbers, or underscores</li>
+				<li>Name is CaSe-SeNsItIvE</li>
+				</ul>
+			</li>
 			<li><code>&</code> means <em>assign by reference</em></li>
 		</ul>
 		<div class='source'>
@@ -164,19 +168,23 @@ echo $var2; // outputs 'Bob Jones'
 			Variable Scope
 		</h4>
 		<pre>
-$a = 1; /* global scope */ 
-include 'b.inc';
+$a = 1; // global scope
+include 'b.php';
 
+// b.php contents
+&lt;?php
 function test() { 
-    echo $a; /* reference to local scope variable, doesn't exist */ 
+	echo $a; // references local scope variable, but doesn't exist
+		// PHP Notice: Undefined variable
 } 
-test(); // no output, possible PHP Notice about uninitialized variable
+test(); // no output
 
 function testb() { 
     global $a;
-    echo $a; /* reference to global scope variable */ 
+    echo $a; // reference to global scope variable
 } 
-testb(); // 1
+testb(); // outputs 1
+?&gt;
 </pre>
 		<ul>
 			<li>A variable is accessible within the context it is defined</li>
@@ -215,7 +223,7 @@ testb(); // 1
 			</li>
 			<li>Pseudo-types
 				<ul>
-					<li><em>Mixed</em> - accepts scalar and compound</li>
+					<li><em>Mixed</em> - accepts <em>scalar</em> and <em>compound</em> types</li>
 					<li><em>Number</em> - either <em>integer</em> or <em>float</em></li>
 				</ul>
 			</li>
@@ -232,8 +240,9 @@ testb(); // 1
 		<pre>
 "42" // is a string
 42 // is an integer
-42 + "28 days" // is an integer
+42 + "28 days" // is an integer, because of string math
 FALSE // is a boolean
+true // is a boolean
 "true" // is a string
 </pre>
 		
@@ -249,7 +258,7 @@ FALSE // is a boolean
 		</h5>
 		<pre>
 $bool = TRUE;
-$bool = FALSE;</pre>
+$bool = false;</pre>
 		<ul>
 			<li>Simplest type
 			<li>Expresses a truth value
@@ -334,18 +343,18 @@ EOD;</pre>
 			Unparsed Strings
 		</h5>
 <pre>
-echo ''; //
-echo '\'\$x\''; // '\$x'
-echo '$x'; // $x
-echo '{$x[1]}'; // {$x[1]}
-echo '{$x["date"]}'; // {$x["date"]}
-echo '{$obj->month[12]->name}'; // {$obj->month[12]->name}
-echo '{\$x["date"]}'; // {\$x["date"]}
-echo '{$x['date']}'; // Parse Error
+echo ''; // outputs empty string
+echo '\'\$x\''; // outputs '\$x'
+echo '$x'; // outputs $x
+echo '{$x[1]}'; // outputs {$x[1]}
+echo '{$x["date"]}'; // outputs {$x["date"]}
+echo '{$obj->month[12]->name}'; // outputs {$obj->month[12]->name}
+echo '{\$x["date"]}'; // outputs {\$x["date"]}
+echo '{$x['date']}'; // outputs PHP Parse error: syntax error, unexpected T_STRING
 </pre>
 		<ul>
 			<li>Single quoted <code>'</code> (simplest)</li>
-			<li>Nowdoc syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code></li>
+			<li><em>Nowdoc</em> syntax (PHP 5.3.0) <code>&lt;&lt;&lt;'EOD'</code> & <code>EOD;</code> like <em>heredoc</em></li>
 			<li>Does <strong>not</strong> interpret special characters
 			<li>Variables are <strong>not</strong> expanded
 		</ul>
@@ -356,18 +365,18 @@ echo '{$x['date']}'; // Parse Error
 			Parsed Strings
 		</h5>
 <pre>
-echo ""; // newline
-echo "\"\$x\""; // "$x"
-echo "$x"; // value of x
-echo "{$x[1]}"; // value of x[1]
-echo "{$x['date']}"; // value of x['date']
-echo "{$obj->month[12]->name}"; // December
-echo "{\$x['date']}"; // {$x['date']}
-echo "{$x["date"]}"; // Parse Error
+echo "\n"; // outputs newline
+echo "\"\$x\""; // outputs "$x"
+echo "$x"; // outputs value of x
+echo "{$x[1]}"; // outputs value of x[1]
+echo "{$x['date']}"; // outputs value of x['date']
+echo "{$obj->month[12]->name}"; // outputs December
+echo "{\$x['date']}"; // outputs {$x['date']}
+echo "{$x["date"]}"; // outputs PHP Notice: Undefined variable
 </pre>
 		<ul>
 			<li>Double quoted <code>"</code></li>
-			<li>Heredoc syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
+			<li><em>Heredoc</em> syntax <code>&lt;&lt;&lt;EOD</code> & <code>EOD;</code></li>
 			<li>Interprets special characters</li>
 			<li>Variables are expanded</li>
 		</ul>
@@ -400,10 +409,10 @@ echo "{$x["date"]}"; // Parse Error
 		<pre>
 $array = array( 10, 20, 30 );
 $array = array( 'I', 'am', 'TYPO3', );
-$array = [ 'are', 'you?', ]; // as of PHP 5.4</pre>
+$array = [ 'are', 'you?' ]; // as of PHP 5.4</pre>
 		<ul>
 			<li>Comma-separated <strong>Variables</strong></li>
-			<li>Last array element comma is optional</li>
+			<li>Comma after last array element is optional</li>
 			<li>PHP 5.4 short array syntax <code>[]</code> vs. <code>array()</code></li>
 		</ul>
 		<div class='source'>
@@ -417,11 +426,11 @@ $array = [ 'are', 'you?', ]; // as of PHP 5.4</pre>
 		</h5>
 		<pre>
 $array = array( 'foo' => 'bar', 'bar' => 'foo', );
-$array = array( $key1 => $value1, $key2 => $value2, );
-$array = [ 10 => 'foo', 20 => 'bar', ]; // as of PHP 5.4</pre>
+$array = array( $key1 => $value1, $key2 => $value2 );
+$array = [ 10 => 'foo', 20 => 'bar' ]; // as of PHP 5.4</pre>
 		<ul>
 			<li>Comma-separated <code>key => value</code> pairs</li>
-			<li>Key is an <em>integer</em>, <em>string</em> or <em>constant</em></li>
+			<li>Key identifiers are <em>integer</em>, <em>string</em> or <em>constant</em> types</li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.array.php
@@ -439,10 +448,10 @@ $array = array(
 	'holes'   => array ( 'first', 5 => 'second', 'third' ),
 );
 
-echo $array['fruits']['a']; // apple
-echo $array['numbers'][2]; // 3
-echo $array['holes'][5]; // second
-unset( $array['holes'][0] ); // removes first
+echo $array['fruits']['a']; // outputs apple
+echo $array['numbers'][2]; // outputs 3
+echo $array['holes'][5]; // outputs second
+unset( $array['holes'][0] ); // removes value 'first'
 
 $array['apple']['green'] = 'good'; // new multi-dimensional array</pre>
 		<ul>
@@ -554,10 +563,11 @@ $var = NULL;</pre>
 define('FOO', 'something, ');
 define('_FOO_2_BAR', 'something different, ');
 const FOO_BAR = 3.1415967; // PHP 5.3.0
-echo FOO . _FOO_2_BAR . FOO_BAR;
+echo FOO . _FOO_2_BAR . FOO_BAR; // outputs something, something different, 3.1415967
 </pre>
 		<ul>
-			<li>Identifier (name) for <em>boolean</em>, <em>integer</em>, <em>float</em> and <em>string</em>
+			<li>Identifier (name) for <em>boolean</em>, <em>integer</em>, <em>float</em> and <em>string</em></li>
+			<li>Format: <code>$[_A-Z][_A-Z0-9]+</code>
 				<ul>
 					<li>Starts with a letter or underscore</li>
 					<li>Contain any number of letters, numbers, or underscores</li>
@@ -565,7 +575,12 @@ echo FOO . _FOO_2_BAR . FOO_BAR;
 				</ul>
 			</li>
 			<li>Value cannot change</li>
-			<li>Ignores scope</li>
+			<li>Ignores scope
+				<ul>
+					<li>Should be declared before usage</li>
+					<li>PHP Notice: Use of undefined constant TBD</li>
+				</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.constants.php
@@ -577,7 +592,7 @@ echo FOO . _FOO_2_BAR . FOO_BAR;
 			Magical (Predefined) Constants
 		</h4>
 		<pre>
-// where are you in the script execution?
+// debug helpers: where are you in the script execution?
 echo __LINE__ . ':' . basename( __FILE__ ) . '&lt;br /&gt;';
 t3lib_div::devLog( true, __FUNCTION__, 0, false );
 </pre>
@@ -664,13 +679,17 @@ $a = 1;
 </pre>
 		<ul>
 			<li>Takes 1 or more <em>expressions</em> and yields a <em>value</em></li>
-			<li>Arithmetic Operators</li>
-			<li>Assignment Operators</li>
-			<li>Comparison Operators</li>
-			<li>Incrementing/Decrementing Operators</li>
-			<li>Logical Operators</li>
-			<li>String Operators</li>
-			<li>Array Operators</li>
+			<li>Operator types
+			<ul>
+				<li>Arithmetic Operators</li>
+				<li>Assignment Operators</li>
+				<li>Comparison Operators</li>
+				<li>Incrementing/Decrementing Operators</li>
+				<li>Logical Operators</li>
+				<li>String Operators</li>
+				<li>Array Operators</li>
+			</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/language.operators.php
@@ -1318,9 +1337,9 @@ $i = 0;
 while (++$i) {
 	switch ($i) {
 		case 5:
-			break 1;  /* Exit only the switch. */
+			break 1; // Exit switch and continue with while
 		case 10:
-			break 2;  /* Exit the switch and the while. */
+			break 2; // Exit switch and while
 		default:
 			…
 	}
@@ -1344,16 +1363,16 @@ while (++$i) {
 		<pre>
 $i = 0;
 while ($i++ < 5) {
-	echo "Outer";
+	echo 'Outer';
 	while (1) {
-		echo "Middle";
+		echo 'Middle';
 		while (1) {
-			echo "Inner";
-			continue 3;
+			echo 'Inner';
+			continue 3; // skips all remaining while loop operations
 		}
-		echo "This never gets outputted";
+		echo 'This never gets outputted';
 	}
-	echo "This never gets outputted";
+	echo 'This never gets outputted';
 }
 </pre>
 		<ul>
@@ -1379,11 +1398,11 @@ require_once 'http://www.example.com/file.txt?bar=2'; // doesn't work
 </pre>
 		<ul>
 			<li>Evaluates given file using <em>absolute</em>, <em>relative</em> & <em>URL</em> paths</li> 
-			<li>No path? Checks <em>include_path</em>, script & current directory</li>
+			<li>No path? Checks <em>include_path</em>, script & current directory for file</li>
 			<li>File not found
 			<ul>
-				<li><code>require</code>, <code>require_once</code> - gives <strong>fatal error</strong></li>
-				<li><code>include</code>, <code>include_once</code> - gives <strong>warning</strong></li>
+				<li><code>require</code>, <code>require_once</code> - gives PHP <strong>Fatal error: Failed opening required</strong></li>
+				<li><code>include</code>, <code>include_once</code> - gives PHP <strong>Warning: failed to open stream</strong></li>
 			</ul>
 			</li>
 			<li>Use <code>return</code> in given file to terminate processing early</li>
@@ -1541,12 +1560,12 @@ echo $str;
 		<h3>
 			Use Unix Line Endings
 		</h3>
+		<p><img src="images/windows-line-endings.png" /></p>
 		<ul>
 			<li>Cross-platform friendly</li>
 			<li>Consistent for all developers</li>
 			<li>Prevent whitespace based erratic PHP errors</li>
 		</ul>
-		<p><img src="images/windows-line-endings.png" /></p>
 		<div class="source">
 			http://en.wikipedia.org/wiki/Newline
 		</div>
@@ -1556,23 +1575,21 @@ echo $str;
 		<h3>
 			Quoting Array Keys Correctly
 		</h3>
+		<pre>
+$array = array( 'three' => 'TYPO3' );
+echo $array[ 'three' ]; // outputs TYPO3
+echo $array[ three ]; // outputs TYPO3 and gives PHP Notice: Use of undefined constant
+</pre>
 		<ul>
 		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
 		<li><em>Number</em> keys don't need quotes</li>
 		</ul>
-		<pre>
-$foo['bar'] // correct
-$foo[bar] // works, but is not correct and gives PHP Notices
-</pre>
 		</article>
 
 		<article>
 		<h3>
 			Understand Operator Workings
 		</h3>
-		<ul>
-		<li>Assignment, equality, and identity are not the same</li>
-		</ul>
 <pre>
 $a = 1; // a is an integer by context
 ($a = 1) // true; also assigning $a; possible logic error
@@ -1581,35 +1598,45 @@ $a = 1; // a is an integer by context
 ($a === 1) // true
 ($a === '1') // false; '1' is a string, not integer like $a
 </pre>
+		<ul>
+		<li>Assignment, equality, and identity are not the same</li>
+		</ul>
 		</article>
 
 		<article>
 		<h3>
 			Variable Initialization 
 		</h3>
-		<ul>
-			<li>Initialize your variables
-				<ul>
-					<li><code>$a = 1</code> vs. <code>$a++</code></li>
-					<li>Get expected results</li>
-					<li>Avoid PHP Notices</li>
-				</ul>
-			</li>
-		</ul>
 		<pre>
-$array = [ 0, 1, 1, 2, 3, 5 ];
+$array = array( 0, 1, 1, 2, 3, 5 );
 $string = '';
 foreach ( $array as $key =&gt; $value ) {
 	$string .= $key . ' ' . $value . ', ';
 }
 echo $string;
 </pre>
+		<ul>
+			<li>Initialize your variables
+				<ul>
+					<li><code>$a = 1</code> vs. <code>$a++</code></li>
+					<li>Get expected results</li>
+					<li>Avoid PHP <strong>Notice: Undefined variable</strong></li>
+				</ul>
+			</li>
+		</ul>
 		</article>
 
 		<article>
 		<h3>
 			Yoda Conditions
 		</h3>
+<pre>
+$a = 1;
+if (1 = $a) // "Parse error: syntax error, unexpected '=''
+if (1 == $a) // true
+if ($a = 1) // true; assigns $a and is possible logic error
+if ($a == 1) // true
+</pre>
 		<ul>
 			<li>Use Yoda Conditions
 				<ul>
@@ -1619,26 +1646,12 @@ echo $string;
 				</ul>
 			</li>
 		</ul>
-<pre>
-$a = 1;
-if (1 = $a) // "Parse error: syntax error, unexpected '=''
-if (1 == $a) // true
-if ($a = 1) // true; assigns $a and is possible logic error
-if ($a == 1) // true
-</pre>
 		</article>
 
 		<article>
 		<h3>
 			Comment Out Code
 		</h3>
-		<ul>
-			<li>Use <em>if</em> control structure to comment out code chunks
-			<ul>
-				<li>Easier to enable and know what to remove later on</li>
-			</ul>
-			</li>
-		</ul>
 <pre>
 echo 'hello';
 if ( FALSE ) {
@@ -1654,12 +1667,25 @@ echo 'hello';
 // … // long convoluted stuff
 echo ' world';
 </pre>
+		<ul>
+			<li>Use <em>if</em> control structure to comment out code chunks
+			<ul>
+				<li>Easier to enable and know what to remove later on</li>
+			</ul>
+			</li>
+		</ul>
 		</article>
 
 		<article>
 		<h3>
 			<strong>empty</strong> vs. <strong>count</strong>
 		</h3>
+<pre>
+$arr = array();
+if ( empty( $arr ) ) { … }
+vs.
+if ( 0 == count( $arr ) ) { … }
+</pre>
 		<ul>
 			<ul>
 			<li>Use <strong>empty</strong> vs. <strong>count</strong> for checking <em>arrays</em>
@@ -1669,12 +1695,6 @@ echo ' world';
 			</ul>
 			</li>
 		</ul>
-<pre>
-$arr = array();
-if ( empty( $arr ) ) { … }
-vs.
-if ( 0 == count( $arr ) ) { … }
-</pre>
 		<div class='source'>
 			http://de3.php.net/manual/en/function.empty.php
 		</div>
@@ -1684,6 +1704,13 @@ if ( 0 == count( $arr ) ) { … }
 		<h3>
 			<strong>empty</strong> vs. <strong>isset</strong>
 		</h3>
+<pre>
+if ( ! empty( $arr[ 1 ] ) ) { … }
+vs.
+if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
+if ( isset( $arr[ 1 ] ) && '' != $arr[ 1 ] ) { … }
+if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
+</pre>
 		<ul>
 			<li>Use <strong>empty</strong> vs. <strong>isset</strong> for checking if item exists
 			<ul>
@@ -1692,13 +1719,6 @@ if ( 0 == count( $arr ) ) { … }
 			</ul>
 			</li>
 		</ul>
-<pre>
-if ( ! empty( $arr[ 1 ] ) ) { … }
-vs.
-if ( isset( $arr[ 1 ] ) && count( $arr[ 1 ] ) ) { … }
-if ( isset( $arr[ 1 ] ) && '' != $arr[ 1 ] ) { … }
-if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
-</pre>
 		<div class='source'>
 			http://de3.php.net/manual/en/function.empty.php
 		</div>
@@ -1718,7 +1738,7 @@ if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
 			</li>
 		</ul>
 		<p><img src="images/double-single-quote-performance.png" /></p>
-		<p>Reality is… they're all really close to each other</p>
+		<p>Reality is… they're all really fast, a blink of the eye</p>
 		</article>
 
 		<article class="smaller">
@@ -1739,15 +1759,15 @@ function test_double_quote_concatenated() {
 	return " hello " . " world ";
 }
 function test_double_quote_concatenated_variable() {
-	$world						= "world";
+	$world = "world";
 	return " hello " . $world;
 }
 function test_single_quote_concatenated_variable() {
-	$world						= 'world';
+	$world = 'world';
 	return ' hello ' . $world;
 }
 function test_double_quote_variable() {
-	$world						= "world";
+	$world = "world";
 	return " hello $world";
 }
 </pre>
@@ -1756,55 +1776,55 @@ function test_double_quote_variable() {
 
 		<article>
 		<h3>
-			String Quoting
+			String Quoting - What's the point?
 		</h3>
-		<ul>
-			<li>What's the point?
-				<ul>
-					<li>Pick " or ' for complete <em>strings</em> sans <em>variables</em></li>
-					<li>Use complete <em>strings</em> with " or ' and concatenate <em>variables</em></li>
-					<li class="red">Don't use " with <em>variables</em> inside <em>strings</em></li>
-				</ul>
-			</li>
-		</ul>
 <pre>
-// good
-$string = 'I like a bay';
-$string .= "On a sunny day";
-$string .= 'Watching a ' . $blue . ' jay';
-$string .= "Sitting on a " . $sun . " ray";
-
 // ick
-$string = "Me {$rhyme} {$not} so good";
+$string = "Me {$rhyme} $not {$so['good']}";
+
+// good
+$string = 'I like a bay ';
+$string .= "On a sunny day ";
+$string .= 'Watching a ' . $blue . ' jay ' . "Sitting on a " . $sun['ray'];
+$fav_string = sprintf( 'I %s %s', $love, $mentoring['developers'] );
 </pre>
+		<ul>
+			<li>Pick " or ' for complete <em>strings</em> sans <em>variables</em></li>
+			<li>Use complete <em>strings</em> with " or ' and concatenate <em>variables</em></li>
+			<li class="red">Don't use " with <em>variables</em> inside <em>strings</em>
+			<ul>
+			<li class="green">Use <strong>sprintf</strong> or <strong>printf</strong> instead</li>
+		</ul>
+		</li>
+		</ul>
 		</article>
 
 		<article>
 		<h3>
 			<strong>echo</strong> vs. <strong>print</strong>
 		</h3>
-		<ul>
-			<li><strong>echo</strong> and <strong>print</strong> are language contructs</li>
-			<li>They're…
-			<ul>
-				<li>Not functions, normally used without parentheses</li>
-				<li>Interchangeable &mdash; just use <strong>echo</strong>
-				<ul>
-					<li><strong>echo</strong> returns <em>NULL</em></li>
-					<li><strong>print</strong> returns <em>1</em></li>
-				</ul>
-				</li>
-			</ul>
-			</li>
-		</ul>
 <pre>
 echo 'hello';
 print 'hello';
 echo( 'hello' );
 print( 'hello' );
-echo "foo is $foo";
-print "foo is $foo";
+echo 'foo is ' . $foo;
+print 'foo is ' . $foo;
 </pre>
+		<ul>
+			<li><strong>echo</strong> and <strong>print</strong> are language contructs</li>
+			<li>They're…
+			<ul>
+				<li>Not functions, normally used without parentheses</li>
+				<li>Essentially interchangeable &mdash; just use <strong>echo</strong>
+				<ul>
+					<li><strong>echo</strong> returns <em>NULL</em></li>
+					<li><strong>print</strong> returns <em>1</em> – Useful for <em>file</em> writing</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/function.echo.php
 			<br />
@@ -1816,10 +1836,6 @@ print "foo is $foo";
 		<h3>
 			<strong>count</strong> and <em>for</em> <em>loops</em>
 		</h3>
-		<ul>
-			<li>Calculate <strong>count</strong> before <em>for</em> <em>loops</em></li>
-			<li>Performance matters - <em>expr2</em> always executes</li>
-		</ul>
 <pre>
 $array = array(1, 2, 3, 4);
 // slow because of count on each iteration
@@ -1832,6 +1848,10 @@ for ( $i = 0; $i &lt; $count; $i++ ) { echo $i; }
 // or this
 for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
 </pre>
+		<ul>
+			<li>Calculate <strong>count</strong> before <em>for</em> <em>loops</em></li>
+			<li>Performance matters - <em>expr2</em> always executes</li>
+		</ul>
 		</article>
 
 		<article>

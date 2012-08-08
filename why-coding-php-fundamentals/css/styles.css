@@ -1,3 +1,7 @@
+body {
+	display: initial !important;
+}
+
 /* slide footer */
 .slides.template-in2code > article:not(.nobackground):not(.biglogo) {
 	background: white url('../images/in2code-typo3.png') 710px 625px no-repeat
