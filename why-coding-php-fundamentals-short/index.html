@@ -52,8 +52,19 @@ URL: http://code.google.com/p/html5slides/
 		US, South Korea, Taiwan, India, Germany
 		</p>
 		<h2>
-			PHP Fundamentals Refresher – Short Version
+			PHP Fundamentals Refresher
+			<br />
+			the short version
 		</h2>
+		</article>
+
+		<article>
+		<q>
+		The basics are just that, basic. As we grow with experience, we tend to forget them because they aren't cool anymore.
+		</q>
+		<div class='author'>
+			me
+		</div>
 		</article>
 
 		<article>
@@ -64,12 +75,6 @@ URL: http://code.google.com/p/html5slides/
 			<li>Simple Optimizations for PHP</li>
 			<li>PHP's Language Reference</li>
 		</ul>
-		<q>
-		The basics are just that, basic. As we grow with experience, we tend to forget them because they aren't cool anymore.
-		</q>
-		<div class='author'>
-			me
-		</div>
 		</article>
 
 		<article>
@@ -135,9 +140,13 @@ echo $string;
 		</h3>
 <pre>
 $a = 1;
+
 if (1 = $a) // "Parse error: syntax error, unexpected '=''
-if (1 == $a) // true
+	vs.
 if ($a = 1) // true; assigns $a and is possible logic error
+
+if (1 == $a) // true
+	vs.
 if ($a == 1) // true
 </pre>
 		<ul>
@@ -250,7 +259,8 @@ $fav_saying = sprintf( 'I %s %s', $love, $mentoring['developers'] );
 		<pre>
 $array = array( 'three' => 'TYPO3' );
 echo $array[ 'three' ]; // outputs TYPO3
-echo $array[ three ]; // outputs TYPO3 and gives PHP <strong>Notice: Use of undefined constant</strong>
+echo $array[ three ]; // outputs TYPO3…
+	// and gives PHP <strong>Notice: Use of undefined constant</strong>
 </pre>
 		<ul>
 		<li>Always use quotes around a <em>string</em> literal <em>array</em> index</li>
@@ -272,7 +282,7 @@ if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
 		<ul>
 			<li>Use <code>empty</code> vs. <code>isset</code> for checking if item exists
 			<ul>
-				<li>Code is easier to read & maintain</li>
+				<li>Code is easier to write, read & maintain</li>
 			</ul>
 			</li>
 			<li><code>empty</code> returns FALSE if var has a non-empty and non-zero value, else TRUE</li>
@@ -292,6 +302,7 @@ if ( isset( $arr[ 1 ] ) && 0 &lt; $arr[ 1 ] ) { … }
 		</h3>
 <pre>
 $arr = array();
+
 if ( empty( $arr ) ) { … }
 vs.
 if ( 0 == count( $arr ) ) { … }
@@ -299,7 +310,7 @@ if ( 0 == count( $arr ) ) { … }
 		<ul>
 			<ul>
 			<li>Use <code>empty</code> vs. <code>count</code> for checking empty <em>arrays</em>
-				<li>Code is easier to read & maintain</li>
+				<li>Code is easier to write, read & maintain</li>
 				<li><code>empty</code> works with <em>strings</em>, <em>integers</em>, <em>floats</em>, <em>NULL</em>, <em>boolean</em>, <em>arrays</em>, and <em>variables</em></li>
 			</ul>
 			</li>
@@ -388,7 +399,7 @@ echo ' world';
 		<ul>
 			<li>Use <code>if</code> control structure to comment out code chunks
 			<ul>
-				<li>Easier to enable and know what to remove later on</li>
+				<li>Easier to control and know what to remove later on</li>
 			</ul>
 			</li>
 		</ul>
@@ -422,7 +433,7 @@ echo ' world';
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h4>
 			Basic Syntax
 		</h4>
@@ -434,7 +445,7 @@ echo ' world';
 	echo 'awesome';
 	# always close php
 ?&gt; 
-<strong>HTML</strong> here
+<strong>HTML</strong> <strike>goes</strike> <i>here</i>
 &lt;?php // more php… ?&gt;
 </pre>
 		<ul>
@@ -468,14 +479,7 @@ echo $var; // outputs 'Bob Jones'
 echo $var_2; // outputs 'Bob Jones'
 </pre>
 		<ul>
-			<li>Format: <code>$[_a-zA-Z][_a-zA-Z0-9]+</code>
-				<ul>
-				<li>A dollar sign followed by the variable name</li>
-				<li>Starts with a letter or underscore</li>
-				<li>Contain any number of letters, numbers, or underscores</li>
-				<li>Name is CaSe-SeNsItIvE</li>
-				</ul>
-			</li>
+			<li>Format: <code>$[_a-zA-Z][_a-zA-Z0-9]+</code></li>
 			<li><code>&</code> – <em>assign by reference</em> AKA point to this</li>
 		</ul>
 		<div class='source'>
@@ -561,7 +565,6 @@ testb(); // outputs 1
 "42" // is a string
 42 // is an integer
 42 + "28 days" // is an integer, because of string math
-FALSE // is a boolean
 true // is a boolean
 "true" // is a string
 </pre>
@@ -603,16 +606,19 @@ EOD;
 		</h5>
 <pre>
 echo ''; // outputs empty string
-echo '''; // outputs PHP Parse error: syntax error, unexpected T_CONSTANT_ENCAPSED_STRING
 echo '\n'; // outputs \n
 echo '\'\$x\''; // outputs '\$x'
 echo '$x'; // outputs $x
+echo '''; // outputs PHP Parse error: syntax error, unexpected T_CONSTANT_ENCAPSED_STRING
 </pre>
 		<ul>
 			<li>Single quoted <code>'</code> (simplest)</li>
 			<li>Does <strong>not</strong> interpret special characters
 			<li>Variables are <strong>not</strong> expanded
 		</ul>
+		<div class='source'>
+			http://php.net/manual/en/language.types.string.php
+		</div>
 		</article>
 
 		<article>
@@ -621,7 +627,7 @@ echo '$x'; // outputs $x
 		</h5>
 		<pre>
 $array = array( 'I', 'am', 'TYPO', 3, );
-$array = [ 'are', 'you?' ]; // array shorthand as of PHP 5.4
+$array = [ 'are', 'you?' ]; // PHP 5.4 array shorthand
 
 $array = array( 19 => 72, 'foo' => 'bar', 'bar' => 'foo', );
 $array = array( $key1 => $value1, $key2 => $value2 );
@@ -674,13 +680,7 @@ echo FOO . _FOO_2_BAR . FOO_BAR; // outputs something, something different, 3.14
 </pre>
 		<ul>
 			<li>Identifier for a static <em>scalar</em> – <em>boolean</em>, <em>integer</em>, <em>float</em> or <em>string</em></li>
-			<li>Format: <code>$[_A-Z][_A-Z0-9]+</code>
-				<ul>
-					<li>Starts with a letter or underscore</li>
-					<li>Contain any number of letters, numbers, or underscores</li>
-					<li>Always UPPERCASE</li>
-				</ul>
-			</li>
+			<li>Format: <code>$[_A-Z][_A-Z0-9]+</code></li>
 			<li>Value cannot change</li>
 			<li>Ignores scope
 				<ul>
@@ -1217,7 +1217,7 @@ foreach (array_expression as $key =&gt; $value) { statement }
 		</div>
 		</article>
 
-		<article>
+		<article class="smaller">
 		<h5>
 			<code>require</code>, <code>include</code>, <code>require_once</code>, <code>include_once</code>
 		</h5>
