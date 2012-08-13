@@ -28,3 +28,7 @@ tbody td:first-child code {
 .highlight {
 	background-color: yellow;
 }
+
+.collapse ul {
+	margin-top: 0;
+}

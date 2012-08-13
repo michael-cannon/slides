@@ -77,7 +77,6 @@ URL: http://code.google.com/p/html5slides/
 			<li>Which Shell to Use?</li>
 			<li>Get the Command Line</li>
 			<li>Command Line Basics</li>
-			<li>Alias Commands</li>
 			<li>Command Line Editors</li>
 			<li>Regular Expression Basics</li>
 			<li>Website Permissions</li>
@@ -94,10 +93,10 @@ michael@tlf:~ $</pre>
 		<ul>
 			<li><em>Command Line Interface (CLI)</em> – keyboard controlled</li>
 			<li><em>Graphical User Interface (GUI)</em> – mouse controlled</li>
+			<li><em>command prompt</em> – place to type a command or program request</li>
 			<li><em>shell</em> – interacts between you and operating system</li>
 			<li><em>terminal emulator</em> – program to run <em>shell</em> in</li>
 			<li><em>virtual terminal</em> – On <em>Linux</em>, an always running <em>shell</em> alternative to <em>GUI</em></li>
-			<li><em>command prompt</em> – place to type a command or program request</li>
 		</ul>
 		<div class='source'>
 			http://www.tuxfiles.org/linuxhelp/shell.html
@@ -155,7 +154,7 @@ michael@tlf:~ $</pre>
 				<ul>
 					<li>Available on all *nix systems</li>
 					<li>Consistent working environment</li>
-					<li><em>POSIX</em> standards compliant</li>
+					<li><em>Portable Operating System Interface (POSIX)</em> compliant</li>
 				</ul>
 			</li>
 			<li>Do you work only on your own systems? <code>zsh</code>
@@ -168,8 +167,6 @@ michael@tlf:~ $</pre>
 			</li>
 		</ul>
 		<div class='source'>
-			POSIX – Portable Operating System Interface
-			<br />
 			http://stackoverflow.com/questions/4317247/bash-vs-csh-vs-others-which-is-better-for-application-maintenance
 		</div>
 		</article>
@@ -177,20 +174,20 @@ michael@tlf:~ $</pre>
 
 		<article>
 		<h3>
-			Get the Command Line
+			Get the Command Line - Applications to Use
 		</h3>
 		<ul>
 			<li>Linux
 			<ul>
+				<li><em>Terminal</em></li>
 				<li><em>Guake</em></li>
-				<li><em>Rxvt</em></li>
 				<li><em>TermKit</em></li>
-				<li><em>Terminator</em></li>
 			</ul>
 			</li>
 			<li>OSX
 			<ul>
 				<li><em>Terminal</em></li>
+				<li><em>iTerm</em></li>
 			</ul>
 			</li>
 			<li>Windows (not built-in)
@@ -202,7 +199,6 @@ michael@tlf:~ $</pre>
 			</li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
 		</div>
 		</article>
 
@@ -213,13 +209,15 @@ michael@tlf:~ $</pre>
 		</h3>
 		<ul>
 			<li>Looking Around</li>
+			<li>Looking at Files</li>
 			<li>Moving Around</li>
 			<li>Manipulate Files</li>
 			<li>Manipulate Directories</li>
 			<li><strong>tab</strong> Completion</li>
+			<li>Getting Help</li>
+			<li>Type Less with Alias Helpers</li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
 		</div>
 		</article>
 
@@ -242,8 +240,8 @@ drwx------+ 38 michael staff 1.3K Mar 29 18:31 Library/
 drwsrws--x+ 33 michael _www  1.1K Aug 12 11:39 Sites/
 </pre>
 		<ul>
-			<li><code>pwd</code> – where are you?</li>
-			<li><code>ls</code> – directory contents</li>
+			<li><code>pwd</code> – print working directory</li>
+			<li><code>ls</code> – list directory contents</li>
 			<li><em>absolute pathname</em> – complete directory or file path</li>
 			<li><em>relative pathname</em> – relative directory or file path from current directory</li>
 		</ul>
@@ -255,22 +253,22 @@ drwsrws--x+ 33 michael _www  1.1K Aug 12 11:39 Sites/
 
 		<article>
 		<h4>
-			Looking Around the CLI
+			Looking at Files
 		</h4>
 		<pre>
 michael@tlf:~/tmp $ cat hello.txt 
 Hello Phnom Pehn
 
-michael@tlf:~/tmp $ less hello.txt
+michael@tlf:~/tmp $ less lipsum.txt
 </pre>
 		<ul>
 			<li><code>cat</code> – displays the contents of a text file</li>
 			<li><code>less</code> – like <code>cat</code>, but with pagination
 			<ul>
-				<li><em>" "</em> (space bar) – shows next page</li>
-				<li><em>b</em> – shows previous page</li>
-				<li><em>/</em> (forward slash) – searches</li>
-				<li><em>q</em> – exits</li>
+				<li><strong>" "</strong> (space bar) – shows next page</li>
+				<li><strong>b</strong> – shows previous page</li>
+				<li><strong>/</strong> (forward slash) – searches</li>
+				<li><strong>q</strong> – exits</li>
 			</ul>
 			</li>
 		</ul>
@@ -371,143 +369,279 @@ dir2/
 			<strong>tab</strong> Completion
 		</h4>
 		<pre>
+michael@tlf:~ $ cat /etc/c[tab]
+com.apple.named.conf.proxy             csh.login
+com.apple.screensharing.agent.launchd  csh.logout
+csh.cshrc                              cups/
+michael@tlf:~ $ cat /etc/cs[tab]
+csh.cshrc   csh.login   csh.logout  
+michael@tlf:~ $ cat /etc/csh.l[tab]
+csh.login   csh.logout  
+michael@tlf:~ $ cat /etc/csh.logout 
 </pre>
 		<ul>
-			<li>Basic Syntax</li>
-			<li>(Variable) Types
-			<ul>
-				<li>Constants</li>
-				<li>Operators</li>
-			</ul>
-			</li>
-			<li>Functions
-			<ul>
-				<li>Constants</li>
-				<li>Control Structures</li>
-			</ul>
-			</li>
-			<li>Variables</li>
-			<li>Predefined Variables</li>
+			<li>Automatic directory and file name completion</li>
+			<li>Start typing and then press <strong>tab</strong> to autocomplete</li>
+			<li>If no results, press <strong>tab</strong> twice to view same lettered names</li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
-		</div>
-		</article>
-
-
-		<article>
-		<h3>
-			Alias Commands
-		</h3>
-		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
-		</ul>
-		<div class='source'>
-			http://de.php.net/manual/en/langref.php
-		</div>
-		</article>
-
-
-		<article>
-		<h3>
-			Command Line Editors
-		</h3>
-		<ul>
-			<li><code>nano</code> & <code>pico</code>
-			<ul>
-				<li><strong>CTRL-X y &lt;enter&gt;</strong> – save and exit</li>
-				<li>All commands at the bottom of screen</li>
-				<li>Caret character "^" means <em>Control</em> – <strong>^X</strong> means <strong>Ctrl-X</strong></li>
-				</ul>
-			</li>
-			<li><code>vi</code> & <code>vim</code>
-			<ul>
-				<li><strong>&lt;esc&gt;</strong> – <em>Normal mode</em></li>
-				<li><strong>i</strong> – <em>Insert mode</em>
-				<ul>
-					<li><strong>h</strong> to go left</li>
-					<li><strong>j</strong> to go down</li>
-					<li><strong>k</strong> to go up</li>
-					<li><strong>l</strong> to go right</li>
-				</ul>
-				</li>
-				<li><strong>&lt;esc&gt; :wq &lt;enter&gt;</strong> – save and exit</li>
-				<li><strong>&lt;esc&gt; :help &lt;enter&gt;</strong> for manual</li>
-				</ul>
-			</li>
-		</ul>
-		<div class='source'>
-			http://myy.helia.fi/~karte/command_line.html
-			<br />
-
-		</div>
-		</article>
-
-
-		<article>
-		<h3>
-			Regular Expression Basics
-		</h3>
-		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
-		</ul>
-		<div class='source'>
-			http://de.php.net/manual/en/langref.php
-		</div>
-		</article>
-
-
-		<article>
-		<h3>
-			Website Permissions
-		</h3>
-		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
-		</ul>
-		<div class='source'>
-			http://de.php.net/manual/en/langref.php
+			http://www.tuxfiles.org/linuxhelp/tabtrick.html
 		</div>
 		</article>
 
 
 		<article>
 		<h4>
-			Topic Header
+			Getting Help
 		</h4>
 		<pre>
+michael@tlf:~ $ man ls
+</pre>
+		<p><img src="images/man-ls.png" /></p>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/manpages.html
+		</div>
+		</article>
+
+
+		<article class="smaller">
+		<h4>
+			Getting Help
+		</h4>
+<pre>
+michael@tlf:~ $ gzip --help
+Usage: gzip [OPTION]... [FILE]...
+Compress or uncompress FILEs (by default, compress FILES in-place).
+
+	-c, --stdout      write on standard output, keep original files unchanged
+	-d, --decompress  decompress
+…
+michael@tlf:~ $ man gzip
+michael@tlf:~ $ apropos gzip
+to-gzip(1)               - converts .Z and .lzo files to gzip format
+gzip(1), gunzip(1), zcat(1) - compress or expand files
+zforce(1)                - force a '.gz' extension on all gzip files
 </pre>
 		<ul>
-			<li>Basic Syntax</li>
-			<li>(Variable) Types
+			<li><code>command --help</code> or <code>command -h</code> – short built-in help for <em>command</em></li>
+			<li><code>man command</code> – display the on-line manual pages for <em>command</em>
 			<ul>
-				<li>Constants</li>
-				<li>Operators</li>
+				<li>Uses <code>less</code> navigation – <strong>space, b, /, q</strong></li>
 			</ul>
 			</li>
-			<li>Functions
-			<ul>
-				<li>Constants</li>
-				<li>Control Structures</li>
-			</ul>
-			</li>
-			<li>Variables</li>
-			<li>Predefined Variables</li>
+			<li><code>apropos string</code> – search the <em>whatis</em> database for <em>string</em></li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
+			http://www.tuxfiles.org/linuxhelp/manpages.html
+		</div>
+		</article>
+
+
+		<article class="smaller">
+		<h4>
+			Type Less with Alias Helpers
+		</h4>
+		<pre>
+michael@tlf:~ $ alias la="ls -a" 
+michael@tlf:~ $ la
+.CFUserTextEncoding    .crash_report_preview  .macports       Library
+.DS_Store	       .crash_reportrc	      .matplotlib     Movies
+
+michael@tlf:~ $ alias ll="ls -lh"
+michael@tlf:~ $ ll
+total 4.0K
+drwx------+  8 michael staff  272 Aug 13 13:59 Desktop/
+drwx------+ 14 michael staff  476 Mar  2 17:50 Documents/
+drwsrws--x+ 33 michael _www  1.1K Aug 12 11:39 Sites/
+
+michael@tlf:~ $ alias hisg='history | \grep'
+michael@tlf:~ $ hisg cp
+2  2012-06-21 17:39:02 vi gitadd gitcp gitrm 
+5  2012-06-21 17:43:32 ./gitcp svnmv gitmv
+43  2012-06-21 17:58:28 cp cvs2cl.pl cvs2cl.pl.o
+
+michael@tlf:~ $ alias ..="cd .."
+</pre>
+		<ul>
+			<li><code>alias shortcut="command"</code> – Create <em>command</em> shortcuts</li>
+		</ul>
+		<div class='source'>
+			http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/
+		</div>
+		</article>
+
+
+		<article class="smaller collapse">
+		<h3>
+			Command Line Editors – <code>nano</code> & <code>pico</code>
+		</h3>
+		<p><img src="images/nano-bashrc.png" /></p>
+		<ul>
+			<li><code>nano</code> & <code>pico</code> – easy to use, inflexible
+			<ul>
+				<li><strong>CTRL-X y &lt;enter&gt;</strong> – save and exit</li>
+				<li>All commands at the bottom of screen</li>
+				<li>Caret character "^" means <strong>Control</strong> – <em>^X</em> means press <strong>Ctrl-X</strong></li>
+				</ul>
+			</li>
+		</ul>
+		</article>
+
+
+		<article class="smaller collapse">
+		<h3>
+			Command Line Editors – <code>vi</code> & <code>vim</code>
+		</h3>
+		<p><img src="images/vi-bashrc.png" /></p>
+		<ul>
+			<li><code>vi</code> & <code>vim</code> – steep learning curve, flexible, powerful
+			<ul>
+				<li><strong>&lt;esc&gt;</strong> – <em>Normal mode</em>
+				<ul>
+					<li><strong>h</strong> to go left, <strong>l</strong> to go right</li>
+					<li><strong>k</strong> to go up, <strong>j</strong> to go down</li>
+				</ul>
+				</li>
+				<li><strong>/</strong> (forward slash) – <em>Search mode</em>
+				<ul>
+					<li><strong>n</strong> find next, <strong>N</strong> find previous</li>
+				</ul>
+				</li>
+				<li><strong>i</strong> – <em>Insert mode</em>
+				<ul>
+					<li><strong>&lt;esc&gt; :wq &lt;enter&gt;</strong> – save and exit</li>
+					<li><strong>&lt;esc&gt; :help &lt;enter&gt;</strong> for manual</li>
+				</ul>
+				</li>
+				</ul>
+			</li>
+		</ul>
+		</article>
+
+
+		<article class="smaller">
+		<h3>
+			Regular Expression Basics - Shell Wildcards
+		</h3>
+		<pre>
+# Move all "linux" named HTML files into directory dir1
+michael@tlf:~ $ mv *linux*.html dir1
+
+# List files and directories beginning with mk or git
+michael@tlf:~ $ ls {mk,git}*
+
+# List files and directories not starting with letters a to r
+michael@tlf:~/bin $ ls [!a-r]*
+</pre>
+		<table>
+			<thead>
+				<tr>
+					<th><em>Wildcard</em></th>
+					<th><em>Matches</em></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>*</strong></td>
+					<td>zero or more characters</td>
+				</tr>
+				<tr>
+					<td><strong>?</strong></td>
+					<td>exactly one character</td>
+				</tr>
+				<tr>
+					<td><strong>[abcde]</strong></td>
+					<td>exactly one character listed</td>
+				</tr>
+				<tr>
+					<td><strong>[a-e]</strong></td>
+					<td>exactly one character in the given range</td>
+				</tr>
+				<tr>
+					<td><strong>[!abcde]</strong></td>
+					<td>any character that is not listed</td>
+				</tr>
+				<tr>
+					<td><strong>[!a-e]</strong></td>
+					<td>any character that is not in the given range</td>
+				</tr>
+				<tr>
+					<td><strong>{debian,linux}</strong></td>
+					<td>exactly one entire word in the options given</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/wildcards.html
+		</div>
+		</article>
+
+
+		<article class="collapse">
+		<h3>
+			Website Permissions - For Development
+		</h3>
+		<p><img src="images/development-permissions.png" /></p>
+		<ul>
+			<li>OSX/*nix
+			<ul>
+				<li><em>owner</em> – your username, read & write, dir exec</li>
+				<li><em>group</em> – web server group, read & write, dir exec</li>
+				<li><em>other</em> – no access</li>
+			</ul>
+			</li>
+			<li>Windows - read the manual</li>
+		</ul>
+		<div class='source'>
+			http://flow3.typo3.org/documentation/guide/partii/installation.html#file-permissions
+		</div>
+		</article>
+
+
+		<article class="smaller">
+		<h3>
+			Website Permissions - For TYPO3 Development, The Code
+		</h3>
+		<pre>
+cd /Users/michael/Sites/aihrus/
+
+# Recursively change owner to michael and group to www
+chown -R michael:www *
+
+# Recursively changing file permissions to remove all access, then grant 
+# read/write to files & directories, and execute to directories
+chmod -R a=,a-s,u+rwX,g+rwX *
+
+# Correct .htaccess permissions to be readable
+chmod a=,a-s,u+rw,g+rw .htaccess
+
+# Enable cron file execution
+find . -type f \( -name "*.sh" -o -name "*.phpsh" \) -exec chmod ug+x {} \;
+
+# Enabling SETUID and SETGID on directories - clean ownership
+find * -type d ! -type l -exec chmod ug+s {} \;
+chmod ug+s /Users/michael/Sites/aihrus/
+
+# Enabling exec on /Users/michael/Sites/aihrus/
+chmod a+X /Users/michael/Sites/aihrus/
+</pre>
+		<div class='source'>
+			https://github.com/typo3-vagabond/skel/blob/master/bin/websitepermissions
 		</div>
 		</article>
 
 
 		<article>
-		<h3>Comments? Questions?</h3>
-		<p>Ask, speak up, mumble aloud</p>
+		<h3>
+			More Useful Tips
+		</h3>
+		<ul>
+			<li><em>Humble Linux cheat sheet</em> – http://www.tuxfiles.org/linuxhelp/linuxcommands.html</li>
+			<li><em>Linux keyboard shortcuts</em> – http://www.tuxfiles.org/linuxhelp/shortcuts.html</li>
+			<li><em>50 Frequently Used *nix Commands</em> – http://www.thegeekstuff.com/2010/11/50-linux-commands/</li>
+			<li><em>Practical Linux Find Command Examples</em> – http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/</li>
+			<li><em>TYPO3 Introduction to Git</em> – http://wiki.typo3.org/Introduction_(Git)</li>
+		</ul>
 		</article>
 
 
@@ -518,6 +652,12 @@ dir2/
 		<div class='author'>
 			me
 		</div>
+		</article>
+
+
+		<article>
+		<h3>Comments? Questions?</h3>
+		<p>Ask, speak up, mumble aloud</p>
 		</article>
 
 
