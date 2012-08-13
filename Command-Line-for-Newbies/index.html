@@ -90,8 +90,7 @@ URL: http://code.google.com/p/html5slides/
 			Terminology
 		</h3>
 		<pre>
-me@puter: ~$
-		</pre>
+michael@tlf:~ $</pre>
 		<ul>
 			<li><em>Command Line Interface (CLI)</em> – keyboard controlled</li>
 			<li><em>Graphical User Interface (GUI)</em> – mouse controlled</li>
@@ -108,11 +107,25 @@ me@puter: ~$
 
 		<article>
 		<h3>
+			<code>Command Line Interface (CLI)</code>
+		</h3>
+		<p><img src="images/michaels-Terminal-bash.png" /></p>
+		<ul>
+			<li>My <em>bash shell</em> <em>CLI</em> <em>command prompt</em> via OSX's <em>GUI</em> <em>Terminal emulator</em> application</li>
+		</ul>
+		<div class='source'>
+			Michael's <code>bash</code> environment at https://github.com/typo3-vagabond/skel.git
+		</div>
+		</article>
+
+
+		<article>
+		<h3>
 			Which Shell to Use?
 		</h3>
 		<ul>
 			<li>Worry because it's your working environment</li>
-			<li>Benefits
+			<li>Possible benefits
 			<ul>
 				<li>Command/filename completion</li>
 				<li>History manipulation</li>
@@ -138,21 +151,26 @@ me@puter: ~$
 			Shell Recommendations
 		</h4>
 		<ul>
-			<li>Do you work on many different systems?
-			<ul>
-				<li><code>bash</code> – available on all *nix systems</li>
-			</ul>
+			<li>Do you work on many different systems? <code>bash</code>
+				<ul>
+					<li>Available on all *nix systems</li>
+					<li>Consistent working environment</li>
+					<li><em>POSIX</em> standards compliant</li>
+				</ul>
 			</li>
-			<li>Do you work only on your own systems?
-			<ul>
-				<li><code>zsh</code> – great options, mostly <code>bash</code> compatible</li>
-			</ul>
+			<li>Do you work only on your own systems? <code>zsh</code>
+				<ul>
+					<li>Mostly <code>bash</code> compatible</li>
+					<li>Typo correction</li>
+					<li>Better <strong>tab</strong> completion</li>
+					<li>Additional helper functions</li>
+				</ul>
 			</li>
 		</ul>
 		<div class='source'>
-			http://stackoverflow.com/questions/4317247/bash-vs-csh-vs-others-which-is-better-for-application-maintenance
+			POSIX – Portable Operating System Interface
 			<br />
-			Michael's <code>bash</code> environment `git clone https://github.com/typo3-vagabond/skel.git .skel`
+			http://stackoverflow.com/questions/4317247/bash-vs-csh-vs-others-which-is-better-for-application-maintenance
 		</div>
 		</article>
 
@@ -162,22 +180,24 @@ me@puter: ~$
 			Get the Command Line
 		</h3>
 		<ul>
-			<li>Windows
+			<li>Linux
 			<ul>
-				<li>Cygwin – cygwin.com</li>
-				<li>msysGit – msysgit.github.com</li>
-				<li>Putty – SSH to server CLI – `ssh user@example.com`</li>
-			</ul>
-			</li>
-			<li>*nix
-			<ul>
-				<li>konsole</li>
-				<li>xterm</li>
+				<li><em>Guake</em></li>
+				<li><em>Rxvt</em></li>
+				<li><em>TermKit</em></li>
+				<li><em>Terminator</em></li>
 			</ul>
 			</li>
 			<li>OSX
 			<ul>
-				<li>Terminal</li>
+				<li><em>Terminal</em></li>
+			</ul>
+			</li>
+			<li>Windows (not built-in)
+			<ul>
+				<li><a href="http://cygwin.com">Cygwin</a> – Linux environment</li>
+				<li><a href="http://msysgit.github.com">msysGit</a> – Minimalist Bourne Shell with Git</li>
+				<li><a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">Putty</a> – Telnet and SSH with <em>xterm terminal emulator</em></li>
 			</ul>
 			</li>
 		</ul>
@@ -204,7 +224,7 @@ me@puter: ~$
 		</article>
 
 
-		<article>
+		<article class="smaller">
 		<h4>
 			Looking Around the CLI
 		</h4>
@@ -220,7 +240,7 @@ total 4.0K
 drwx------+  6 michael staff  204 Aug 13 10:19 Desktop/
 drwx------+ 38 michael staff 1.3K Mar 29 18:31 Library/
 drwsrws--x+ 33 michael _www  1.1K Aug 12 11:39 Sites/
-		</pre>
+</pre>
 		<ul>
 			<li><code>pwd</code> – where are you?</li>
 			<li><code>ls</code> – directory contents</li>
@@ -242,7 +262,7 @@ michael@tlf:~/tmp $ cat hello.txt
 Hello Phnom Pehn
 
 michael@tlf:~/tmp $ less hello.txt
-		</pre>
+</pre>
 		<ul>
 			<li><code>cat</code> – displays the contents of a text file</li>
 			<li><code>less</code> – like <code>cat</code>, but with pagination
@@ -267,15 +287,13 @@ michael@tlf:~/tmp $ less hello.txt
 		<pre>
 michael@tlf:~ $ pwd
 /Users/michael
-michael@tlf:~ $ cd ../
-michael@tlf:/Users $ cd michael/
-michael@tlf:~ $ cd /Users/michael/Sites/
-michael@tlf:~/Sites $ pwd
+michael@tlf:~ $ cd ../; pwd
+/Users
+michael@tlf:~ $ cd /Users/michael/Sites/; pwd
 /Users/michael/Sites
-michael@tlf:~/Sites $ cd
-michael@tlf:~ $ pwd
+michael@tlf:~/Sites $ cd; pwd
 /Users/michael
-		</pre>
+</pre>
 		<ul>
 			<li><code>cd [directory]</code> – change directory
 			<ul>
@@ -305,7 +323,7 @@ michael@tlf:~/hmm $ mv today.txt tomorrow.txt; ls
 date.txt  tomorrow.txt
 michael@tlf:~/hmm $ rm tomorrow.txt; ls
 date.txt
-		</pre>
+</pre>
 		<ul>
 			<li><code>cp file file2</code> – copy <em>file</em> to <em>file2</em></li>
 			<li><code>mv file file2</code> – rename <em>file</em> to <em>file2</em></li>
@@ -317,7 +335,7 @@ date.txt
 		</article>
 
 
-		<article>
+		<article class="smaller">
 		<h4>
 			Manipulate Directories
 		</h4>
@@ -334,7 +352,7 @@ michael@tlf:~/hmm $ rmdir dir2; ls
 dir1/
 michael@tlf:~/hmm $ mv dir1/ dir2; ls
 dir2/
-		</pre>
+</pre>
 		<ul>
 			<li><code>mkdir dir1</code> – create directory <em>dir1</em></li>
 			<li><code>rmdir dir1</code> – remove empty directory <em>dir1</em></li>
@@ -353,7 +371,7 @@ dir2/
 			<strong>tab</strong> Completion
 		</h4>
 		<pre>
-		</pre>
+</pre>
 		<ul>
 			<li>Basic Syntax</li>
 			<li>(Variable) Types
@@ -463,7 +481,7 @@ dir2/
 			Topic Header
 		</h4>
 		<pre>
-		</pre>
+</pre>
 		<ul>
 			<li>Basic Syntax</li>
 			<li>(Variable) Types
