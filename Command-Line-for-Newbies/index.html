@@ -73,38 +73,36 @@ URL: http://code.google.com/p/html5slides/
 			Let's Review the Command Line…
 		</h3>
 		<ul>
+			<li>Terminology</li>
 			<li>Which Shell to Use?</li>
-			<li>Get Onto the Command Line</li>
-			<li>Basic Server Commands</li>
-			<li>Navigating the Command Line</li>
+			<li>Get the Command Line</li>
+			<li>Command Line Basics</li>
 			<li>Alias Commands</li>
 			<li>Command Line Editors</li>
 			<li>Regular Expression Basics</li>
 			<li>Website Permissions</li>
-<!--
-* bash or zsh?
-* Basic server commands
-- ls, cd, svn, git,
-* create alias commands
-* navigating on the command line
-- search command line history
-- jump to the beginning / end of a line
-* Using vi & pico editors
-* Website permissions
-* Basics of regex
-- Wildcards (".", "?", "*")
-	? The preceding item is optional and matched at most once.
-	* The preceding item will be matched zero or more times.
-	+ The preceding item will be matched one or more times.
-	{n} The preceding item is matched exactly n times.
-	{n,} The preceding item is matched n or more times.
-	{,m} The preceding item is matched at most m times.
-	{n,m} The preceding item is matched at least n times, but not more than m times.
-	http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/
-- grouping
-- repetition
--->
 		</ul>
+		</article>
+
+
+		<article>
+		<h3>
+			Terminology
+		</h3>
+		<pre>
+me@puter: ~$
+		</pre>
+		<ul>
+			<li><em>Command Line Interface (CLI)</em> – keyboard controlled</li>
+			<li><em>Graphical User Interface (GUI)</em> – mouse controlled</li>
+			<li><em>shell</em> – interacts between you and operating system</li>
+			<li><em>terminal emulator</em> – program to run <em>shell</em> in</li>
+			<li><em>virtual terminal</em> – On <em>Linux</em>, an always running <em>shell</em> alternative to <em>GUI</em></li>
+			<li><em>command prompt</em> – place to type a command or program request</li>
+		</ul>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/shell.html
+		</div>
 		</article>
 
 
@@ -113,9 +111,75 @@ URL: http://code.google.com/p/html5slides/
 			Which Shell to Use?
 		</h3>
 		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
+			<li>Worry because it's your working environment</li>
+			<li>Benefits
+			<ul>
+				<li>Command/filename completion</li>
+				<li>History manipulation</li>
+				<li>Command line editor</li>
+				<li>aliases/functions for custom behaviours</li>
+			</ul>
+			</li>
+			<li>Most common <em>shell</em> options…
+			<ul>
+				<li><code>bash</code> (Bourne Again SHell), <code>csh</code> (C-SHell)</li>
+				<li><code>ksh</code> (Korn SHell), <code>sh</code>, <code>tcsh</code> (Tenex C-SHell), <code>zsh</code></li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://linuxfinances.info/info/unixshells.html
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			Shell Recommendations
+		</h4>
+		<ul>
+			<li>Do you work on many different systems?
+			<ul>
+				<li><code>bash</code> – available on all *nix systems</li>
+			</ul>
+			</li>
+			<li>Do you work only on your own systems?
+			<ul>
+				<li><code>zsh</code> – great options, mostly <code>bash</code> compatible</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://stackoverflow.com/questions/4317247/bash-vs-csh-vs-others-which-is-better-for-application-maintenance
+			<br />
+			Michael's <code>bash</code> environment `git clone https://github.com/typo3-vagabond/skel.git .skel`
+		</div>
+		</article>
+
+
+		<article>
+		<h3>
+			Get the Command Line
+		</h3>
+		<ul>
+			<li>Windows
+			<ul>
+				<li>Cygwin – cygwin.com</li>
+				<li>msysGit – msysgit.github.com</li>
+				<li>Putty – SSH to server CLI – `ssh user@example.com`</li>
+			</ul>
+			</li>
+			<li>*nix
+			<ul>
+				<li>konsole</li>
+				<li>xterm</li>
+			</ul>
+			</li>
+			<li>OSX
+			<ul>
+				<li>Terminal</li>
+			</ul>
+			</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/langref.php
@@ -125,12 +189,14 @@ URL: http://code.google.com/p/html5slides/
 
 		<article>
 		<h3>
-			Get Onto the Command Line
+			Command Line Basics
 		</h3>
 		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
+			<li>Looking Around</li>
+			<li>Moving Around</li>
+			<li>Manipulate Files</li>
+			<li>Manipulate Directories</li>
+			<li><strong>tab</strong> Completion</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/langref.php
@@ -139,28 +205,171 @@ URL: http://code.google.com/p/html5slides/
 
 
 		<article>
-		<h3>
-			Basic Server Commands
-		</h3>
+		<h4>
+			Looking Around the CLI
+		</h4>
+		<pre>
+michael@tlf:~ $ pwd
+/Users/michael
+
+michael@tlf:~ $ ls
+Desktop/	Library/	Sites/
+
+michael@tlf:~ $ ls -l
+total 4.0K
+drwx------+  6 michael staff  204 Aug 13 10:19 Desktop/
+drwx------+ 38 michael staff 1.3K Mar 29 18:31 Library/
+drwsrws--x+ 33 michael _www  1.1K Aug 12 11:39 Sites/
+		</pre>
 		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
+			<li><code>pwd</code> – where are you?</li>
+			<li><code>ls</code> – directory contents</li>
+			<li><em>absolute pathname</em> – complete directory or file path</li>
+			<li><em>relative pathname</em> – relative directory or file path from current directory</li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
+			http://www.tuxfiles.org/linuxhelp/linuxfiles.html
 		</div>
 		</article>
 
 
 		<article>
-		<h3>
-			Navigating the Command Line
-		</h3>
+		<h4>
+			Looking Around the CLI
+		</h4>
+		<pre>
+michael@tlf:~/tmp $ cat hello.txt 
+Hello Phnom Pehn
+
+michael@tlf:~/tmp $ less hello.txt
+		</pre>
 		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
+			<li><code>cat</code> – displays the contents of a text file</li>
+			<li><code>less</code> – like <code>cat</code>, but with pagination
+			<ul>
+				<li><em>" "</em> (space bar) – shows next page</li>
+				<li><em>b</em> – shows previous page</li>
+				<li><em>/</em> (forward slash) – searches</li>
+				<li><em>q</em> – exits</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/examinefiles.html
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			Moving Around the CLI
+		</h4>
+		<pre>
+michael@tlf:~ $ pwd
+/Users/michael
+michael@tlf:~ $ cd ../
+michael@tlf:/Users $ cd michael/
+michael@tlf:~ $ cd /Users/michael/Sites/
+michael@tlf:~/Sites $ pwd
+/Users/michael/Sites
+michael@tlf:~/Sites $ cd
+michael@tlf:~ $ pwd
+/Users/michael
+		</pre>
+		<ul>
+			<li><code>cd [directory]</code> – change directory
+			<ul>
+				<li><code>cd ..</code> – change directory up</li>
+				<li>no parameters means return home</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/linuxfiles.html
+			<br />
+			http://myy.helia.fi/~karte/command_line.html
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			Manipulate Files
+		</h4>
+		<pre>
+michael@tlf:~/hmm $ ls
+date.txt
+michael@tlf:~/hmm $ cp date.txt today.txt; ls
+date.txt  today.txt
+michael@tlf:~/hmm $ mv today.txt tomorrow.txt; ls
+date.txt  tomorrow.txt
+michael@tlf:~/hmm $ rm tomorrow.txt; ls
+date.txt
+		</pre>
+		<ul>
+			<li><code>cp file file2</code> – copy <em>file</em> to <em>file2</em></li>
+			<li><code>mv file file2</code> – rename <em>file</em> to <em>file2</em></li>
+			<li><code>rm file</code> – remove <em>file</em></li>
+		</ul>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/fileman.html
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			Manipulate Directories
+		</h4>
+		<pre>
+michael@tlf:~/hmm $ mkdir dir1; ls
+dir1/
+michael@tlf:~/hmm $ rmdir dir1; ls
+
+michael@tlf:~/hmm $ rm -r dir1; ls
+
+michael@tlf:~/hmm $ cp -r dir1/ dir2; ls
+dir1/  dir2/
+michael@tlf:~/hmm $ rmdir dir2; ls
+dir1/
+michael@tlf:~/hmm $ mv dir1/ dir2; ls
+dir2/
+		</pre>
+		<ul>
+			<li><code>mkdir dir1</code> – create directory <em>dir1</em></li>
+			<li><code>rmdir dir1</code> – remove empty directory <em>dir1</em></li>
+			<li><code>rm -r dir1</code> – remove non-empty directory <em>dir1</em></li>
+			<li><code>cp -r dir1 dir2</code> – recursively copy directory <em>dir1</em> to <em>dir2</em></li>
+			<li><code>mv dir1 dir2</code> – rename directory <em>dir1</em> to <em>dir2</em></li>
+		</ul>
+		<div class='source'>
+			http://www.tuxfiles.org/linuxhelp/dirman.html
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			<strong>tab</strong> Completion
+		</h4>
+		<pre>
+		</pre>
+		<ul>
+			<li>Basic Syntax</li>
+			<li>(Variable) Types
+			<ul>
+				<li>Constants</li>
+				<li>Operators</li>
+			</ul>
+			</li>
+			<li>Functions
+			<ul>
+				<li>Constants</li>
+				<li>Control Structures</li>
+			</ul>
+			</li>
+			<li>Variables</li>
+			<li>Predefined Variables</li>
 		</ul>
 		<div class='source'>
 			http://de.php.net/manual/en/langref.php
@@ -188,12 +397,33 @@ URL: http://code.google.com/p/html5slides/
 			Command Line Editors
 		</h3>
 		<ul>
-			<li>Constants</li>
-			<li>Operators</li>
-			<li>Functions</li>
+			<li><code>nano</code> & <code>pico</code>
+			<ul>
+				<li><strong>CTRL-X y &lt;enter&gt;</strong> – save and exit</li>
+				<li>All commands at the bottom of screen</li>
+				<li>Caret character "^" means <em>Control</em> – <strong>^X</strong> means <strong>Ctrl-X</strong></li>
+				</ul>
+			</li>
+			<li><code>vi</code> & <code>vim</code>
+			<ul>
+				<li><strong>&lt;esc&gt;</strong> – <em>Normal mode</em></li>
+				<li><strong>i</strong> – <em>Insert mode</em>
+				<ul>
+					<li><strong>h</strong> to go left</li>
+					<li><strong>j</strong> to go down</li>
+					<li><strong>k</strong> to go up</li>
+					<li><strong>l</strong> to go right</li>
+				</ul>
+				</li>
+				<li><strong>&lt;esc&gt; :wq &lt;enter&gt;</strong> – save and exit</li>
+				<li><strong>&lt;esc&gt; :help &lt;enter&gt;</strong> for manual</li>
+				</ul>
+			</li>
 		</ul>
 		<div class='source'>
-			http://de.php.net/manual/en/langref.php
+			http://myy.helia.fi/~karte/command_line.html
+			<br />
+
 		</div>
 		</article>
 
