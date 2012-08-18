@@ -306,6 +306,7 @@ $arr = array();
 if ( empty( $arr ) ) { … }
 vs.
 if ( 0 == count( $arr ) ) { … }
+if ( 0 == sizeof( $arr ) ) { … }
 </pre>
 		<ul>
 			<ul>
@@ -340,7 +341,11 @@ for ( $i = 0, $count = count($array); $i &lt; $count; $i++ ) { echo $i; }
 </pre>
 		<ul>
 			<li>Calculate <code>count</code> before <code>for</code> <em>loops</em></li>
-			<li>Performance matters – <em>expr2</em> always executes</li>
+			<li>Performance matters – <em>expr2</em> always executes
+			<ul>
+				<li><code>for</code> with <code>count</code> – 6.2 times slower</li>
+			</ul>
+			</li>
 		</ul>
 		</article>
 
@@ -524,7 +529,6 @@ testb(); // outputs 1
 			(Variable) Types
 		</h4>
 		<ul>
-			<li><strong>Type Juggling</strong></li>
 			<li>Scalar
 				<ul>
 				<li>Booleans – only <em>true</em> or <em>false</em></li>
@@ -551,6 +555,7 @@ testb(); // outputs 1
 					<li><em>Number</em> – either <em>integer</em> or <em>float</em></li>
 				</ul>
 			</li>
+			<li><strong>Type Juggling</strong></li>
 		</ul>
 		<div class='source'>
 			http://php.net/manual/en/language.types.php
@@ -694,7 +699,7 @@ echo FOO . _FOO_2_BAR . FOO_BAR; // outputs something, something different, 3.14
 		</div>
 		</article>
 
-		<article class="smaller">
+		<article class="">
 		<h4>
 			Magical (Predefined) Constants
 		</h4>
