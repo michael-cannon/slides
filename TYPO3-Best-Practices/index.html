@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<!--
+Google HTML5 slide template
+
+Authors: Luke Mahé (code)
+Marcin Wichary (code and design)
+
+Dominic Mazzoni (browser compatibility)
+Charles Chen (ChromeVox support)
+
+URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+	<head>
+		<title>TYPO3 Best Practices - Get Ahead Faster</title>
+
+		<meta charset='utf-8'>
+		<script
+			src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+		<!--
+		-->
+
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+
+	<style>
+		/* Your individual styles here, or just use inline styles if that’s
+		what you want. */
+	</style>
+
+	<body style='display: none'>
+
+		<section class='slides layout-regular template-in2code'>
+
+		<!-- Your slides (<article>s) go here. Delete or comment out the
+		slides below. -->
+
+
+
+		<article class='biglogo'>
+		</article>
+
+
+		<article>
+		<h1>
+			TYPO3 Best Practices
+		</h1>
+		<p>
+		Michael Cannon
+		<br>
+		TYPO3 Vagabond
+		<br>
+		US, South Korea, Taiwan, India, Germany
+		</p>
+		<h2>
+			Get Ahead Faster
+		</h2>
+		</article>
+
+
+		<article class="smaller">
+		<h3>
+			Why? 
+		</h3>
+		<ul>
+			<li>Know what to expect project to project</li>
+			<li>Consistency for training</li>
+			<li>Continuous improvement</li>
+			<li>Help meet web performance best practices
+			<ul>
+				<li>Add an Expires or a Cache-Control header</li>
+				<li>Gzip components</li>
+				<li>Put StyleSheets at the top</li>
+				<li>Put Scripts at the bottom</li>
+				<li>Make JavaScript and CSS external</li>
+				<li>Minify JavaScript and CSS</li>
+				<li>Avoid redirects</li>
+			</ul>
+			</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article>
+		<h3>
+			High-Level TYPO3 Best Practices
+		</h3>
+		<ul>
+			<li>Server Configuration
+			<ul>
+				<li>PHP</li>
+				<li>Apache</li>
+			</ul>
+			</li>
+			<li>TYPO3
+			<ul>
+				<li>Extension Based</li>
+				<li>Templates</li>
+				<li>Install Tool Settings</li>
+				<li>Modular TSConfig & TypoScript Code</li>
+				<li>Standard Configuration
+				<ul>
+					<li>TSConfig</li>
+					<li>TypoScript</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+			<li>Tools</li>
+		</ul>
+		</article>
+
+
+		<article>
+		<h3>
+			PHP Configuration
+		</h3>
+		<pre>
+memory_limit = 64M
+upload_max_filesize = 100M
+post_max_size = 100M
+</pre>
+		<ul>
+			<li>Fat files</li>
+			<li>Resource intensive</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article>
+		<h3>
+			Apache VirtualHost .htaccess
+		</h3>
+<pre>
+&lt;FilesMatch "\.js\.gzip$"&gt;
+	AddType "text/javascript" .gzip
+&lt;/FilesMatch&gt;
+AddEncoding gzip .gzip
+AddType application/x-javascript .js
+ExpiresByType text/javascript "access plus 1 year"
+AddOutputFilterByType DEFLATE text/css application/x-javascript
+</pre>
+		<ul>
+			<li>TYPO3 FE & BE compression</li>
+			<li>Browser caching of resource files</li>
+			<li>Server-side compression of resource files</li>
+			<li><code>mod_rewrite</code> updates</li>
+			<li>Static file caching</li>
+		</ul>
+		<div class='source'>
+			http://cdn.typo3vagabond.com/wp-content/uploads/2012/06/htaccess.txt
+		</div>
+		</article>
+
+
+		<article>
+		<h4>
+			TYPO3 Extension as a Standard Configuration
+		</h4>
+		<p><img src="images/TYPO3-extension-as-standard.png" /></p>
+		<ul>
+			<li>Packageable</li>
+			<li>Auto-loading abilities</li>
+			<li>Already a standard</li>
+			<li>Keep clients out</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article class="smaller collapse">
+		<h3>
+			Templates
+		</h3>
+<pre>
+20 = FLUIDTEMPLATE
+20 {
+	file = {$template.1.file}
+	partialRootPath = {$page.partialRootPath}
+	layoutRootPath = {$page.layoutRootPath}
+	variables {
+		sidebarWidth = COA
+		sidebarWidth {
+			10 = TEXT
+			10.value = {$ministries.width}
+			20 = TEXT
+			20.value = /
+			30 = TEXT
+			30.value = 3
+			stdWrap.prioriCalc = intval
+		}
+	}
+}
+</pre>
+		<ul>
+			<li>Use FLUIDTEMPLATE</li>
+			<li>Avoid TemplaVoila as it’s no longer developed or maintained</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article>
+		<h3>
+			Production Server – TYPO3 Install Tool Settings
+		</h3>
+		<pre>
+// make BE permission access lists easier to manage with checkboxes than multiple select
+$TYPO3_CONF_VARS['BE']['accessListRenderMode'] = 'checkbox';
+// BE compression enabling
+$TYPO3_CONF_VARS['BE']['compressionLevel'] = 5;
+// don't allow access unless it was specifically given
+$TYPO3_CONF_VARS['BE']['explicitADmode'] = 'explicitAllow';
+// cleaner BE temp file URLs
+$TYPO3_CONF_VARS['BE']['versionNumberInFilename'] = 1;
+// FE compression enabling
+$TYPO3_CONF_VARS['FE']['compressionLevel'] = 5;
+// keep FE user logged in unless they specifically log out
+$TYPO3_CONF_VARS['FE']['permalogin'] = '1';
+// cleaner FE temp file URLs
+$TYPO3_CONF_VARS['FE']['versionNumberInFilename'] = 1;
+// don't run development modes on a production server
+$TYPO3_CONF_VARS['SYS']['enableDeprecationLog'] = '';
+$TYPO3_CONF_VARS['SYS']['sqlDebug'] = false;
+$TYPO3_CONF_VARS['SYS']['syslogErrorReporting'] = '0';
+$TYPO3_CONF_VARS['SYS']['systemLogLevel'] = '4';
+</pre>
+		</article>
+
+
+		<article class="collapse pre-wrap">
+		<h3>
+			Modular TSConfig & TypoScript Code
+		</h3>
+		<p><img src="images/modular-code.png" /></p>
+<pre>
+&lt;INCLUDE_TYPOSCRIPT: source="FILE:EXT:extkey/folder/file.txt"&gt;
+&lt;INCLUDE_TYPOSCRIPT: source="FILE:fileadmin/typoscript.ts"&gt;
+&lt;INCLUDE_TYPOSCRIPT: source="FILE:EXT:in2master/Configuration/TSConfig/rte.ts"&gt;
+</pre>
+		<ul>
+			<li>Source control: CSS, HTML, TSConfig and TypoScript files</li>
+			<li>Include TSConfig & TypoScript via INCLUDE_TYPOSCRIPT</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article class="pre-wrap">
+		<h4>
+			Page & User TSConfig Inclusion
+		</h4>
+<pre>
+in ext_localconf.php:
+t3lib_extMgm::addPageTSConfig('&lt;INCLUDE_TYPOSCRIPT: source="FILE:EXT:in2master/Configuration/TSConfig/rte.ts"&gt;');
+
+t3lib_extMgm::addPageTSConfig('&lt;INCLUDE_TYPOSCRIPT: source="FILE:EXT:in2master/Configuration/TSConfig/page.ts"&gt;');
+
+t3lib_extMgm::addUserTSConfig('&lt;INCLUDE_TYPOSCRIPT: source="FILE:EXT:in2master/Configuration/TSConfig/user.ts"&gt;');
+</pre>
+		<ul>
+			<li>Auto-loading</li>
+			<li>Consistent</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article class="smaller">
+		<h3>
+			TypoScript: Standard Configuration
+		</h3>
+<pre>
+in ext_tables.php:
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/main',
+'in2: 010 Config, General');
+
+config {
+	concatenateJsAndCss = 1 # Merge CSS &amp; JS: Merges Stylesheet and JavaScript files referenced in the Frontend together. For TYPO3 4.5+
+	disableBaseWrap = 1 # Disable Base Extension Wrap
+	disableImgBorderAttr = 1 # Disable border attribute of img tags
+	disablePrefixComment = 1 # Disable Extension BEGIN/END in HTML
+	inlineStyle2TempFile = 1 # Link to TYPO3 CSS:If set, the inline styles TYPO3 controls in the core are written to a file.
+	minifyCSS = 1 # Minify CSS: CSS files will be minified and compressed. For TYPO3 4.5+
+	minifyJS = 1 # Minify JS: JS files will be minified and compressed. For TYPO3 4.5+
+	moveJsFromHeaderToFooter = 1 # Move JavaScript to Footer
+	pageTitleFirst = 1 # Page Title First:If set (and the page title is printed) then the page-title will be printed BEFORE the template title.
+	redirectOldLinksToNew = 1 # Redirect Old Links to New
+	removeDefaultCss = 1 # Remove Default CSS: Default CSS in the header will be removed.
+	removeDefaultJS = external # Remove Default JS: Default JavaScript in the header will be removed.
+	sendCacheHeaders = 1 # Send Cache Control Headers:Output cache-control headers to the client
+	typolinkCheckRootline = 1 # Correct Multiple Domain Links
+	typolinkEnableLinksAcrossDomains = 1 # Enable Links Across Domains: Post TYPO3 4.2
+	uniqueLinkVars = 1 # Unique Link Vars: Prevent links with the same parameter more than once.
+}
+</pre>
+		<ul>
+			<li>Auto-load via extension inclusion or INCLUDE_TYPOSCRIPT</li>
+			<li>Review your standard configuration for TYPO3 4.5+ changes</li>
+		</ul>
+		<div class='source'>
+		</div>
+		</article>
+
+
+		<article class="collapse">
+		<h3>
+			Tools
+		</h3>
+		<p><img src="images/PageSpeed-Insights.png" width="80%" /></p>
+		<ul>
+			<li>Browser’s Developer Tools to run Audit</li>
+			<li>Google PageSpeed; suggestions for faster page loads</li>
+			<li>YSlow; deeper than Google PageSpeed</li>
+		</ul>
+		<div class='source'>
+			https://developers.google.com/speed/pagespeed/insights
+			<br />
+			http://yslow.org/
+		</div>
+		</article>
+
+
+		<article>
+		<h3>Comments? Questions?</h3>
+		<p>Ask, speak up, mumble aloud</p>
+		</article>
+
+
+		<article>
+		<h3>Thank you!</h3>
+		<p>
+		Michael Cannon
+		<br>
+		TYPO3 Vagabond
+		<br>
+		michael.cannon@in2code.de
+		</p>
+		<ul>
+			<li><a href='http://typo3vagabond.com'>typo3vagabond.com</a></li>
+			<li><a href='http://in2code.de'>in2code.de</a></li>
+			<li><a href='http://slides.typo3vagabond.com/TYPO3-Best-Practices'>http://slides.typo3vagabond.com/TYPO3-Best-Practices</a></li>
+			<li><a title="Jweiland 2008 best practice workshop PDF" href="http://typo3vagabond.localhost/wp-content/uploads/2011/08/TYPO3_Best_Practice_Workshop1.pdf">Jweiland 2008 best practice workshop PDF</a></li>
+		</ul>
+		</article>
+
+
+		</section>
+	</body>
+</html>
